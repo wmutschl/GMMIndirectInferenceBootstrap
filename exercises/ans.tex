@@ -1,0 +1,4251 @@
+\begin{Solution}{1}
+\textbf{Quick overview of R}
+
+R, also called GNU S, is a strongly functional language and environment. It provides a wide variety of statistical (linear and nonlinear modeling, classical statistical tests, time-series analysis, classification, clustering, simulation, optimization...) and graphical techniques, and is highly extensible. To get a flavor of the possibilities just try the
+following commands:
+
+\begin{itemize}
+\item \texttt{example(lm)}
+\item \texttt{demo(graphics)}
+\item \texttt{demo(lm.glm)}
+\item \texttt{library(tcltk); demo(tkcanvas)}
+\item \texttt{RSiteSearch("GMM\textquotedblright)}
+\end{itemize}
+
+It is open-source and can be run under Windows and any UNIX System (MAC, Linux). It is a programming language, so we type commands (\quotedblbase we ask\textquotedblright ) and R executes them (\quotedblbase R answers\textquotedblright ).
+
+R also has a rudimental GUI (Graphical User Interface), which can be used to organize the workspace, load packages and list and manipulate some objects. For instance look at \texttt{Verschiedenes}. There are buttons for the following functions:
+\begin{itemize}
+  \item \texttt{objects()} or \texttt{ls()} lists all variables and
+      objects
+  \item \texttt{search()} lists all packages that are currently in use
+  \item \texttt{rm(x,y,z)} removes the variables x,y and z
+  \item \texttt{rm(list=ls())} removes everything (be careful!)
+\end{itemize}
+
+There are better GUIs like SciViewsR, JGR or RCommander. We, however, won't use them, but will instead type everything in the command window or even better in a script editor. TinnR, Notepad++ (in combination with NPPtoR) or Eclipse (in combination with StatET) are highly recommendable. In our opinion, one of the best editors is RStudio, so we will make use of its functionality! If you need assistance installing those editors, please contact us.
+
+There are a couple of good books and manuals for R, for instance:
+\begin{itemize}
+    \item Behr, Andreas (2011) - Einf\"{u}hrung in die Statistik mit R
+    \item Crawley, Michael J. (2007) - The R Book
+    \item Farnsworth, Grant V. (2008) - Econometrics in R
+    \item Verzani, John (2005) - Using R for Introductory Statistics
+    \item The R Development Core Team (2010): An Introduction to R
+    \item The command RSiteSearch("whatever-you-want-to-find") helps to find functions and references on the internet.
+\end{itemize}
+\end{Solution}
+\begin{Solution}{1.1}
+\textbf{Starting and quitting}
+
+During the start R searches for two files in the current working directory: .RData and .Rhistory. Those files contain your workspace and your history. You can create them by saving your workspace and saving your history (simply use the menu bar: \texttt{Datei}). The basic mathematical operators are \texttt{+,-,*,/,\symbol{94}.} Please try the following code:
+
+\begin{verbatim}
+#############################
+### Starting and quitting ###
+#############################
+1+1
+2-1
+3/2
+2*4
+2^10
+q()
+# In order to save your workspace, you can also use
+save.image(file.choose())
+#In order to save your history, i.e. the commands you've executed, use
+savehistory(file.choose())
+#To load your workspace and history use
+load(file.choose())
+loadhistory(file.choose())
+#better: use the GUI!!!
+\end{verbatim}
+
+There are two very handy key shortcuts:
+\begin{itemize}
+    \item $\uparrow $ and $\downarrow $ scroll through the history,i.e.
+        all the commands you have typed so far.
+    \item Tab ($\leftrightarrows $) completes commands, functions and
+        variable names
+\end{itemize}
+\end{Solution}
+\begin{Solution}{1.2}
+\textbf{Scripts}
+
+Scripts are a great way to organize your code, since it can be very impractical to scroll through all the commands and execute them one by one. So please use an editor!
+
+\emph{Variables:} Variables are placeholders for any content you can imagine: numbers, vectors, matrices, text, dates, times, tables, data, etc. In order to assign a value or a content into a variable, use \texttt{x <- 5.6}. Note: \texttt{x <-5,6} produces an error. Try the following code:
+
+\begin{verbatim}
+###############
+### Scripts ###
+###############
+a <- 3
+b <- 4
+c <- a+b
+#there are three ways to print the contents of the variable
+(c <- a+b) #Parentheses around a command prints its output
+print(c)   	#The command print()
+c	#Just type the name of the variable
+pi
+Pi
+PI
+\end{verbatim}
+
+\emph{Upper and lower cases, dot and comma:} R differentiates between upper and lower cases, try: \texttt{pi}, \texttt{Pi} und \texttt{PI}. Keep that in mind when calling functions and commands, and also when naming variables. The decimal point is the dot.
+\end{Solution}
+\begin{Solution}{1.3}
+\textbf{Working directory}
+
+To change the working directory you can also use the GUI: \texttt{(Datei -- Verzeichnis wechseln)}.
+
+\emph{Text and strings:} You have to use quotation marks and put your text in between those. Missing quotation marks are the most common error you get. Try the following code:
+\begin{verbatim}
+#########################
+### Working directory ###
+#########################
+getwd()
+setwd("c:/") #important: Windows uses the backslash \, R uses the slash /
+getwd()
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{1.4}
+\textbf{Help and comments}
+
+\emph{Help}
+\begin{itemize}
+\item It is very important to get used to the extensive help functions in R.
+\item The most important one is the question mark: \texttt{?function} (example: \texttt{?mean}).
+\item If you can't remember the exact name of the function, try
+   \begin{itemize}
+     \item The TAB-button $\leftrightarrows$.
+     \item \texttt{??mean} searches for aliases, concepts or titles that include \texttt{mean}.
+     \item \texttt{apropos("\emph{mean}")} lists all objects that contain \texttt{mean}.
+     \item \texttt{example("\emph{mean}")} gives you an example.
+     \item \texttt{find("\emph{mean}")} gives you the name of the package containing the function mean.
+   \end{itemize}
+\end{itemize}
+
+\emph{Comments:} You can put comments in your script using \#. This is extremely important in order to keep an organized and understandable code. Please get used to comment what you are doing. Please have a look at the following code:
+\begin{verbatim}
+#########################
+### Help and comments ###
+#########################
+?mean
+??mean
+apropos("mean")
+example("mean")
+find("mean")
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{1.5}
+\textbf{Packages}
+
+There are several methods to install new packages:
+\begin{enumerate}
+  \item Using the GUI:
+    \begin{itemize}
+     \item \texttt{Pakete -- Installiere Pakete}, choose a close-by mirror.
+     \item Highlight AER and xlsx (using the CTRL button you can highlight several items).
+     \end{itemize}
+  \item Using the command window:
+     \begin{itemize}
+       \item \texttt{install.packages("xlsx")}
+     \end{itemize}
+\end{enumerate}
+     After you downloaded the packages you can load them either by typing: \newline \texttt{library(xlsx)} and \texttt{library(AER)} or using the GUI: \texttt{Pakete -- Lade Paket}.\newline Please have a look at the help files: \texttt{library(help=xlsx)} and \texttt{library(help=AER)}. Here's the code:
+\begin{verbatim}
+################
+### Packages ###
+################
+#If you want to specify a folder for the installation files of the package,
+#use: .libPaths("X:/Your Folder")
+install.packages("xlsx")
+#very important: JAVA needs to be installed on your computer otherwise you get an error
+library(xlsx)
+library(help=xlsx)
+library(AER)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{2.1}
+\textbf{Reading text files}
+
+The output should look like this:
+\begin{verbatim}
+   Groesse Alter Tore Gehalt
+1      168    21    0    1.9
+2      186    20    0    1.6
+3      158    21    4    3.3
+4      170    20    6    1.6
+(...)
+\end{verbatim}
+CSV (\emph{Comma-Separated Values}) is a format to describe structured data in a textfile (\texttt{.txt} or \texttt{.csv}). Each item is separated by a comma, semicolon or a tabstop. Often you can find the names of the variables in the first line (\texttt{header=TRUE} oder \texttt{header=FALSE}). The command \texttt{read.csv()} is used to import the data. You can change the separation symbol with \texttt{sep=}. The default value is the comma: \texttt{bsp1 <- read.csv("bsp1.txt",sep=",")}.
+
+If you don't want to write the exact name of the file, simply use \texttt{file=file.choose()}. The code looks like this:
+\begin{verbatim}
+##########################
+### Reading text files ###
+##########################
+bsp1 <- read.csv(file.choose())
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{2.2}
+\textbf{Reading excel files}
+
+\begin{verbatim}
+###########################
+### Reading excel files ###
+###########################
+#specify the symbol for the decimal point and separator
+bsp2 <- read.csv(file.choose(), dec=",",sep=";")
+bsp2
+bsp2 <- read.csv(file.choose()) # if you use the "English" decimal point
+bsp2 <- read.csv2(file.choose()) # if you use the "German" decimal point
+bsp2
+
+#use the package xlsx
+library(xlsx)
+?read.xlsx
+bsp2 <- read.xlsx(file.choose(),sheetIndex=1)
+bsp2
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{2.3}
+\textbf{Other data formats}
+
+Please see the following code.
+\begin{verbatim}
+##########################
+### Other data formats ###
+##########################
+install.packages("foreign")
+library(foreign)
+library(help=foreign)
+bsp3 <- read.dta(file.choose())
+bsp3
+
+#R's data format
+save(bsp3, file=file.choose())
+rm(bsp3)
+bsp3
+load(file.choose())
+bsp3
+
+#Editing data
+                    # you can input as many things as you like,
+scandat <- scan()   # copy&paste works as well (very handy)
+data.entry(scandat) # edits your data
+edit(scandat)       # edits your data
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{2.4}
+\textbf{Missing values and trimming}
+
+Please see the following code.
+\begin{verbatim}
+###################################
+### Missing values and trimming ###
+###################################
+0/0
+y <- c(1:3,NA,NA,4:2)
+y
+mean(y)
+is.na(y)        # a query to get NAs
+which(is.na(y)) # another way to get the positions of the NAs
+y[-4]           # removes the 4th entry
+
+y <- c(1:3,NA,NA,4:2)
+y[which(is.na(y))]=0 ;y # overwrites NA with 0, note: y changes!
+
+y <- c(1:3,NA,NA,4:2)
+y[-which(is.na(y))]; y # removes the NA, note: y has not changed!
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{3.1}
+\textbf{Head and tail}
+
+Please have a look at the following code:
+\begin{verbatim}
+#####################
+### Head and tail ###
+#####################
+indices <- read.csv2(file.choose())
+head(indices)
+tail(indices)
+names(indices)
+str(indices)        # gives you the structure and an overview of the object
+class(indices)      # gives you the type of the object
+attributes(indices) # gives you a very good overview of the attributes of the object
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{3.2}
+\textbf{Attaching dataframes}
+
+Please have a look at the following code:
+\begin{verbatim}
+############################
+### Attaching dataframes ###
+############################
+#To access data there are at least 3 ways to do it
+#1) With the dollar sign
+dax <- indices$dax; ftse <- indices$ftse
+print(dax)
+#2) with braskets
+dax <- indices[,1]; ftse <- indices[,2]
+print(dax)
+#3) with the attach command
+attach(indices)
+print(dax)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{3.3}
+\textbf{Simple plots }
+
+\begin{verbatim}
+####################
+### Simple plots ###
+####################
+plot(dax)
+plot(log(dax)) #compare the y-axis!
+\end{verbatim}
+The graphs look the same, the y-axis, however, has changed. The range is smaller using logs.
+\end{Solution}
+\begin{Solution}{3.4}
+\textbf{Stock returns}
+Please see the following code:
+\begin{verbatim}
+#####################
+### Stock returns ###
+#####################
+dim(indices)
+n <- dim(indices)[1]; n
+head(dax)
+head(dax[2:n])     # vector containing all elements of dax except the first one
+
+tail(dax)
+tail(dax[1:(n-1)]) # vector containing all elements of dax except the last one
+rdax <- log(dax[2:n]/dax[1:(n-1)])
+head(rdax)
+length(rdax)
+rftse <- log(ftse[2:n]/ftse[1:(n-1)])
+
+plot(rdax)
+library(MASS)
+truehist(rdax)
+
+mean(rdax)
+var(rdax)
+sd(rdax)
+median(rdax)
+quantile(rdax,probs=c(0.01,0.99))
+range(rdax)
+
+boxplot(rdax)
+boxplot(rdax,rftse)
+
+plot(rdax,rftse)
+
+cor(rdax,rftse)
+
+m <- length(rdax)
+#Attention dim(rdax) doesn't work (dim(rdax)=NULL), so we have to use the length of the vector.
+#Note: A vector has the dimension of NULL!
+cor(rdax[2:m],rdax[1:(m-1)])
+\end{verbatim}
+
+  The plots, the histogram as well as the boxplot show the well-known stylized facts about stock returns:
+  \begin{itemize}
+  \item The mean is around 0, but positive (positive expected return).
+  \item The standard deviation is a measure of risk.
+  \item Compared to a normal distribution, one can see that the daily returns are not perfectly symmetric around the mean (weak asymmetry).
+  \begin{itemize}
+  \item Large negative returns are more often than large positive ones.
+  \item Large positive returns are in absolute terms greater than large negative returns.
+  \end{itemize}
+  \item There's more mass in the tails of the distribution (fat tails).
+  \item The center is, compared to a normal distribution, higher (peakedness).
+  \end{itemize}
+  \item The computed statistics support the evidence for those stylized facts.
+\end{Solution}
+\begin{Solution}{4}
+\textbf{More on graphics }
+
+\texttt{plot()} is a very powerful command. Among other things it creates a graphical window, a Cartesian coordinate system and it plots the data. Most graphic functions expect x- and y-coordinates. You can load these from variables, enter them manually or use the function \texttt{locator(n)}, where you can simply click in the plot. The parameter \texttt{n} indicates the number of times you have to click for coordinates. Thus, \texttt{points(locator(4))} expects four clicks and after that it puts four points in the graph.
+
+You can add other graphics like \texttt{points()}, \texttt{lines()},\texttt{legend()},... Please note that in order to use those functions you first have to call the \texttt{plot()} function. Thus, when plotting several graphics, write a script and execute all commands each time you change something.
+
+There are several parameters that are pretty common for all graphical functions. Among others: \texttt{xlab=, ylab=, main=, col=, pch=, type=, ylim=, xlim=, lty=, lwd=} \dots
+
+\texttt{par()} creates a new windows for several graphics. It doesn't draw a coordinate system, however, so you have to use \texttt{plot()} again.
+\end{Solution}
+\begin{Solution}{4.1}
+\textbf{School data }
+
+Please see the following code:
+\begin{verbatim}
+###################
+### School data ###
+###################
+#1)
+caschool  <- read.csv(file.choose())
+head(caschool)
+tail(caschool)
+names(caschool)
+str(caschool)
+str <- caschool$str #Note that you have now overwritten the str() function!
+testscr <- caschool$testscr
+plot(str,testscr)
+
+#2)
+plot(str,testscr,xlab="Student Teacher Ratio", ylab="Test Score")
+
+#3)
+plot(str,testscr,xlab="Student Teacher Ratio", ylab="Test Score",main="CA Test Score Data")
+
+#4)
+print(colors())
+plot(str,testscr,xlab="Student Teacher Ratio", ylab="Test Score",main="CA Test Score Data",
+                                                                                col="violet")
+
+#5)
+?points #read the pch settings
+plot(str,testscr,xlab="Student Teacher Ratio", ylab="Test Score",main="CA Test Score Data")
+points(mean(str),mean(testscr), col= "red", pch=23)
+
+#6)
+#either
+plot(str,testscr,xlab="Student Teacher Ratio", ylab="Test Score",main="CA Test Score Data")
+points(mean(str),mean(testscr), col= "red", pch=19)
+text(mean(str)-1,mean(testscr),"MEAN", col="red")
+#or
+plot(str,testscr,xlab="Student Teacher Ratio", ylab="Test Score",main="CA Test Score Data")
+points(mean(str),mean(testscr), col= "red", pch=19)
+text(locator(1),"MEAN", col="red") #locator(n) asks for n positions
+
+#7)
+el_pct <- caschool$el_pct
+meal_pct <- caschool$meal_pct
+calw_pct <- caschool$calw_pct
+par(mfrow=c(2,2))
+plot(testscr, str, xlab = "Test Score", ylab="Student-teacher-ratio")
+plot(testscr, el_pct,xlab = "Test Score", ylab="Percentage English learners")
+plot(testscr, meal_pct,xlab = "Test Score", ylab="Percentage reduced price lunch")
+plot(testscr, calw_pct,xlab = "Test Score", ylab="Percentage income assistance")
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{4.2}
+\textbf{Index returns}
+
+Please see the following code:
+\begin{verbatim}
+#####################
+### Index returns ###
+#####################
+#1)
+indices <- read.csv2(file.choose())
+head(indices)
+tail(indices)
+names(indices)
+str(indices)
+
+dax <- indices$dax
+dax_norm <- 100*dax/dax[1]
+par(mfrow=c(3,1))
+plot(dax)
+plot(dax_norm)
+plot(dax,dax_norm) #Perfect linear correlation
+cor(dax,dax_norm)  #Perfect linear correlation
+
+#2)
+par(mfrow=c(1,1))
+ftse <- indices$ftse
+ftse_norm <- 100*ftse/ftse[1]
+plot(dax_norm,type="l", col="blue")
+lines(ftse_norm, col="red")
+
+#3)
+plot(dax_norm,type="l", col="blue")
+lines(ftse_norm, col="red")
+legend(locator(1), legend=c("Normalized Dax", "Normalized FTSE"), fill = c("blue","red"))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{5.1}
+\textbf{Using functions}
+
+Have a look at the following code:
+\begin{verbatim}
+#######################
+### Using functions ###
+#######################
+#1)
+log(10,10)
+log(10,base=10)
+
+sqrt(2); sin(pi); exp(1); log(10)
+log(10,10);log(10,base=10)
+sqrt(2
+
+#2)
+simpsons <- c("Homer","Marge","Bart","Lisa","Maggie")
+x <- c(1,2,3,4,5,6,7,8,9,10)
+x <- c(1:10)
+length(simpsons); sum(x); mean(x)
+simpsons[3]
+simpsons[-3]
+
+#3)
+x <- 0:10
+sum(x<5)
+x<5
+
+x*(x<5)
+sum(x*(x<5)) #simple
+
+x[x<5]
+sum(x[x<5]) # more elegant
+\end{verbatim}
+\texttt{sum(x<5)} is equal to 5, because \texttt{x<5} gives you a vector consisting of 1 and 0. These numbers indicate if the value in \texttt{x} is smaller than 5, i.e. TRUE(1) if it's smaller and FALSE(0) if not. \texttt{sum(x<5)} counts these 0's and 1's. The right solution is \texttt{sum(x*(x<5))} or \texttt{sum(x[x<5])}. Try to understand why!
+
+\end{Solution}
+\begin{Solution}{5.2}
+\textbf{Sequences and other vectors}
+
+\begin{verbatim}
+###################################
+### Sequences and other vectors ###
+###################################
+?seq
+?rep
+
+# x=(1,2,...,100)
+x <- 1:100; x
+
+# x=(2,4,...,1000)
+x <- 2*(1:500)
+x <- seq(2,1000,by=2); x
+
+# equi-spaced grid from -4 to 4 with 500 grid points
+x <- seq(-4,4,length.out=500); x
+length(x)
+x[2]-x[1]
+x[2]-x[1] == x[300]-x[299]
+
+# 100 missing values
+x <- rep(NA,100); x
+
+# x=(0,1,2,0,1,2,...,0,1,2) with length 300
+x <- rep(c(0,1,2),100); x
+length(x)
+
+# vector with 0 except a 1 at position 40, length 100
+# several ways to do this
+x <- c(rep(0,39),1,rep(0,60)); x ;length(x)
+x <- rep(0,100); x[40] <- 1; x; length(x)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{5.3}
+\textbf{Random numbers }
+
+\begin{verbatim}
+######################
+### Random numbers ###
+######################
+library(MASS)
+#1)
+?rnorm
+x <- rnorm(10000); x
+truehist(x)
+
+#2)
+?rt
+r <- rt(500,3); r
+plot(r)
+mean(r) # expectation of a student t-distribution is E(r) = 0
+var(r)  # variance of a student t-distribution is Var(r) = (k)/(k-2)
+        # with k degrees of freedom. Here: Var(r)=3
+truehist(r)
+
+#3)
+x <- 1:10
+x; cumsum(x)
+plot(cumsum(r)) # we se a random walk!
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{5.4}
+\textbf{Loops}
+
+\begin{verbatim}
+#############
+### Loops ###
+#############
+#1)
+?Control
+r <- rt(500,3)
+Z <- rep(NA,length(r))
+
+for (i in 10:length(r)) {
+    Z[i] <- mean(r[-10:10 + i])
+}
+
+plot(r)
+lines(Z, col="red")
+abline(h=mean(r), col="blue")
+
+#2)
+??"Log normal"
+?Lognormal
+Z <- rep(NA,10000)
+for (r in 1:10000) {
+	Z[r] <- max(rlnorm(100))
+}
+
+library(MASS)
+truehist(Z)
+truehist(rlnorm(10000))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{5.5}
+\textbf{Functions}
+
+\begin{verbatim}
+#################
+### Functions ###
+#################
+#1)
+fexmpl1 <- function(x) {
+    z <- x^2 + sin(x)
+    return(z)
+}
+str(fexmpl1)
+
+x <- seq(-3,3,length.out=500)
+plot(x,fexmpl1(x))
+
+#2)
+mp <- function(x,p) {
+	n <- length(x)
+	m <- 1/n * sum(x^p)
+	return(m)
+}
+
+x <- c(1,2,3)
+mp(x,1)
+mp(x,2)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{5.6}
+\textbf{Numerical optimization}
+
+\begin{verbatim}
+##############################
+### Numerical optimization ###
+##############################
+?optimize
+?optim
+#1)
+optimize(fexmpl1, upper=0, lower=-1)
+
+#2)
+f <- function(x,y) x^2+sin(x)+y^2-2*cos(y)
+x <- seq(-5,5,by=.2)
+y <- seq(-5,5,by=.2)
+z <- outer(x,y,f)
+persp(x,y,z,phi=-45,theta=45,col="yellow",shade=.65 ,ticktype="detailed")
+#the Minimum appears to be at (-.5,0)
+
+#note: When using optim for multidimensional optimization,
+#the argument in your definition of the function must be a single vector
+fx <- function(x) x[1]^2+sin(x[1])+x[2]^2-2*cos(x[2])
+optim(c(-.5,0),fx) # does work!
+optim(c(-.5,0),f) #does not work
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{6.1}
+\textbf{Moments}
+
+\begin{enumerate}
+\item Since the density function of $N(0,1)$ is symmetric around 0, all
+    odd moments are obviously 0. Proof:
+    \begin{equation*}
+      E[X^r] = E[(-X)^r] = E[(-1)^r X^r] = E[-(X^r)]=-E[X^r]\Leftrightarrow E[X^r] = 0
+    \end{equation*}
+
+    We use without proof $\mu _{2}=1$ (variance). As to moments of even
+    orders $r\geq 4$,
+\begin{equation*}
+\mu _{r}=\int_{-\infty }^{\infty }x^{r}\frac{1}{\sqrt{2\pi }}e^{-x^{2}/2}dx
+\end{equation*}%
+which can be integrated by parts to
+\begin{equation*}
+\mu _{r}=\left. \frac{1}{r+1}x^{r+1}\frac{1}{\sqrt{2\pi }}%
+e^{-x^{2}/2}\right\vert _{-\infty }^{\infty }-\int_{-\infty }^{\infty }\frac{%
+1}{r+1}x^{r+1}\frac{1}{\sqrt{2\pi }}e^{-x^{2}/2}\left( -x\right) dx.
+\end{equation*}%
+Since the exponential function goes to zero faster than any power of $x$
+goes to infinity, the first summand vanishes, and%
+\begin{equation*}
+\mu _{r}=\frac{1}{r+1}\underbrace{\int_{-\infty }^{\infty }x^{r+2}\frac{1}{\sqrt{2\pi }}e^{-x^{2}/2}dx}_{\mu_{r+2}}
+\end{equation*}%
+or%
+\begin{equation*}
+\mu _{r+2}=\left( r+1\right) \mu _{r}.
+\end{equation*}%
+Odd moments are thus the product of odd numbers. Another way to write
+this product is given by $\mu _{r}=\prod_{i=1}^{r/2}\left( 2i-1\right) $.
+
+\item The expectation is%
+\begin{eqnarray*}
+E(Y) &=&E\left( \exp \left( X\right) \right)  \\
+&=&\int_{-\infty }^{\infty }\exp \left( x\right) \frac{1}{\sqrt{2\pi }\sigma
+}\exp \left( -\frac{1}{2}\left( \frac{x-\mu }{\sigma }\right) ^{2}\right) dx
+\\
+&=&\int_{-\infty }^{\infty }\frac{1}{\sqrt{2\pi }\sigma }\exp \left( -\frac{1%
+}{2}\left( \frac{x-\mu }{\sigma }\right) ^{2}-\frac{1}{2}\left( -2x\right)
+\right) dx.
+\end{eqnarray*}%
+The term inside the exponential function can be written as%
+\begin{eqnarray*}
+&&-\frac{1}{2}\left[ \left( \frac{x-\mu }{\sigma }\right) ^{2}-\frac{%
+2x\sigma ^{2}}{\sigma ^{2}}\right]  \\
+&=&-\frac{1}{2}\left( \frac{x^{2}-2\left( \mu +\sigma ^{2}\right) x+\mu ^{2}%
+}{\sigma ^{2}}\right)  \\
+&=&-\frac{1}{2}\left( \frac{\left[ x^{2}-2\left( \mu +\sigma ^{2}\right)
+x+\left( \mu +\sigma ^{2}\right) ^{2}\right] -\left( \mu +\sigma ^{2}\right)
+^{2}+\mu ^{2}}{\sigma ^{2}}\right)  \\
+&=&-\frac{1}{2}\left( \frac{\left[ x-\left( \mu +\sigma ^{2}\right)
+\right]^2 -\mu^2 -2\mu \sigma ^{2}-\sigma ^{4}+\mu^2}{%
+\sigma ^{2}}\right)  \\
+&=&-\frac{1}{2}\left(\frac{\left[x-(\mu+\sigma^2)\right]^2}{\sigma^2} - 2\mu - \sigma^2 \right)
+\end{eqnarray*}%
+Hence,%
+\begin{eqnarray*}
+E(Y) &=&\int_{-\infty }^{\infty }\frac{1}{\sqrt{2\pi }\sigma }\exp \left( -%
+\frac{1}{2}\left(\frac{\left[x-(\mu+\sigma^2)\right]^2}{\sigma^2}\right) + \mu +\frac{\sigma^2}{2} \right) dx \\
+&=&e^{\mu +\sigma ^{2}/2}\int_{-\infty }^{\infty }\frac{1}{\sqrt{2\pi }%
+\sigma }\exp \left( -\frac{1}{2}\left(\frac{\left[x-(\mu+\sigma^2)\right]^2}{\sigma^2}\right)\right)dx
+\end{eqnarray*}%
+The integrand is simply the density of a normal distribution with mean
+$\mu +\sigma ^{2}$ and variance $\sigma ^{2}$. The integral over the
+density is unity, and thus%
+\begin{equation*}
+E(Y)=e^{\mu +\sigma ^{2}/2}.
+\end{equation*}
+
+\item The density of the Pareto distribution is%
+\begin{equation*}
+f_{X}(x)=\frac{dF(x)}{dx}=\alpha K^\alpha x^{-\alpha -1}
+\end{equation*}%
+for $x\geq K$ (and zero elsewhere). The moment of order $%
+p<\alpha $ is%
+\begin{eqnarray*}
+E\left( X^{p}\right)  &=&\int_{-\infty }^{\infty }x^{p}f_{X}(x)dx \\
+&=&\int_{K}^{\infty }x^{p}\alpha K^\alpha x^{-\alpha -1}dx \quad\text{since } x\geq K\\
+&=&\alpha K^\alpha\int_{K}^{\infty }x^{p-\alpha -1}dx \\
+&=&\alpha K^\alpha\cdot \left[ \frac{1}{p-\alpha }x^{p-\alpha }\right]
+_{K}^{\infty }.
+\end{eqnarray*}%
+Since $p<\alpha $ the expression within the square brackets goes to zero as $%
+x\rightarrow \infty $, and therefore%
+\begin{eqnarray*}
+E\left( X^{p}\right)  &=&\alpha K^\alpha\cdot \frac{1}{\alpha -p} K^{p-\alpha } \\
+&=&\frac{\alpha }{\alpha -p}K^{p}.
+\end{eqnarray*}%
+Moments of order $p\geq \alpha $ do not exist as the integral does not
+converge.
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{7.1}
+\textbf{Student teacher ratio (I)}
+
+\begin{verbatim}
+###################################
+#### Student teacher ratio (I) ####
+###################################
+#1)
+caschool <- read.csv(file.choose())
+View(caschool)
+testscr <-caschool$testscr
+str <- caschool$str
+
+regr <- lm(testscr~str)
+print(regr)
+str(regr) #a very complex object! You can access those things using the $ sign.
+
+plot(str,testscr, xlab="Student-Teacher-Ratio", ylab="Testscore", main="Scatterplot", pch=20)
+abline(regr, col="red",lwd=3, lty=2)
+
+#2)
+prediction <- predict(regr, newdata=data.frame(str=19.33))
+plot(str,testscr, xlab="Student-Teacher-Ratio", ylab="Testscore", main="Scatterplot", pch=20)
+abline(regr, col="red",lwd=3, lty=2)
+#add a point
+points(19.33, prediction, col="blue", pch=20)
+#lines connects two points with a straight line.
+#Note: abline needs a slope and an intercept to draw a straight line
+lines(c(19.33, 19.33), c(0,prediction),lty=3, col="blue")
+lines(c(0, 19.33), c(prediction,prediction),lty=3, col="blue")
+
+#3)
+#Either use the function residuals()
+sum(residuals(regr))
+#Or extract them from the object regr with the dollar sign
+sum(regr$residuals)
+
+#4)
+plot(residuals(regr))
+abline(h=0)
+
+#5)
+plot(regr$residuals,str)
+
+#6)
+print(summary(regr)) # with this command you assume homoscedasticity
+
+library(AER)
+print(coeftest(regr,vcov=vcovHC)) #with this command you assume heteroscedasticity
+
+#7)
+# Access the variables
+BETA <- coeftest(regr,vcov=vcovHC)[2,1]
+SDBETA <- coeftest(regr,vcov=vcovHC)[2,2]
+#t-Test
+H0 <- -1
+t <- (BETA- (H0))/SDBETA
+t
+#the critical values are 1.96 (5%) and 2.58 (1%)
+abs(t) > 1.96; abs(t) > 2.58
+#H0 can be rejected with a significance level of 5%!
+#The estimate is significantly different from -1.
+
+#There is also a function for linear hypothesis testing  (F-Test)
+library(car)
+linearHypothesis(regr,c("str=-1"))
+
+#8)
+lower_limit <- BETA - 1.96*SDBETA
+upper_limit <- BETA + 1.96*SDBETA
+
+names(lower_limit)="lower limit"; names(upper_limit)="upper limit"
+print(c(lower_limit, upper_limit))
+\end{verbatim}
+\begin{enumerate}
+  \item In the scatterplot you can see that the points scatter
+      heterogeneously around the regression line, since there are several
+      outliers. The assumption of homoscedasticity does not hold.
+  \item Note: \texttt{lines} connects points with a straight line.
+      \texttt{abline}, however, needs a slope and an intercept to draw a
+      straight line.
+  \item The \$ sign is very handy to access data and variables from
+      complex objects. Get used to using the \$.
+  \item The plot shows that the residuals are heteroscedastic and
+      most likely autocorrelated (not i.i.d.).
+  \item According to the plot, there is no obvious linear correlation
+      between the exogenous variable and the residuals.
+  \item This is the standard output of a regression. In order to control
+      for heteroscedasticity, use \texttt{coeftest()} and specify the
+      variance-covariance matrix appropriately (e.g.
+      \texttt{vcov=vcovHC}).
+  \item This is a standard t-Test. You can either compute it by hand or
+      use \texttt{linearHypothesis()}.
+  \item The critical value for a 95\% confidence interval is 1.96.
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{7.2}
+\textbf{Capital asset pricing model}
+
+Please see the following code:
+\begin{verbatim}
+#####################################
+#### Capital asset pricing model ####
+#####################################
+#1)
+capm <- read.csv2(file.choose())
+head(capm)
+rdai <- capm$rdai
+rdax <- capm$rdax
+regr <- lm(rdai~rdax)
+regr
+library(car)
+linearHypothesis(regr,c("(Intercept) = 0")) #cannot be rejected
+
+#2)
+summary(regr)
+BETA <- summary(regr)$coefficients[2,1]
+SDBETA <- summary(regr)$coefficients[2,2]
+lower_limit <- BETA - 1.96*SDBETA
+upper_limit <- BETA + 1.96*SDBETA
+names(lower_limit)="lower limit"; names(upper_limit)="upper limit"
+print(c(lower_limit, upper_limit))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{7.3}
+\textbf{Student teacher ratio (II)}
+
+\begin{verbatim}
+####################################
+#### Student teacher ratio (II) ####
+####################################
+library(AER)
+#1)
+caschool <- read.csv(file.choose())
+head(caschool)
+testscr <- caschool$testscr
+str <- caschool$str
+el_pct <- caschool$el_pct
+expn_stu <- caschool$expn_stu
+regr <- lm(testscr~str+el_pct)
+regr
+
+#2)
+simple <- lm(testscr~str)
+r1 <- residuals(simple)
+plot(r1)
+
+multiple <- lm(testscr~str + el_pct + expn_stu)
+r2 <- residuals(multiple)
+plot(r2)
+
+plot(r1,ylab="")
+points(r2,col="red")
+
+sum(r1^2)
+sum(r2^2)
+sum(r1^2) > sum(r2^2)
+
+#3)
+multiple <- lm(testscr~str + el_pct + expn_stu)
+predict(multiple, newdata=data.frame(str=25, el_pct=0.6, expn_stu=4000))
+predict(multiple, newdata=data.frame(str=17, el_pct=0.6, expn_stu=4000))
+
+#4)
+regr <- lm(testscr~str + el_pct + expn_stu)
+summary(regr)
+library(AER)
+coeftest(regr, vcov=vcovHC)
+
+#5)
+library(car)
+linearHypothesis(regr,c("str=0","expn_stu=0","el_pct=-.7"))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{7.4}
+\textbf{Omitted variable bias}
+
+Please see the following code:
+\begin{verbatim}
+###############################
+#### Omitted variable bias ####
+###############################
+library(car)
+omitted <- read.csv2(file.choose())
+head(omitted)
+y <- omitted$y
+x1 <- omitted$x1
+x2 <- omitted$x2
+x3 <- omitted$x3
+x4 <- omitted$x4
+
+cor(omitted)
+
+#1
+regra <-lm(y ~ x1+x2+x3+x4)
+summary(regra)
+linearHypothesis(regra,c("x1=2","x2=3","x3=4","x4=5"))
+#2
+regrb <- lm(y~x2+x3+x4)
+summary(regrb)
+linearHypothesis(regrb,c("x2=3","x3=4","x4=5"))
+#3
+regrc <- lm(y~x1+x2+x3)
+summary(regrc)
+linearHypothesis(regrc,c("x1=2","x2=3","x3=4"))
+\end{verbatim}
+
+Multicollinearity: Strong correlation between the exogenous
+      variables. The coefficients, however, are unbiased if the model is
+      specified correctly, i.e. if no variables are omitted. Otherwise you get an omitted variable bias.
+      Furthermore the estimators are not efficient, they have high standard errors. Also a ceteribus
+      paribus interpretation of a single coefficient is not valid.
+\end{Solution}
+\begin{Solution}{7.5}
+\textbf{Asymptotic normality}
+The code might look like this:
+\begin{verbatim}
+##############################
+#### Asymptotic Normality ####
+##############################
+library(MASS)
+beta_true <- c(3,2,-1)
+TT <- 100
+R <- 10000
+set.seed(123)
+X_fix <- cbind(1,mvrnorm(n=TT,c(5,10),matrix(c(1,0.9,0.9,1),2,2)))
+
+V1 <- rep(NA,R); V2 <- rep(NA,R);
+for (i in 1:R) {
+  u <- runif(TT,-1,1)
+  X_rand <- cbind(1,mvrnorm(n=TT,c(5,10),matrix(c(1,0.9,0.9,1),2,2)))
+  y1 <- X_fix%*%beta_true + u
+  y2 <- X_rand%*%beta_true + u
+  beta_hat1 <- solve(t(X_fix)%*%X_fix)%*%t(X_fix)%*%y1
+  beta_hat2 <- solve(t(X_rand)%*%X_rand)%*%t(X_rand)%*%y2
+  V1[i] <- beta_hat1[2]
+  V2[i] <- beta_hat2[2]
+}
+truehist(V1)
+m1 <- mean(V1)
+s1 <- sd(V1)
+curve(dnorm(x,mean=m1,sd=s1),add=T)
+
+truehist(V2)
+m2 <- mean(V2)
+s2 <- sd(V2)
+curve(dnorm(x,mean=m2,sd=s2),add=T)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{7.6}
+\textbf{Pitfalls in the linear regression model (I)}
+
+Please have a look at the following code:
+\begin{verbatim}
+#####################################################
+#### Pitfalls in the linear regression model (I) ####
+#####################################################
+gehaelter <- read.csv(file.choose())
+names(gehaelter)
+head(gehaelter)
+str(x)
+
+dauer <- gehaelter$dauer
+gehalt <- gehaelter$gehalt
+fach <- gehaelter$fach
+
+#1
+plot(dauer, gehalt, xlab="Duration", ylab="Salary", main = "Scatterplot")
+
+#2
+model <- lm(gehalt~dauer)
+model
+plot(dauer, gehalt, xlab="Duration", ylab="Salary", main = "Scatterplot")
+abline(model)
+
+#3
+chem <- lm(gehalt~dauer, data=x[fach==1,])
+chem
+econ <- lm(gehalt~dauer, data=x[fach==2,])
+econ
+
+plot(dauer, gehalt, xlab="Duration", ylab="Salary", main = "Scatter")
+points(x[fach==1,2],x[fach==1,1],col="blue") #mark chem students
+points(x[fach==2,2],x[fach==2,1], col="red") #mark econ students
+abline(model)
+abline(chem, col="blue")
+abline(econ, col="red")
+legend("topright", legend=c("Total","Chemistry", "Economics"), fill = c("black","blue","red"))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{7.7}
+\textbf{Pitfalls in the linear regression model (II)}
+
+\begin{verbatim}
+######################################################
+#### Pitfalls in the linear regression model (II) ####
+######################################################
+storch <- read.csv2(file.choose())
+head(storch)
+names(storch)
+str(storch)
+
+Horstpaare <- storch$Horstpaare
+Geburten <- storch$Geburten
+nichtehelich<- storch$nichtehelich
+
+#1)
+plot(Horstpaare, Geburten, xlab="Number storks", ylab="Number of births")
+regr <- lm(Geburten ~ Horstpaare)
+regr
+abline(regr)
+
+#2)
+regr1 <- lm(nichtehelich ~ Horstpaare)
+regr1
+plot(Horstpaare, nichtehelich, xlab="Number storks", ylab="Number of out-of-wedlock births")
+abline(regr1)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{7.8}
+\textbf{Pitfalls in the linear regression model (III)}
+
+Please have a look at the following code:
+\begin{verbatim}
+#######################################################
+#### Pitfalls in the linear regression model (III) ####
+#######################################################
+indices <- read.csv2(file.choose())
+head(indices)
+names(indices)
+str(indices)
+dax <- indices$dax
+ftse <- indices$ftse
+
+n <- dim(indices)[1]
+kdax <- dax[6:n]
+kftselag <- ftse[1:(n-5)]
+
+plot(kftselag,kdax)
+obj <- lm(kdax ~ kftselag)
+obj
+summary(obj)
+library(AER)
+coeftest(obj, vcov=vcovHC)
+\end{verbatim}
+Be careful with time series data! The assumption of iid in the linear regression model is not valid anymore!
+\end{Solution}
+\begin{Solution}{8.1}
+\textbf{Joint distributions}
+
+\begin{enumerate}
+\item If $f(x,y)$ is a density function, then the double integral over
+    the support must be equal to 1. So, first integrate for x and then
+    for y:
+\begin{align*}
+\int_0^1 f(x,y) dx = \frac{10}{3} y^3 (2-y)\\
+\int_0^1 \frac{10}{3} y^3 (2-y) dy = 1
+\end{align*}
+\item The marginal densities are given by
+\begin{align*}
+f_Y(y) = \int_0^1 f(x,y) dx = \frac{10}{3} y^3 (2-y)\\
+f_X(x) = \int_0^1 f(x,y) dy = -20 x^3 + 42x^2-27x+55
+\end{align*}
+\item The conditional density of $X$ given $Y=y$ is given by
+\begin{align*}
+f_X(x|y) =\frac{f(x,y)}{f_Y(y)} = 12(x-0.5)^2 \frac{3-2x-y}{2-y}
+\end{align*}
+\item X and Y are dependent, because:
+\begin{align*}
+f(x,y) \neq f_X(x)\cdot f_Y(y)
+\end{align*}
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{8.2}
+\textbf{Gaussianity or else?}
+
+The program might look like this:
+\begin{verbatim}
+##############################
+#### Gaussianity or else? ####
+##############################
+#1)
+gaussian <- read.csv(file.choose())
+View(gaussian)
+
+library(MASS)
+x <- seq(-4, 4, length=100)
+par(mfrow=c(2,2))
+
+truehist(gaussian$V1); lines(x,dnorm(x))
+truehist(gaussian$V2); lines(x,dnorm(x))
+truehist(gaussian$V3); lines(x,dnorm(x))
+truehist(gaussian$V4); lines(x,dnorm(x))
+
+#2)
+cor(gaussian)
+
+#3)
+pairs(gaussian)
+
+#4)
+Y <- gaussian$V1+gaussian$V2+gaussian$V3+gaussian$V4
+par(mfrow=c(1,1))
+truehist(Y); lines(x,dnorm(x, mean=mean(Y),sd=sd(Y)))
+\end{verbatim}
+\begin{enumerate}
+  \item Each variable seems to be normally distributed.
+  \item There is no (or just a very small) correlation between the
+      variables.
+  \item The scatterplots show that the variables are NOT independent,
+      even though they are normally distributed and uncorrelated. If one
+      variable is (in absolute terms) very big, it is very likely that
+      the other variables are (in absolute terms) big as well. This is
+      dependence!
+  \item Compared to a normal distribution the sum has more mass in the
+      center of the distribution. Because of the dependence the sum is
+      per se not normally distributed.
+\end{enumerate}
+This exercise illustrates that for the sum of normally distributed variables
+being also normally distributed requires the assumption of
+\textbf{independence}, not just uncorrelatedness; two separately (not
+jointly) normally distributed random variables can be uncorrelated without
+being independent, in which case their sum can be non-normally distributed.
+\end{Solution}
+\begin{Solution}{8.3}
+\textbf{Gaussian and uncorrelated, but dependent}
+
+\begin{enumerate}
+  \item The distribution of Y is the same as X, because
+  \begin{align*}
+  &Pr(Y \leq x) = Pr(X\leq x)\cdot Pr(U=1) + Pr(-X\leq x)\cdot Pr(U=-1)\\
+  &=\Phi(x) \cdot \frac{1}{2}+ \Phi(x) \cdot \frac{1}{2} = \Phi(x)
+  \end{align*}
+  since $X$ and $-X$ have the same distribution and $\Phi$ ist the
+  distribution function of the normal distribution.
+  \item X and Y are uncorrelated, since the covariance is given by
+  \begin{align*}
+  Cov(X,Y) = E(X\cdot Y) - \underbrace{E(X)}_{=0}\cdot E(Y) = E[E(X \cdot Y|U)] = E[X^2]\cdot \frac{1}{2} + E[-X^2]\cdot \frac{1}{2} = 0
+  \end{align*}
+  \item The program might look like this
+\begin{verbatim}
+##################################################
+#### Gaussian and uncorrelated, but dependent ####
+##################################################
+library(MASS)
+X <- rnorm(1000)
+U <- sample(c(-1, 1), 1000, replace = TRUE)
+Y <- U*X
+truehist(X)
+truehist(Y)
+cov(X,Y)
+plot(X,Y)
+\end{verbatim}
+Even though X and Y are normal and uncorrelated, they are not
+independent, since it is very likely that if X is large, Y is in absolute
+terms also large. In fact: $|Y|=|X|$.
+\item The additional code might look like this:
+\begin{verbatim}
+Z <- X+Y
+mean(Z)
+par(mfrow=c(1,1))
+truehist(Z)
+\end{verbatim}
+Because X and Y are dependent, the sum is not normally distributed (see
+also ex. \emph{Gaussianity or else}).
+\end{enumerate}
+
+\end{Solution}
+\begin{Solution}{9.1}
+\textbf{Law of large numbers}
+
+The programs might look like this:
+\begin{verbatim}
+##############################
+#### Law of large numbers ####
+##############################
+#1)
+z <- rep(NA,1000); u <- rep(NA,1000); g <- rep(NA,1000)
+for (i in 1:1000) {
+  z[i] <- mean(rnorm(i,mean=10,sd=2))
+  u[i] <- mean(runif(i,min=0,max=1)) #expectation is (a+b)/2
+  g[i] <- mean(rgeom(i,prob=0.2)) #expectation is (1-p)/p
+}
+
+par(mfrow=c(1,2))
+
+truehist(z,main="Law of large numbers")
+plot(z, main="for the normal distribution"); abline(h=10,lwd=2,col="red")
+
+truehist(u,main="Law of large numbers")
+plot(u,main="for the uniform distribution"); abline(h=0.5,lwd=2,col="red")
+
+truehist(g,main="Law of large numbers")
+plot(g,main="for the geometric distribution"); abline(h=4,lwd=2,col="red")
+
+#2)
+z <- rep(NA,1000)
+rho=0.8
+mu=2
+for (i in 1:1000) {
+  z[i] <- mean(filter((1-rho)*mu+rnorm(i,sd=2),rho,method="recursive",init=(1-rho)*mu))
+  #try and use a different distribution
+}
+par(mfrow=c(1,2),pty="s")
+truehist(z,main="Law of large numbers")
+plot(z, main="for intertemporal dependence AR(1)"); abline(h=mu,lwd=2,col="red")
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{9.2}
+\textbf{Law of large numbers for the variance}
+
+The program might look like this:
+\begin{verbatim}
+###############################################
+#### Law of large numbers for the variance ####
+###############################################
+#1)
+library(MASS)
+zn <- rep(NA,1000); zu <- rep(NA,1000); zg <- rep(NA,1000)
+for (i in 1:1000) {
+  rn <- rnorm(i,mean=10,sd=2) ; variance_n <- 2^2
+  ru <- runif(i,min=0,max=6) ; variance_u <- 3
+  rg <- rgeom(i,prob=0.2); variance_g <-20
+  zn[i] <- sum((rn-mean(rn))^2)/i
+  zu[i] <- sum((ru-mean(ru))^2)/i
+  zg[i] <- sum((rg-mean(rg))^2)/i
+}
+
+par(mfrow=c(1,2))
+truehist(zn,main="Law of large numbers")
+plot(zn, main="for the variance (normal distrib.)"); abline(h=variance_n,lwd=2,col="red")
+
+truehist(zn,main="Law of large numbers")
+plot(zu, main="for the variance (uniform distrib.)"); abline(h=variance_u,lwd=2,col="red")
+
+truehist(zn,main="Law of large numbers")
+plot(zg, main="for the variance (geometr. distrib.)"); abline(h=variance_g,lwd=2,col="red")
+
+#2)
+zt <- rep(NA,1000)
+for (i in 1:1000) {
+  xt <- rt(i,df=3)
+  zt[i] <- sum((xt-mean(xt))^2)/i; variance_t <-3/(3-2)
+}
+
+par(mfrow=c(1,2))
+
+truehist(zt,main="Law of large numbers")
+plot(zt, main="for the variance (t-distrib. df=3)");abline(h=variance,lwd=2,col="red")
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{9.3}
+\textbf{Central limit theorem}
+
+The program might look like this:
+\begin{verbatim}
+###############################
+#### Central limit theorem ####
+###############################
+#1) Illustration of the central limit theorem for the uniform distribution
+#    with sigma as the standard deviation
+library(MASS)
+N <- 10000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+expect <- 0.5
+vari <- 1/12
+par(mfrow = c(1,2),pty = "s")
+for(n in 1:20) {
+  X <- runif(N*n) #N*n random numbers
+  M <- matrix(X, N, n) #matrix of N rows and n columns filled with random numbers
+  Yn <- rowSums(M) # calculate the sum of n random numbers for N rows
+  Zn <- (Yn/n - expect)*sqrt(n/vari) #standardization
+  #display the sequence of random variables
+  truehist(Zn, xlim = c(-4,4),ylim = c(0,0.5), main = paste("n =", toString(n),sep =" "))
+  coord <- par("usr")
+  # par("usr") gives you a vector of the form c(x1, x2, y1, y2)
+  # giving the extremes of the coordinates of the plotting region
+  x <- seq(coord[1], coord[2], length.out = 500)
+  lines(x, dnorm(x), col = "red")
+  qqnorm(Zn, ylim = c(-4,4), xlim = c(-4,4), pch = ".", col = "blue")
+  abline(0, 1, col = "red")
+  Sys.sleep(1)
+}
+
+#2) Illustration of the central limit theorem for the uniform distribution
+#     with the estimated standard deviation
+library(MASS)
+N <- 10000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+expect <- 0.5
+par(mfrow = c(1,2),pty = "s")
+#hint: it needs to start with n=2, for n=1 you get vari=0 and you cannot divide by 0
+for(n in 2:20) {
+  X <- runif(N*n) #N*n random numbers
+  M <- matrix(X, N, n) #matrix of N rows and n columns filled with random numbers
+  vari <- 1/n * rowSums((M-rowMeans(M))^2)
+  Yn <- rowSums(M) # calculate the sum of n random numbers for N rows
+  Zn <- (Yn/n - expect)*sqrt(n/vari) #standardization
+  #display the sequence of random variables
+  truehist(Zn, xlim = c(-4,4),ylim = c(0,0.5), main = paste("n =", toString(n),sep =" "))
+  coord <- par("usr")
+  x <- seq(coord[1], coord[2], length.out = 500)
+  lines(x, dnorm(x), col = "red")
+  qqnorm(Zn, ylim = c(-4,4), xlim = c(-4,4), pch = ".", col = "blue")
+  abline(0, 1, col = "red")
+  Sys.sleep(1)
+}
+
+#3)
+library(MASS)
+N <- 10000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+expect <- 0
+par(mfrow = c(1,2),pty = "s")
+#hint: it needs to start with n=2, for n=1 you get vari=0 and you cannot divide by 0
+for(n in 2:20) {
+  X <- rt(N*n,df=1.5)
+  M <- matrix(X, N, n)
+  vari <- 1/n * rowSums((M-rowMeans(M))^2)
+  Yn <- rowSums(M)
+  Zn <- (Yn/n - expect)*sqrt(n/vari)
+  truehist(Zn, xlim = c(-4,4),ylim = c(0,0.5), main = paste("n =", toString(n),sep =" "))
+  coord <- par("usr")
+  x <- seq(coord[1], coord[2], length.out = 500)
+  lines(x, dnorm(x), col = "red")
+  qqnorm(Zn, ylim = c(-4,4), xlim = c(-4,4), pch = ".", col = "blue")
+  abline(0, 1, col = "red")
+  Sys.sleep(1)
+}
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{9.4}
+\textbf{Central limit theorem for dependent data}
+
+\begin{enumerate}
+  \item First let's derive the expectation and variance of the AR(1) process with $|\rho|<1$. For this, we use recursive substitution techniques given a starting value $X_0$:
+    \begin{align*}
+      X_i = (1-\rho)(1+\rho+\rho^2+\dots+\rho^N)\mu + \varepsilon_i + \rho \varepsilon_{i-1} + \rho^2 \varepsilon_{i-2} + \dots + \rho^N \varepsilon_{i-N} + \rho^{N+1} X_0
+    \end{align*}
+    Note that $\lim_{N\rightarrow \infty} \rho^{N+1} = 0$ and $\lim_{N\rightarrow \infty} \sum_{j=0}^\infty \rho^j = \frac{1}{1-\rho}$, since $|\rho|<1$. The AR(1) process with $|\rho|<1$ can therefore be equally represented by
+    \begin{align*}
+    X_i = \mu + \sum_{j=1}^\infty \rho^j \varepsilon_{i-j}
+    \end{align*}
+    Its expectation and variance are then equal to
+    \begin{align*}
+    E(X_i) &= \mu + \sum_{j=1}^\infty \rho^j E(\varepsilon_{i-j}) = \mu\\
+    Var(X_i) &= \sum_{j=1}^\infty (\rho^j)^2 var(\varepsilon_{i-j}) = \sum_{j=1}^\infty (\rho^2)^j \sigma_\varepsilon^2 = \frac{\sigma_\varepsilon^2}{1-\rho^2}
+    \end{align*}
+
+  \item Asymptotic distribution for mean
+  \begin{enumerate}
+    \item Due to our assumptions on $\varepsilon_i$, we can use the central limit theorem such that
+        \begin{equation*}
+            \sqrt{n} \left(\frac{1}{n} \sum_{i=1}^n \varepsilon_i \right) = \frac{1}{\sqrt{n}} \sum_{i=1}^n \varepsilon_i  \overset{d}{\rightarrow} U_\varepsilon \sim N(0,\sigma_\varepsilon^2)
+        \end{equation*}
+    \item Let's have a look at $\frac{1}{\sqrt{n}} \sum_{i=1}^n \varepsilon_i$:
+        \begin{align*}
+        \frac{1}{\sqrt{n}} \sum_{i=1}^n \varepsilon_i
+        &= \frac{1}{\sqrt{n}} \sum_{i=1}^n \left[(X_i-\mu)-\rho(X_{i-1}-\mu)\right]\\
+        &= \frac{1}{\sqrt{n}} \left[\sum_{i=1}^n (X_i-\mu)- \rho\sum_{i=1}^n(X_{i-1}-\mu)\right]\\
+        &= \frac{1}{\sqrt{n}} \left[\sum_{i=1}^n (X_i-\mu)- \rho\left[\sum_{i=1}^n(X_{i}-\mu)-(X_n - X_0)\right]\right]\\
+        &= \sqrt{n} \left[\frac{1}{n}\sum_{i=1}^n (X_i-\mu)- \rho\left[\frac{1}{n}\sum_{i=1}^n(X_{i}-\mu)-\left(\frac{X_n - X_0}{n}\right)\right]\right]\\
+        &= \sqrt{n} \left[\frac{1}{n}Y_n-\mu- \rho\left[\frac{1}{n}Y_n-\mu-\left(\frac{X_n - X_0}{n}\right)\right]\right]\\
+        &= \sqrt{n}\left[(1-\rho)\left(\frac{1}{n}Y_n-\mu\right) + \rho\left(\frac{X_n - X_0}{n}\right)\right]
+        \end{align*}
+
+    \item Using the definition of the probability limit, we have to show that for any $\delta>0$
+        \begin{align*}
+          \lim_{n\rightarrow \infty} P\left(\left|\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right|> \delta\right) = 0
+        \end{align*}
+        By Tchebychev's Inequality we have
+        \begin{align*}
+        P\left(\left|\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right|> \delta\right) \leq \frac{1}{\delta^2} var\left[\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right]
+        \end{align*}
+        Let's have a look at $var\left[\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right]$:
+        \begin{align*}
+        var\left[\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right]
+        &= \frac{1}{n}\left(\frac{\rho}{1-\rho}\right)^2 var(X_n - X_0)\\
+        &= \frac{1}{n}\left(\frac{\rho}{1-\rho}\right)^2 \left(var(X_n) + var(X_0) - 2 cov(X_n,X_0)\right]\\
+        &= \frac{1}{n}\left(\frac{\rho}{1-\rho}\right)^2 \left[\frac{\sigma_\varepsilon^2}{1-\rho^2} + \frac{\sigma_\varepsilon^2}{1-\rho^2} - 2 corr(X_n,X_0)\sqrt{\frac{\sigma_\varepsilon^2}{1-\rho^2}}\sqrt{\frac{\sigma_\varepsilon^2}{1-\rho^2}} \right]\\
+        &\leq \frac{1}{n}\left(\frac{\rho}{1-\rho}\right)^2 4 \left(\frac{\sigma_\varepsilon^2}{1-\rho^2}\right)
+        \end{align*}
+        since $corr(X_n,X_0) \geq -1$.
+
+        Thus for any $\delta>0$, we have
+        \begin{align*}
+        P\left(\left|\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right|> \delta\right) \leq \frac{1}{\delta^2} \frac{1}{n}\left(\frac{\rho}{1-\rho}\right)^2 4 \left(\frac{\sigma_\varepsilon^2}{1-\rho^2}\right)
+        \end{align*}
+        In the limit
+        \begin{align*}
+        \lim_{n\rightarrow \infty} P\left(\left|\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right|> \delta\right) = 0.
+        \end{align*}
+
+    \item Now, let's go back to
+            \begin{align*}
+            \frac{1}{\sqrt{n}} \sum_{i=1}^n \varepsilon_i = \sqrt{n}\left[(1-\rho)\left(\frac{1}{n}Y_n-\mu\right) + \rho\left(\frac{X_n - X_0}{n}\right)\right]
+            \end{align*}
+            Let's divide by $(1-\rho)$
+        \begin{align*}
+        \frac{\frac{1}{\sqrt{n}} \sum_{i=1}^n \varepsilon_i}{1-\rho} & = \sqrt{n}\left[\frac{1}{n}Y_n-\mu\right] + \frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)
+        \end{align*}
+
+        For the left-hand-side we have
+        \begin{align*}
+        \frac{\frac{1}{\sqrt{n}} \sum_{i=1}^n \varepsilon_i}{1-\rho} \overset{d}{\rightarrow} \tilde{U_\varepsilon} \sim N\left(0,\frac{\sigma_\varepsilon^2}{(1-\rho)^2}\right)
+        \end{align*}
+
+        Since $\textsl{plim}\left[\frac{\rho}{1-\rho}\left(\frac{X_n - X_0}{\sqrt{n}}\right)\right] = 0$, we have
+        \begin{align*}
+        \sqrt{n}\left[\frac{1}{n}Y_n-\mu\right] \overset{d}{\rightarrow} \tilde{U} \sim N\left(0,\frac{\sigma_\varepsilon^2}{(1-\rho)^2}\right)
+        \end{align*}
+        and we're done. That is, set $\sigma^2 = \frac{\sigma_\varepsilon^2}{(1-\rho)^2}$, then
+        \begin{align*}
+        Z_n = \sqrt{n}\frac{\left(\frac{1}{n}Y_n\right)-\mu}{\sigma} \overset{d}{\rightarrow} U \sim N(0,1)
+        \end{align*}
+  \end{enumerate}
+  \item The program might look like this:
+
+\begin{verbatim}
+################################################
+### Central limit theorem for dependent data ###
+################################################
+# AR(1) process
+library(MASS)
+n <- 10000
+N <- 5000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+mu <- 0
+rho=0.8
+sigma_eps <- 0.5 #this is the standard deviation of the random term in the AR(1) process
+var_x <- sigma^2/(1-rho^2) # analytical variance of an AR(1)-process
+factr <- var_x*(1+rho)/(1-rho) # this is the required adjustment
+X <- matrix(NA,N,n)
+for (j in 1:N) {
+  X[j,] <- filter((1-rho)*mu+rnorm(n,sd=sigma),rho,method="recursive",init=(1-rho)*mu)
+}
+Yn <- rowSums(X)
+Zn <- sqrt(n)*(Yn/n - mu)/sqrt(factr) #standardization
+truehist(Zn, main = paste("n =", toString(n),sep =" "))
+coord <- par("usr")
+x <- seq(coord[1], coord[2], length.out = 500)
+lines(x, dnorm(x), col = "red")
+\end{verbatim}
+\end{enumerate}
+
+
+
+\end{Solution}
+\begin{Solution}{9.5}
+\textbf{Delta method}
+
+\begin{enumerate}
+  \item According to a central limit theorem, we have
+  $$\sqrt{n}\left(\bar{X}_n-\mu\right) \overset{d}{\rightarrow} U \sim N(0,\sigma^2).$$ The first order Taylor expansion of $f(\bar{X}_n)$ around $\mu $ is%
+\begin{equation*}
+f\left( \bar{X}_n \right) \approx f\left( \mu \right) +f^{\prime }\left( \mu_n  \right) \left(
+\bar{X}_n-\mu \right),
+\end{equation*}
+where $\mu_n$ is an intermediate point between X and $\mu$. Since $|\mu_n-\mu|\leq |\bar{X}_n-\mu|$ and $X_n \overset{p}{\rightarrow} \mu$, $\mu_n \overset{p}{\rightarrow}\mu$. Since $f'$ is continuous we have $f'(\mu_n) \overset{p}{\rightarrow} f'(\mu)$.
+
+We see that $f(\bar{X}_n)$ is just a linear transformation of $\bar{X}_n$. Since $\bar{X}_n$ is asymptotically normal, so is $f(\bar{X}_n)$. The asymptotic mean is equal to
+\begin{equation*}
+E\left( f(\bar{X}_n)\right) = f\left( \mu \right) +f^{\prime }\left( \mu
+\right) \left( E\left(X\right)-\mu \right) = f\left( \mu \right)
+\end{equation*}%
+and the asymptotic variance is%
+\begin{eqnarray*}
+Var\left( f(\bar{X}_n)\right) &=&Var\left( f\left( \mu \right) +f^{\prime }\left(
+\mu \right) \left( X-\mu \right) \right) \\
+&=&\left[ f^{\prime }\left( \mu \right) \right] ^{2}Var\left( X\right)= \left[ f^{\prime }\left( \mu \right) \right] ^{2}\sigma ^{2}.
+\end{eqnarray*}
+So we have
+$$\sqrt{n}\left(f(\bar{X}_n)-f(\mu)\right)=f'(\mu_n)\left[\sqrt{n}\left(\bar{X}_n-\mu\right)\right] \overset{d}{\rightarrow} f'(\mu)U \sim N(0,[f'(\mu)]^2\sigma^2)$$
+\item The first order Taylor expansion of $f$ around $\mu $ is%
+\begin{equation*}
+Y \approx f\left( \mu \right) +D_f\left( \mu \right) \left(
+\bar{X_n}-\mu \right)
+\end{equation*}
+Because Y is a linear transformation of $\bar{X_n}$, and $\bar{X_n}$ is asymptotically normal, so is $Y$. The asymptotic mean of $Y$ is%
+\begin{equation*}
+E\left( Y\right) = f\left( \mu \right)
+\end{equation*}%
+and the asymptotic variance is%
+\begin{eqnarray*}
+Var\left( Y\right) &=&Var\left( f\left( \mu \right) +D_f\left(\mu\right) \left( \bar{X_n}-\mu \right) \right) \\
+&=&D_f\left( \mu \right) Var\left( \bar{X_n}\right)D_f\left( \mu \right)' \\
+&\rightarrow & D_f\left( \mu \right)\Sigma D_f\left( \mu \right)'.
+\end{eqnarray*}
+\end{enumerate}
+
+\end{Solution}
+\begin{Solution}{9.6}
+\textbf{Limits of maxima (I)}
+
+The program might look like this:
+\begin{verbatim}
+############################
+### Limits of maxima (I) ###
+############################
+library(MASS)
+n <- 100
+N <- 1000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+X <- matrix(rnorm(N*n),N, n) #matrix of N rows and n columns filled with random numbers
+dn <- sqrt(2*log(n))-(log(4*pi)+log(log(n)))/(2*sqrt(2*log(n)))
+cn <- (2*log(n))^(-1/2)
+Mn <- apply(X, 1, max) # get max of each row
+Rn <- (Mn - dn)/cn #standardization
+#display the sequence of random variables
+truehist(Rn, main = paste("n =", toString(n),sep =" "))
+coord <- par("usr")
+x <- seq(coord[1], coord[2], length.out = 500)
+lines(x, exp(-x-exp(-x)), col = "red")
+\end{verbatim}
+See also the Fisher-Tippett-Galambos Theorem which states that a sample of iid random variables after proper standardization can only converge in distribution to one of 3 possible distributions: the Gumbel distribution, the Fréchet distribution, or the Weibull distribution.
+\end{Solution}
+\begin{Solution}{9.7}
+\textbf{Limits of maxima (II)}
+The program might look like this:
+\begin{verbatim}
+###############################
+#### Limits of maxima (II) ####
+###############################
+library(MASS)
+n <- 100
+N <- 1000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+X <- matrix(rt(n*N,df=1.5), N, n) #matrix of N rows and n columns filled with random numbers
+Mn <- apply(X, 1, max) # get max of each row
+Rn <- Mn/qt(1-1/n,1.5) #standardization
+#display the sequence of random variables
+truehist(Rn, main = paste("n =", toString(n),sep =" "))
+coord <- par("usr")
+x <- seq(coord[1], coord[2], length.out = 500)
+lines(x, 1.5*x^(-2.5)*exp(-x^(-1.5)), col = "red")
+\end{verbatim}
+See also the Fisher-Tippett-Galambos Theorem which states that a sample of iid random variables after proper standardization can only converge in distribution to one of 3 possible distributions: the Gumbel distribution, the Fréchet distribution, or the Weibull distribution.
+\end{Solution}
+\begin{Solution}{9.8}
+\textbf{Limits of maxima (III)}
+
+The program might look like this:
+\begin{verbatim}
+################################
+#### Limits of maxima (III) ####
+################################
+library(MASS)
+n <- 100
+N <- 1000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+X <- matrix(runif(n*N), N, n) #matrix of N rows and n columns filled with random numbers
+Mn <- apply(X, 1, max) # get max of each row
+dn <- 1
+cn <- 1/n
+Rn <- (Mn-dn)/cn #standardization
+#display the sequence of random variables
+truehist(Rn, main = paste("n =", toString(n),sep =" "))
+coord <- par("usr")
+x <- seq(coord[1], coord[2], length.out = 500)
+lines(x, exp(x), col = "red")
+\end{verbatim}
+See also the Fisher-Tippett-Galambos Theorem which states that a sample of iid random variables after proper standardization can only converge in distribution to one of 3 possible distributions: the Gumbel distribution, the Fréchet distribution, or the Weibull distribution.
+\end{Solution}
+\begin{Solution}{10.1}
+\textbf{Counter examples}
+
+We assume in addition that $X$ is normally distributed, $X\sim N\left( \mu
+,1\right) $.
+
+\begin{enumerate}
+\item The sequence of estimators $\hat{\mu}_{n}=X_{1}$ is unbiased since $%
+E\left( \hat{\mu}_{n}\right) =E\left( X_{1}\right) =\mu $. But it is
+obviously not consistent.
+
+\item The sequence of estimators $\hat{\mu}_{n}=\left( \frac{1}{n}%
+\sum_{i=1}^{n}X_{i}\right) +1/n$ is biased with bias $1/n$. For given $n$
+\begin{eqnarray*}
+E\left( \hat{\mu}_{n}\right)  &=&\mu +\frac{1}{n} \\
+Var\left( \hat{\mu}_{n}\right)  &=&\frac{1}{n},
+\end{eqnarray*}%
+and thus $\lim_{n\rightarrow \infty }E\left( \hat{\mu}_{n}\right) =\mu $
+and $\lim_{n\rightarrow \infty }Var\left( \hat{\mu}_{n}\right) =0$.
+\textbf{These are the sufficient conditions for consistency.}
+
+\item This is the most tricky case. Consider the sequence of estimators%
+\begin{equation*}
+\hat{\mu}_{n}=\mathbf{1}\left( X_{1}-\frac{1}{n}\sum_{i=1}^{n}X_{i}<\Phi
+^{-1}\left( 1/n\right) \right) \cdot n+\left[ 1-\mathbf{1}\left( X_{1}-\frac{%
+1}{n}\sum_{i=1}^{n}X_{i}<\Phi ^{-1}\left( 1/n\right) \right) \right] \cdot
+\frac{1}{n}\sum_{i=1}^{n}X_{i}
+\end{equation*}%
+where $\mathbf{1}\left( \cdot \right) $ is an indicator function which is 1
+if the condition is true and 0 else, $\Phi ^{-1}\left( 1/n\right) $ is the $%
+1/n$-quantile of the standard normal distribution. For large $n$, the term $%
+X_{1}-\frac{1}{n}\sum_{i=1}^{n}X_{i}$ is approximately $N\left( 0,1\right) $
+and the indicator variable will be 1 with probability $1/n$. Thus, the
+expectation of the first summand of $\hat{\mu}_{n}$ is%
+\begin{equation*}
+E\left( \mathbf{1}\left( X_{1}-\frac{1}{n}\sum_{i=1}^{n}X_{i}<\Phi
+^{-1}\left( 1/n\right) \right) \cdot n\right) =\frac{1}{n}\cdot n=1.
+\end{equation*}%
+The expectation of the second summand is%
+\begin{equation*}
+E\left( \left[ 1-\mathbf{1}\left( X_{1}-\frac{1}{n}\sum_{i=1}^{n}X_{i}<\Phi
+^{-1}\left( 1/n\right) \right) \right] \cdot \frac{1}{n}\sum_{i=1}^{n}X_{i}%
+\right) =\left( 1-\frac{1}{n}\right) \cdot \mu ,
+\end{equation*}%
+and hence the asymptotic bias of $\hat{\mu}_{n}$ is $1$. The estimator is
+consistent because, as $n\rightarrow \infty $, the probability mass
+concentrates on the second summand which converges to $\mu $.
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{11.1}
+\textbf{Nonlinear least squares}
+
+\item The two programs could look like this:
+
+\begin{verbatim}
+############################################
+#### Nonlinear least squares estimation ####
+############################################
+
+#1)
+# Load the dataset
+dat <- read.csv(file.choose())
+
+# Definition of the objective function
+# The first argument must be the parameter vector
+squarediffs <- function(param,dat) {
+  alpha <- param[1]
+  beta <- param[2]
+  u <- dat$y-exp(alpha+beta*dat$x)
+  return(sum(u^2))
+}
+
+# Minimize the objective function
+obj <- optim(c(1,0),squarediffs,dat=dat)
+estimates <- obj$par
+alphahat <- estimates[1]
+betahat <- estimates[2]
+
+# Plot the data and the estimated regression curve
+plot(dat$x,dat$y)
+g <- seq(0,40,length=500)
+lines(g,exp(alphahat+betahat*g))
+
+
+#2)
+
+# Load the dataset
+dat <- read.csv(file.choose())
+
+# Definition of the objective function
+# The first argument must be the parameter vector
+squarediffs <- function(param,dat) {
+  beta1 <- param[1]
+  beta2 <- param[2]
+  u <- dat$y-(beta1+beta2*dat$x1+1/beta2*dat$x2)
+  return(sum(u^2))
+}
+
+# Minimize the objective function
+obj <- optim(c(1,1),squarediffs,dat=dat)
+estimates <- obj$par
+beta1hat <- estimates[1]
+beta2hat <- estimates[2]
+
+# Plot the data and the estimated regression plane
+library(rgl)
+plot3d(dat$x1,dat$x2,dat$y)
+gx1 <- seq(min(dat$x1),max(dat$x1),length=60)
+gx2 <- seq(min(dat$x2),max(dat$x2),length=60)
+yhat <- outer(gx1,gx2,function(x1,x2) beta1hat+beta2hat*x1+1/beta2hat*x2)
+surface3d(gx1,gx2,yhat,col="light green")
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{11.2}
+\textbf{Method of moments for the binomial distribution}
+
+The first step is already given in the text,%
+\begin{eqnarray*}
+\mu _{1} &=&n\theta  \\
+\mu _{2}^{\prime } &=&n\theta \left( 1-\theta \right) .
+\end{eqnarray*}%
+The second step is the inversion of the two equations,%
+\begin{eqnarray*}
+\theta  &=&1-\frac{\mu _{2}^{\prime }}{\mu _{1}} \\
+n &=&\frac{\mu _{1}}{\theta }.
+\end{eqnarray*}%
+Finally, the theoretical moments are replaced by their empirical
+counterparts, and the moment estimators are%
+\begin{eqnarray*}
+\hat{\theta} &=&1-\frac{\hat{\mu}_{2}^{\prime }}{\hat{\mu}_{1}} \\
+\hat{n} &=&\frac{\hat{\mu}_{1}}{\hat{\theta}}.
+\end{eqnarray*}
+\end{Solution}
+\begin{Solution}{11.3}
+\textbf{Method of moments for the geometric distribution}
+
+\begin{enumerate}
+\item From $\mu _{1}=\lambda ^{-1}$ we derive $\lambda =\mu _{1}^{-1}$, and
+hence the moment estimator of $\lambda $ is $\hat{\lambda}=\hat{\mu}_{1}^{-1}
+$.
+
+\item The empirical moment $\hat{\mu}_{1}$ is an unbiased estimator of $\mu
+_{1}$. The estimator $\hat{\lambda}=1/\hat{\mu}_{1}$ is a nonlinear (convex)
+transformation. According to Jensen's inequality $E\left( \hat{\lambda}%
+\right) =E(1/\hat{\mu}_{1})>1/E(\hat{\mu}_{1})=\lambda $.
+
+\item The rules of calculus for the probability limit are simple,%
+\begin{equation*}
+\textsl{plim}\hat{\lambda}=\textsl{plim}\frac{1}{\hat{\mu}_{1}}=\frac{1}{%
+\textsl{plim}\hat{\mu}_{1}}=\frac{1}{\mu _{1}}=\lambda .
+\end{equation*}
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{11.4}
+\textbf{Method of moments for the Gumbel distribution}
+
+Step 1:%
+\begin{eqnarray*}
+\mu _{1} &=&\alpha +0.5772\cdot \beta  \\
+\mu _{2}^{\prime } &=&\frac{1}{6}\beta ^{2}\pi ^{2}.
+\end{eqnarray*}%
+Step 2:%
+\begin{eqnarray*}
+\beta  &=&\sqrt{\frac{6\mu _{2}^{\prime }}{\pi ^{2}}} \\
+\alpha  &=&\mu _{1}-0.5772\cdot \beta .
+\end{eqnarray*}%
+Step 3:%
+\begin{eqnarray*}
+\hat{\beta} &=&\sqrt{\frac{6\hat{\mu}_{2}^{\prime }}{\pi ^{2}}} \\
+\hat{\alpha} &=&\hat{\mu}_{1}-0.5772\cdot \hat{\beta}.
+\end{eqnarray*}
+\end{Solution}
+\begin{Solution}{11.5}
+\textbf{Method of moments for the Pareto distribution}
+
+\begin{enumerate}
+  \item For a given $K$ the moment estimator of $\alpha$ is given by
+      \begin{align*}
+        \mu_1 = \frac{\alpha K}{\alpha - 1}\\
+        \alpha = \frac{\mu_1}{\mu_1-K}\\
+        \hat{\alpha} = \frac{\hat{\mu_1}}{\hat{\mu_1}-K}
+      \end{align*}
+      For both parameters unknown one has to solve the system of
+      equations
+      \begin{align*}
+        \mu_1 &= \frac{\alpha K}{\alpha - 1}\\
+        \mu_{2}^{\prime} &= \frac{\alpha K^2}{(\alpha-2)(\alpha-1)^2}
+      \end{align*}
+      for $\alpha$ and $K$. Inserting the squared first expression into
+      the second yields
+      \begin{align*}
+        &\mu_{2}^{\prime} = \frac{\mu_1^2}{\alpha(\alpha-2)}\\
+        &\Leftrightarrow\alpha^2-2\alpha-\frac{\mu_1^2}{\mu_{2}^{\prime}}=0\\
+        &\Leftrightarrow\alpha = \frac{2}{2} \pm \frac{\sqrt{4(1+\frac{\mu_1^2}{\mu_{2}^{\prime}})}}{2}=1\pm \sqrt{1+\frac{\mu_1^2}{\mu_{2}^{\prime}}}
+      \end{align*}
+      The variance is negative for $0<\alpha<2~~ (Var(X)<0)$. Thus,
+      $\alpha$ must be greater than 2 and the moment estimators are
+      \begin{align*}
+        \hat{\alpha} &= 1 + \sqrt{1+\frac{\hat{\mu_1}^2}{\hat{\mu_{2}}^{\prime}}}\\
+        \hat{K} &= \frac{\alpha-1}{\alpha}\hat{\mu}_1
+      \end{align*}
+  \item The program might look like this:
+
+\begin{verbatim}
+##################################################
+#### Moment estimator for Pareto distribution ####
+##################################################
+
+install.packages("VGAM") # in order to get the Pareto distribution
+library(VGAM)
+library(AER)
+
+a <- 5              #shape parameter
+K <- 1              #location parameter
+R <- 10000          # index for the loop
+n <- 100            # number of random variables
+ahat <- rep(NA,R)   # initialize estimator
+ahat1 <- rep(NA,R)  # initialize estimator
+
+for (i in 1:R) {
+  x <- rpareto(n,location=K,shape=a)     #generate n random variables
+  ahat[i] <- mean(x)/(mean(x)-1)         #moment estimator of alpha if K is known
+  ahat1[i] <- 1+sqrt(1+mean(x)^2/var(x)) #moment estimator of alpha if K is unknown
+}
+#graphical output
+par(mfrow=c(1,2))
+truehist(ahat)
+g <- seq(min(ahat),max(ahat),length=300)
+lines(g,dnorm(g,mean(ahat),sd(ahat)))
+truehist(ahat1)
+h <- seq(min(ahat1),max(ahat1),length=300)
+lines(h,dnorm(h,mean(ahat1),sd(ahat1)))
+\end{verbatim}
+For $\alpha <2$ the second estimator is not asymptotically normal
+distributed, since the moment of order $2p$ does not exist (see the
+lecture for the necessary conditions regarding moment estimators).
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{11.6}
+\textbf{Method of moments for the uniform distribution}
+
+\begin{enumerate}
+\item The theoretical moments $\mu _{1}$ and $\mu _{2}^{\prime }$ are
+already given as functions of the unknown parameters. Solving the system%
+\begin{eqnarray*}
+2\mu _{1} &=&a+b \\
+12\mu _{2}^{\prime } &=&a^{2}-2ab+b^{2}
+\end{eqnarray*}%
+for $a$ and $b$ yields two solutions. Since $b>a$ only one solution is valid,%
+\begin{eqnarray*}
+a &=&\mu _{1}-\sqrt{3\mu _{2}^{\prime }} \\
+b &=&\mu _{1}+\sqrt{3\mu _{2}^{\prime }}
+\end{eqnarray*}%
+and the moment estimators are%
+\begin{eqnarray*}
+\hat{a} &=&\hat{\mu}_{1}-\sqrt{3\hat{\mu}_{2}^{\prime }} \\
+\hat{b} &=&\hat{\mu}_{1}+\sqrt{3\hat{\mu}_{2}^{\prime }}.
+\end{eqnarray*}
+
+\item The program might look like this:
+
+\begin{verbatim}
+###################################################
+#### Moment estimator for uniform distribution ####
+###################################################
+a <- 0
+b <- 1
+R <- 10000
+ahat <- rep(NA,R)
+bhat <- rep(NA,R)
+minx <- rep(NA,R)
+for(r in 1:R) {
+  x <- runif(n=40,a,b)
+  ahat[r] <- mean(x)-sqrt(3*var(x))
+  bhat[r] <- mean(x)+sqrt(3*var(x))
+  minx[r] <- min(x)
+  }
+par(mfrow=c(2,1))
+truehist(ahat)
+g <- seq(min(ahat),max(ahat),length=300)
+lines(g,dnorm(g,mean(ahat),sd(ahat)))
+truehist(bhat)
+g <- seq(min(bhat),max(bhat),length=300)
+lines(g,dnorm(g,mean(bhat),sd(bhat)))
+print("Proportion of impossible estimates:")
+print(sum(minx<ahat)/R)
+\end{verbatim}
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{11.7}
+\textbf{Method of moments for the linear regression model}
+
+First have a look at $X'y$:
+\begin{align*}
+  \underset{k\times T}{X}'\underset{T \times 1}{y} =
+  \begin{pmatrix}
+    \sum_{t=1}^T X_{t1}\cdot y_t\\
+    \vdots\\
+    \sum_{t=1}^T X_{tk}\cdot y_t
+  \end{pmatrix}
+\end{align*}
+Taking the expectation yields for each row $j$: $\sum_{t=1}^T E[X_{tj}\cdot
+y_t] = T\cdot E(X_{1j} \cdot y_1)$ or any other vector of $y$ and item
+$X_{tj}$.
+
+Now, left-multiplication of $y=X\beta +u$ with $X^{\prime }$ and taking expectations yields%
+\begin{equation*}
+E\left( X^{\prime }y\right) =E\left( X^{\prime }X\beta \right) +E\left(
+X^{\prime }u\right) = T
+\begin{pmatrix}
+    E(X_{11}\cdot y_1)\\
+    \vdots\\
+    E(X_{1k}\cdot y_1)
+\end{pmatrix}.
+\end{equation*}%
+
+
+Step 1: We relax the standard assumptions and assume that $X$ may be
+non-stochastic but independent of $u$, i.e. $E(u|X)=0$. This implies that
+$E\left( X^{\prime }X\beta \right) =E\left( X^{\prime }X\right) \beta $ and
+$E\left( X^{\prime
+}u\right) =E\left( X^{\prime }\right) E(u)$. Of course, $E(u)=0$, and thus%
+\begin{eqnarray*}
+E\left( X^{\prime }y\right)  &=&E\left( X^{\prime }X\beta \right) +E\left(
+X^{\prime }u\right)  \\
+E\left( X^{\prime }y\right)  &=&E\left( X^{\prime }X\right) \beta .
+\end{eqnarray*}%
+Step 2: The system is solved for the unknown parameters $\beta $,%
+\begin{align*}
+\beta &= \underbrace{\left[E\left( X^{\prime }X\right)\right]^{-1}}_{\text{Matrix of expectations}} \cdot \underbrace{E\left( X^{\prime}y\right)}_\text{Vector of expectations}\\
+&= \frac{1}{T}\cdot \begin{bmatrix}
+                    E(X_{11}^2) & \dots & E(X_{11}X_{1k})\\
+                    \vdots & \ddots &\vdots\\
+                    E(X_{11}X_{1k}) & \dots & E(X_{1k}^2)
+                  \end{bmatrix}^{-1}
+\cdot T
+\begin{pmatrix}
+    E(X_{11}\cdot y_1)\\
+    \vdots\\
+    E(X_{1k}\cdot y_1)
+\end{pmatrix}.
+\end{align*}%
+Step 3: Replace the theoretical moments (expectations) by their empirical
+counterparts,%
+\begin{equation*}
+\hat{\beta}=
+\begin{bmatrix}
+    \frac{1}{T}\sum_{t=1}^T X_{t1}^2 & \dots & \frac{1}{T}\sum_{t=1}^T X_{t1}X_{tk}\\
+    \vdots & \ddots &\vdots\\
+    \frac{1}{T}\sum_{t=1}^T X_{t1}X_{tk} & \dots & \frac{1}{T}\sum_{t=1}^T X_{tk}^2
+\end{bmatrix}^{-1}
+\cdot
+\begin{pmatrix}
+    \frac{1}{T}\sum_{t=1}^T X_{t1}\cdot y_t\\
+    \vdots\\
+    \frac{1}{T}\sum_{t=1}^T X_{tk}\cdot y_t
+\end{pmatrix}=(X^{\prime }X)^{-1}X^{\prime }y.
+\end{equation*}%
+This is equal to the OLS estimator of $\beta $ (and also identical to the
+maximum likelihood estimators, as we will see later).
+\end{Solution}
+\begin{Solution}{12.1}
+\textbf{Extreme values}
+
+\begin{enumerate}
+\item The maximum likelihood estimator of $\alpha$ is given by maximizing
+    the loglikelihood function:
+\begin{align*}
+  L(\alpha;x,K) &= \prod_{i=1}^n \alpha K^\alpha x_i^{-\alpha-1}\\
+  log(L(\alpha;x,K))&= \sum_{i=1}^n log(\alpha K^\alpha) + \sum_{i=1}^n log(x_i^{-\alpha-1})\\
+    & = n(log(\alpha)+ \alpha log(K)) - (\alpha+1) \sum_{i=1}^n log(x_i)\\
+  \frac{\partial log(L)}{\partial \alpha} &= \frac{n}{\alpha} + n ~ log(K) - \sum_{i=1}^n log(x_i) = 0\\
+  \Rightarrow \hat{\alpha} &= \frac{n}{\sum_{i=1}^n (log(x_i)-log(K))}
+\end{align*}
+\item[2./3.] The code might look like this. The ML-estimator is also estimated by numerically optimizing the likelihood.
+\begin{verbatim}
+########################
+#### Extreme values ####
+########################
+library(MASS)
+library(VGAM)
+
+daxreturns <- read.csv(file.choose(), sep=";", dec=",")
+View(daxreturns)
+daxret <- daxreturns$daxret
+plot(daxret)
+tmp <- daxret*(-1)
+daxlosses <- tmp[tmp>=2]
+alphahat <- length(daxlosses)/(sum(log(daxlosses) - log(2)))
+plot(daxlosses)
+truehist(daxlosses)
+coord <- par("usr")
+x <- seq(coord[1], coord[2], length.out = length(daxlosses))
+lines(x,dpareto(x,scale=2,shape=alphahat),col="red",lwd=2)
+
+#Likelihood of the observations as a function of alpha
+loglikelihood <- function(alpha,K,x) {
+  n <- length(x)
+  z <- n*(log(alpha)+alpha*log(K)) - (alpha+1)*sum(log(x))
+  return(z)
+}
+alpha <- seq(0,10,length.out=100)
+plot(alpha,loglikelihood(alpha,2,daxlosses))
+abline(v=alphahat)
+
+#Just for comparison, let's do it numerically
+likelihood <- function(alpha,K,x) {
+  z <- prod(dpareto(x,K,alpha))
+  return(z)
+}
+
+f <- function(x) -likelihood(x,2,daxlosses)
+optimize(f,lower=0,upper=3)
+\end{verbatim}
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{12.2}
+\textbf{Parameters of the uniform distribution}
+\begin{enumerate}
+  \item Consider a sample $x_1,\dots,x_n$ and let the order statistics
+      be: $x_{(1)} \leq x_{(2)} \leq \dots \leq x_{(n)}$. For $\alpha
+      \leq x_{(1)}$ and $b \geq x_{(n)}$ the likelihood equals:
+      \begin{align*}
+        L(a,b;x) &= \prod_{i=1}^n f_X(x_i|a,b) = (b-a)^{-n}\\
+        log(L(a,b;x)) &= -n\cdot log(b-a)\\
+        \frac{\partial log(L)}{\partial a} &= \frac{n}{b-a} >0\\
+        \frac{\partial log(L)}{\partial b} &= -\frac{n}{b-a} <0
+      \end{align*}
+      Thus the loglikelihood is a strictly increasing function in a and a
+      strictly decreasing function in b. Hence the ML-estimator is given
+      by:
+      \begin{equation*}
+        \hat{a} = x_{(1)} \text{ and }\hat{b} = x_{(n)}
+      \end{equation*}
+  \item The program might look like this:
+\begin{verbatim}
+################################################
+#### Parameters of the uniform distribution ####
+################################################
+R <- 10000
+n <- 100
+a <- 3
+b <- 6
+ahat <- numeric(R)
+bhat <- numeric(R)
+for (r in 1:R) {
+  x <- runif(n,min=a,max=b)
+  ahat[r] <- min(x)
+  bhat[r] <- max(x)
+}
+par(mfrow=c(1,2))
+hist(ahat,prob=T)
+hist(bhat,prob=T)
+\end{verbatim}
+Clearly, the ML estimators are not asymptotically normal distributed. See also execise 'Limits of maxima (III)'.
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{12.3}
+\textbf{Censored lognormal distribution}
+
+First, let's consider the probability of $Y_i=c$:
+\begin{equation*}
+  Pr(Y_i = c) = Pr(X_i \geq c) = 1 - Pr(X_i \leq c) = 1- F_X(c)
+\end{equation*}
+The likelihood function is now a mixture between the product of all densities $f_{X}(y_{i}),$ for observations with $Y_{i}<c$%
+, times the product of all probabilities that $Y_{i}=c$ for observations with
+$Y_{i}=c$:
+\begin{equation*}
+L(\mu,\sigma; y) = \prod_{i=1}^n\{ f_X(y_i;\mu,\sigma)\}^{\delta_i}\{1-F_X(c;\mu,\sigma)\}^{1-\delta_i}
+\end{equation*}
+with $\delta_i=1$ for exact observations and $\delta_i=0$ for a censored
+observation. The loglikelihood is thus the sum of those two components (let
+$n_1$ be the number of non-censored observations and $n_2$ the number of
+censored observations, $n_1+n_2=n$):
+\begin{equation*}
+\log L(\mu,\sigma; y) = \sum_{i=1}^{n_1} \log f_X(y_i;\mu,\sigma) +
+\sum_{i=1}^{n_2} \log(1-F_X(c;\mu,\sigma))
+\end{equation*}
+The code might look like this:
+\begin{verbatim}
+#########################################
+#### Censored lognormal distribution ####
+#########################################
+# Definition of loglikelihood
+neglogl <- function(param,dat,cens) {
+  mu <- param[1]
+  sigma <- param[2]
+  y <- dat
+  c <- cens
+  z <- sum(log(dlnorm(y[y<c],meanlog=mu,sdlog=sigma)))
+  + sum(log(1-plnorm(y[y==c],meanlog=mu,sdlog=sigma)))
+  return(-z)
+}
+# Get data
+censoredln <- read.table(file.choose(), header=T, quote="\"")
+x <- censoredln$x
+# Optimization
+obj <- optim(c(0,1),neglogl,dat=x,cens=12,hessian=T)
+print(obj$par)  # Point estimates
+print(solve(obj$hessian)) # Numerical covariance matrix
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{12.4}
+\textbf{Exponential model}
+
+For the log-likelihood you have to consider the distribution of the error
+term:
+\begin{align*}
+  u_i = y_i - exp\{\alpha + \beta x_i\} \sim N(0,\sigma^2)
+\end{align*}
+\begin{itemize}
+\item[1)/2)/3)] The distributional assumption for the likelihood is thus
+    the density of the normal distribution ($f_{u_i}$) and the
+    log-likelihood is given by
+\begin{align*}
+  \log L = \sum_{i=1}^n f_u(y_i - exp\{\alpha + \beta x_i\})
+\end{align*}
+\item[4)] Now the log-likelihood is given by
+\begin{align*}
+  \log L = -n \log(2) - \sum_{i=1}^n |\alpha + \beta x_i|
+\end{align*}
+\end{itemize}
+The code might look like this:
+\begin{verbatim}
+###########################
+#### Exponential model ####
+###########################
+# Get data
+expgrowth <- read.csv(file.choose())
+View(expgrowth)
+
+#1: Definition of negative loglikelihood
+neglogl <- function(param,dat){
+  a <- param[1]
+  b <- param[2]
+  sigma <- param[3]
+  x <- dat[,2]
+  y <- dat[,1]
+  u <- y-exp(a+b*x)
+  z <- sum(log(dnorm(u,mean=0,sd=sigma)))
+  zz <- sum(log(dnorm(y,mean=exp(a+b*x),sd=sigma))) #works as well
+  return(-z)
+}
+
+#2: Numerical Optimization
+# Optimization, for start values one has to consider that the exponential function is very
+# sensitive to the parameters a and b -> use small ones
+obj <- optim(c(0,0.1,1),neglogl,dat=expgrowth,hessian=T)
+print(obj$par)  # Point estimates
+
+#3: Asymptotic numerical covariance matrix
+print(solve(obj$hessian))
+
+#4: An exponential density function for the error terms
+#Definition of negative loglikelihood
+neglogl2 <- function(param,dat){
+  a <- param[1]
+  b <- param[2]
+  x <- dat[,2]
+  y <- dat[,1]
+  u <- y-exp(a+b*x)
+  z <- -n*log(2) - sum(abs(u))     #analytically
+  zz <- sum(log(0.5*exp(-abs(u)))) #alternatively
+  return(-z) #or return(-zz)
+}
+obj2 <- optim(c(0,0.1,1),neglogl2,dat=expgrowth,hessian=T)
+print(obj2$par)  # Point estimates
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{12.5}
+\textbf{Tobit model}
+
+First, let's consider censored observations, for $y_t^*\leq 0$:
+\begin{equation*}
+  Pr(y_t = 0) = Pr(y_t^* \leq 0) = Pr(u_t\leq -x_t'\beta) = Pr\left(\frac{u_t}{\sigma}\leq \frac{-x_t'\beta}{\sigma}\right) = \Phi\left(\frac{-x_t'\beta}{\sigma}\right)
+\end{equation*}
+with $\Phi$ being the cdf of the standard normal distribution. For uncensored observations we have a linear model, i.e. the likelihood for $y_t^*> 0$:
+\begin{align*}
+  f(u_t) = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(y_t^*-x_t'\beta)^2}{2\sigma^2}} = \frac{1}{\sigma} \frac{1}{\sqrt{2\pi}}e^{\frac{-1}{2}\left(\frac{y_t^*-x_t'\beta}{\sigma}\right)} = \frac{1}{\sigma}\phi\left(\frac{y_t^*-x_t'\beta}{\sigma}\right)
+\end{align*}
+with $\phi$ being the pdf of the standard normal distribution. The likelihood function is now a mixture:
+\begin{equation*}
+L(\mu,\sigma; y) = \prod_{t=1}^n\left\{ \frac{1}{\sigma}\phi\left(\frac{y_t^*-x_t'\beta}{\sigma}\right)\right\}^{\delta_t}
+\left\{\Phi\left(\frac{-x_t'\beta}{\sigma}\right)\right\}^{1-\delta_t}
+\end{equation*}
+with $\delta_t=1$ for exact observations and $\delta_t=0$ for a censored observation. The loglikelihood is thus the sum of those two components:
+\begin{equation*}
+\log L(\mu,\sigma; y) = \sum_{y_t>0} \log\left(\frac{1}{\sigma}\phi\left(\frac{y_t^*-x_t'\beta}{\sigma}\right)\right) +
+\sum_{y_t=0} \log\left(\Phi\left(\frac{-x_t'\beta}{\sigma}\right)\right)
+\end{equation*}
+The code might look like this:
+\begin{verbatim}
+#####################
+#### Tobit model ####
+#####################
+# Definition of negative loglikelihood
+neglogl <- function(param,dat) {
+  y <- dat$y
+  x1 <- dat$x1
+  x2 <- dat$x2
+  x3 <- dat$x3
+  beta1 <- param[1]
+  beta2 <- param[2]
+  beta3 <- param[3]
+  sigm   <- param[4]
+  idx_cens <- which(y==0)
+  idx_uncens <- which(y>0)
+  uncens <- sum(log(1/sigm*dnorm((y[idx_uncens]-x1[idx_uncens]*beta1
+                            -x2[idx_uncens]*beta2-x3[idx_uncens]*beta3)/sigm)))
+  cens   <- sum(log(pnorm((-x1[idx_cens]*beta1-x2[idx_cens]*beta2-x3[idx_cens]*beta3)/sigm)))
+  z <- uncens+cens
+  return(-z)
+}
+# Get data
+tobitbsp <- read.csv(file.choose())
+# Note that if tobitbsp.csv has negative y values,
+# set all negative values to zero, and proceed with the exercise
+View(tobitbsp)
+tobitbsp$y[tobitbsp$y<0] <- 0
+# Optimization
+obj <- optim(c(0.2,-0.02,0.005,0.125),neglogl,dat=tobitbsp,hessian=T)
+print(obj$par)  # Point estimates
+print(diag(solve(obj$hessian))) # Numerical covariance matrix
+#OLS
+X <- as.matrix(cbind(tobitbsp$x1,tobitbsp$x2,tobitbsp$x3))
+y <- as.matrix(tobitbsp$y)
+beta_ols <- solve(t(X)%*%X)%*%t(X)%*%y
+\end{verbatim}
+
+\begin{itemize}
+  \item Compared to Logit or Probit, we do not throw away information in y.
+  \item Note that OLS is not a consistent estimator, however Maximum Likelihood is given some regularity conditions always consistent.
+
+\end{itemize}
+\end{Solution}
+\begin{Solution}{12.6}
+\textbf{Probit model}
+
+Since the probability that $y_t=1$ is $\Phi(x_t'\beta)$, the contribution to the loglikelihood function for observation $t$ when $y_t=1$ is $log(\Phi(x_t'\beta))$, that is the log-likelihood function is equal to
+\begin{align*}
+\sum_{i=1}^{n} \left(y_t log(\Phi(x_t'\beta)) + (1-y_t)log(1-\Phi(x_t'\beta))\right)
+\end{align*}
+
+The code might look like this:
+\begin{verbatim}
+######################
+#### Probit model ####
+######################
+rm(list=ls())
+dev.off()
+cat("\014")
+
+mroz <- read.csv(file.choose())
+inlf <- mroz$inlf
+nwifeinc <- mroz$nwifeinc
+educ <- mroz$educ
+exper <- mroz$exper
+exper2 <- exper^2
+age <- mroz$age
+kidslt6 <- mroz$kidslt6
+kidsge6 <- mroz$kidsge6
+
+
+numTimeVals <- length(nwifeinc)
+zuerkl <- inlf
+numVar <- 8
+erkl <- matrix(0,numTimeVals,numVar)
+erkl[,1] <- nwifeinc
+erkl[,2] <- educ
+erkl[,3] <- exper
+erkl[,4] <- exper2
+erkl[,5] <- age
+erkl[,6] <- kidslt6
+erkl[,7] <- kidsge6
+erkl[,8] <- rep(1,numTimeVals)
+
+probitLL2 <- function(betas,x,y){
+  vals <- x %*% betas
+  TT <- length(y)
+  summanden <- y*log(pnorm(vals, mean=0, sd=1)) + (1-y)*log(1-pnorm(vals, mean=0, sd=1))
+  return (-sum(summanden))
+}
+
+beta_anf <- 0
+
+obj2 <- optim(par=rep(beta_anf,numVar),probitLL2,x=erkl, y=zuerkl, hessian=T)
+#print(obj)
+obj2$par
+solve(obj2$hessian)
+
+plot(zuerkl)
+points(seq(1,numTimeVals),pnorm(erkl%*%obj2$par),col = 2)
+
+pred <- obj2$par%*%c(30,14,10,10^2,44,0,3,1)
+pnorm(pred)
+
+#t value
+abs(obj2$par[2]/obj2$hessian[2,2])
+# -> significantly different from 0
+
+#simulate data
+#datenpunkte
+N <- 250
+
+beta1_wahr <- 2
+beta0_wahr <- -1.5
+
+testen <- function(N, norm = T){
+  #Daten produzieren
+  if(norm == T){x <- rnorm(N)
+  p <- pnorm(x*beta1_wahr + beta0_wahr  + rnorm(N,0,10^-1))
+  }
+  else{x <- rnorm(N)
+  p <- pnorm(x*beta1_wahr + beta0_wahr  + runif(N,-1,1))
+  }
+  y <- runif(N)
+  y2 <- runif(N)
+  y[y2<=p] = 1
+  y[y2>p] = 0
+  #zu x konstante hinzufügen
+  x <- cbind(x,rep(1,N))
+
+  #Parameter schaetzen
+  obj2 <- optim(par=c(0,0),probitLL2, x=x, y=y, hessian=T)
+  return(obj2$par)
+}
+
+sampleSizes <- seq(100,10000,100)
+#Inkonsistenz veranschaulichen bei Gleichverteilung
+param = NULL
+for(numbers in sampleSizes){
+  param = rbind(param,testen(numbers,F))
+}
+
+par(mfrow=c(2,2))
+plot(sampleSizes, param[,1], xlab="Stichprobengröße", ylab="beta1", main="Gleichverteilung",
+                                                                                ylim=c(1,3))
+ abline(h = beta1_wahr, col=2)
+
+plot(sampleSizes, param[,2],, xlab="Stichprobengröße", ylab="beta0", main="Gleichverteilung",
+                                                                                ylim=c(-2,-1))
+abline(h = beta0_wahr, col=2)
+
+#Konsistenz veranschaulichen
+param = NULL
+for(numbers in sampleSizes){
+  param = rbind(param,testen(numbers,T))
+}
+
+plot(sampleSizes, param[,1], xlab="Stichprobengröße", ylab="beta1", main="Normalverteilung",
+                                                                                ylim=c(1,3))
+abline(h = beta1_wahr, col=2)
+
+plot(sampleSizes, param[,2],, xlab="Stichprobengröße", ylab="beta0", main="Normalverteilung",
+                                                                                ylim=c(-2,-1))
+abline(h = beta0_wahr, col=2)
+\end{verbatim}
+\begin{itemize}
+  \item Probit models are used to model binary outcomes, such as consumption decisions, labor decisions, agricultural decisions,\dots, and are among the most used models in applied econometrics.
+  \item The probit model forecasts probabilities, which are in between 0 and 1: $Pr(Y=1|x)=F(x'\beta)$
+  \item Interpretation of coefficients:
+  \begin{itemize}
+    \item Increase in $x$ makes outcome of 1 more (or less) likely, we therefore interpret the sign of the coefficients.
+    \item Marginal effects at a specific $x$ (most commonly at mean $\bar{x}$): $\frac{\partial p}{\partial x_j} = \phi(x'\beta)\beta_j$. Note that coefficients and marginal effects have the same sign.
+    \item Average marginal effects are computed over all $x$.
+  \end{itemize}
+  \item Probit and Logit have usually very similar marginal effects, which model depends on an evaluation of the data generating process. Most of the times it doesn't matter though.
+\end{itemize}
+\end{Solution}
+\begin{Solution}{12.7}
+\textbf{Logit model}
+
+Since the probability that $y_t=1$ is $\Lambda \left( x_{t}^{\prime }\beta \right)$, the contribution to the loglikelihood function for observation $t$ when $y_t=1$ is $log(\Lambda \left( x_{t}^{\prime }\beta \right))$, that is the log-likelihood function is equal to
+\begin{align*}
+\sum_{i=1}^{n} \left(y_t log(\Lambda \left( x_{t}^{\prime }\beta \right)) + (1-y_t)log(1-\Lambda \left( x_{t}^{\prime }\beta \right)))\right)
+\end{align*}
+
+The code might look like this:
+\begin{verbatim}
+#####################
+#### Logit model ####
+#####################
+rm(list=ls())
+dev.off()
+cat("\014")
+
+mroz <- read.csv(file.choose())
+inlf <- mroz$inlf
+nwifeinc <- mroz$nwifeinc
+educ <- mroz$educ
+exper <- mroz$exper
+exper2 <- exper^2
+age <- mroz$age
+kidslt6 <- mroz$kidslt6
+kidsge6 <- mroz$kidsge6
+
+
+numTimeVals <- length(nwifeinc)
+zuerkl <- inlf
+numVar <- 8
+erkl <- matrix(0,numTimeVals,numVar)
+erkl[,1] <- nwifeinc
+erkl[,2] <- educ
+erkl[,3] <- exper
+erkl[,4] <- exper2
+erkl[,5] <- age
+erkl[,6] <- kidslt6
+erkl[,7] <- kidsge6
+erkl[,8] <- rep(1,numTimeVals)
+
+neglogitloglik <- function(betas,x,y){
+  vals <- x %*% betas
+  TT <- length(y)
+  summanden <- y*log(plogis(vals)) + (1-y)*log(1-plogis(vals))
+  return (-sum(summanden))
+}
+
+beta_anf <- 0
+
+obj2 <- optim(par=rep(beta_anf,numVar),neglogitloglik,x=erkl, y=zuerkl, hessian=T)
+print(obj2$par)
+solve(obj2$hessian)
+
+pred <- obj2$par%*%c(30,14,10,10^2,44,0,3,1)
+plogis(pred)
+
+#t value
+abs(obj2$par[2]/obj2$hessian[2,2])
+# -> significantly different from 0
+\end{verbatim}
+\begin{itemize}
+  \item Logit models are used to model binary outcomes, such as consumption decisions, labor decisions, agricultural decisions,\dots, and are among the most used models in applied econometrics.
+  \item The logit model forecasts probabilities, which are in between 0 and 1: $Pr(Y=1|x)=F(x'\beta)$
+  \item Interpretation of coefficients:
+  \begin{itemize}
+    \item Increase in $x$ makes outcome of 1 more (or less) likely, we therefore interpret the sign of the coefficients.
+    \item Marginal effects at a specific $x$ (most commonly at mean $\bar{x}$): $\frac{\partial p}{\partial x_j} = \frac{e^{x'\beta}}{(1+e^{x'\beta})^2}\beta_j$. Note that coefficients and marginal effects have the same sign.
+    \item Average marginal effects are computed over all $x$.
+  \end{itemize}
+  \item Probit and Logit have usually very similar marginal effects, which model depends on an evaluation of the data generating process. Most of the times it doesn't matter though.
+\end{itemize}
+\end{Solution}
+\begin{Solution}{12.8}
+\textbf{Heckman regression}
+
+\begin{enumerate}
+\item Each observation contributes a factor to the likelihood function:
+\begin{align*}
+I(z_t=0)Pr(z_t=0) + I(z_t=1)Pr(z_t=1)f(y_t^*|z_t=1)
+\end{align*}
+where $I(z_t=0)$ is the indicator function and $f(y_t^*|z_t=1)$ denotes the density of $y_t^*$ conditional on $z_t=1$. The loglikelihood function is
+\begin{align*}
+\sum_{z_t=0}log Pr(z_t=0) + \sum_{z_t=1}log Pr(z_t=1)f(y_t^*|z_t=1) = \sum_{z_t=0}log Pr(z_t=0) + \sum_{z_t=1}log\left(Pr(z_t=1|y_t^*)f(y_t^*)\right)
+\end{align*}
+where $f(y_t^*)$ is the normal density with mean $X_t\beta$ and variance $\sigma^2$. The first term, where $z_t=0$, is the same as in a probit model.
+
+Lets calculate $Pr(z_t=1|y_t^*)$. Since $u_t$ and $v_t$ are bivariate normal, we can write $v_t=\rho u_t/\sigma + \varepsilon_t$, where $\varepsilon_t$ is a normally distributed random variable with mean 0 and variance $(1-\rho^2)$. Thus
+\begin{align*}
+z_t^* = W_t\gamma+\rho(y_t^*-X_t\beta)/\sigma + \varepsilon_t
+\end{align*}
+Because $y_t=y_t^*$ for $z_t=1$, it follows that
+\begin{align*}
+Pr(z_t=1|y_t^*) = \Phi\left(\frac{W_t\gamma + \rho(y_t-X_t\beta)/\sigma}{(1-\rho^2)^{1/2}}\right)
+\end{align*}
+Combining everything the loglikelihood is given by
+\begin{align*}
+\sum_{z_t=0}log\Phi(-W_t\gamma) + \sum_{z_t=1}log\left(\frac{1}{\sigma}\phi\left((y_t-X_t\beta)/\sigma\right)\right) + \sum_{z_t=1} log \Phi\left(\frac{W_t\gamma + \rho(y_t-X_t\beta)/\sigma}{(1-\rho^2)^{1/2}}\right)
+\end{align*}
+
+\item Make variable in-labor-force if wage is observed:
+\begin{verbatim}
+library(foreign); womanwk <- read.dta(file.choose());
+womanwk$inlf <- rep(1,dim(womanwk)[1]); womanwk$inlf[is.na(womanwk$wage)] <- 0
+\end{verbatim}
+
+\item In the underlying model women choose whether to work and if they do, we observe their wages. If women made this decision randomly, we could ignore that not all wages are observed and use ordinary regression to fit a wage model. Such an assumption of random participation, however, is unlikely to be true; women who would have low wages may be unlikely to choose to work, and thus the sample of observed wages is biased upward. In the jargon of economics, women choose not to work when their personal reservation wage is greater than the wage offered by employers. Thus women who choose not to work might have even higher offer wages than those who do work—they may have high offer wages, but they have even higher reservation wages. We could tell a story that competency is related to wages, but competency is rewarded more at home than in the labor force In any case, in this problem—which is the paradigm for most such problems—a solution can be found if there are some variables that strongly affect the chances for observation (the reservation wage) but not the outcome under study (the offer wage). Such a variable might be the number of children in the home. (Theoretically, we do not need such identifying variables, but without them, we depend on functional form to identify the model. It would be difficult for anyone to take such results seriously because the functional form assumptions have no firm basis in theory.)
+
+\item The code might look like this
+\begin{verbatim}
+################################################
+#### Sample selectivity: Heckman regression ####
+################################################
+rm(list=ls())
+dev.off()
+cat("\014")
+library(foreign)
+womanwk <- read.dta(file.choose())
+# make variable in-labor-force if wage is observed
+womanwk$inlf <- rep(1,dim(womanwk)[1])
+womanwk$inlf[is.na(womanwk$wage)] <- 0
+
+negloglik <- function(param,dat){
+  y <- as.matrix(dat$wage)
+  X <- as.matrix(cbind(1,dat$educ, dat$age))
+  z <- as.matrix(dat$inlf)
+  W <- as.matrix(cbind(1, dat$married, dat$children, dat$age, dat$educ))
+
+  bet <- param[1:dim(X)[2]]
+  gam <- param[(dim(X)[2]+1):(dim(X)[2]+dim(W)[2])]
+  rho_aux <- param[dim(X)[2]+dim(W)[2]+1] #rho_aux is unconstrained
+  #rho <- -1 + 0.5*(1+1)*(1+tanh(rho_aux)) #this constraints rho to be between -1 and 1
+  rho <- (exp(2*rho_aux)-1)/(1+exp(2*rho_aux)) #this constraints rho to be between -1 and 1
+  sigm_aux <- param[dim(X)[2]+dim(W)[2]+2]#sigm_aux is unconstrained
+  sigm <- exp(sigm_aux) #sigm is positive
+  X_bet <- X%*%as.matrix(bet)
+  W_gam <- W%*%as.matrix(gam)
+  sum1 <- sum(log(pnorm(-W_gam[z==0])))
+  sum2 <- sum(log(1/sigm*dnorm((y[z==1]-X_bet[z==1])/sigm)))
+  sum3 <- sum(log(pnorm( (W_gam[z==1]+rho*(y[z==1]-X_bet[z==1])/sigm)/(sqrt(1-rho^2)) )))
+  return (-(sum1+sum2+sum3))
+}
+
+#Finding good starting values is hard, an alternative method is Heckman's two-step method
+#Step1: Probit regression of selection equation
+y <- as.matrix(womanwk$wage)
+X <- as.matrix(cbind(1,womanwk$educ, womanwk$age))
+z <- as.matrix(womanwk$inlf)
+W <- as.matrix(cbind(1, womanwk$married, womanwk$children, womanwk$age, womanwk$educ))
+step1 <- glm(z ~ -1 + W, family=binomial(link="probit"))
+gam_anf <- coef(step1)
+#Step 2: OLS regression with inverse Mills ratio as additional regressor
+aux <- dnorm(W%*%as.matrix(gam_anf))/pnorm(W%*%as.matrix(gam_anf))
+step2 <- lm(y ~ -1 + X + aux)
+bet_anf <- coef(step2)[1:dim(X)[2]]
+rho_anf <- c(0.7)
+sigm_anf <- coef(step2)[dim(X)[2]+1]/rho_anf
+par_anf <- c(bet_anf,gam_anf,rho_anf,sigm_anf); names(par_anf) <- NULL;
+
+#Maximum Likelihood with constraints: rho in (-1;1) and sigm>0
+#par_anf[9] <- tanh( 2*(par_anf[9]+1)/(1+1)-1) #rescale rho
+par_anf[9] <- 1/2*log((1+par_anf[9])/(1-par_anf[9])) #rescale rho
+par_anf[10] <- log(par_anf[10]) #rescale sigm
+obj <- optim(par=par_anf,negloglik,dat=womanwk, hessian=T)
+obj$value
+
+#Show parameters, rescale rho and sigm
+estimates <- obj$par
+#estimates[9] <- -1 + 0.5*(1+1)*(1+tanh(estimates[9]))
+estimates[9] <- (exp(2*estimates[9])-1)/(1+exp(2*estimates[9]))
+estimates[10] <- exp(estimates[10])
+print(estimates)
+diag(solve(obj$hessian))
+\end{verbatim}
+
+\end{enumerate}
+\end{Solution}
+\begin{Solution}{12.9}
+\textbf{Count data}
+
+The loglikelihood function is
+\begin{align*}
+\sum_{i=1}^{n}\left(-exp(x_i\beta) + y_i X_i\beta - log(y_i!)\right)
+\end{align*}
+The code might look like this:
+\begin{verbatim}
+####################
+#### Count data ####
+####################
+rm(list=ls()); dev.off(); cat("\014");
+
+players <- read.csv(choose.files())
+
+## Negative Log-likelihood
+neg_ll <- function(bet,dat){
+  position <- dat$position
+  age <- dat$age
+  training <- dat$training
+  salary <- dat$salary
+  bonus <- dat$bonus
+  y <- dat$goals
+  X <- cbind(1,position,age,age^2,training,salary,bonus)
+  ll <- sum(-exp(X%*%bet)+y*X%*%bet-log(factorial(y)))
+  return(-ll)
+}
+#Log-likelihood maximieren
+out <- optim(par=c(-1,0.01,0.01,-0.01,0.01,0.01,0.01), fn=neg_ll,dat=players,hessian=T)
+par <- out$par
+
+## Standardabweichung der einzelnen Parameter
+sdbeta <- round(sqrt(diag(solve(out$hessian))),8)
+sdbeta
+
+#Wahrscheinlichkeit, über drei Tore
+mu <- (1*par[1]+1*par[2]+25*par[3]+25^2 * par[4] + 15*par[5]+ 700 *
+         par[6] + 0)
+
+1-ppois(3,mu)
+#0.001064403
+# Sehr unwahrscheinlich unter diesen Gegebenheiten über drei Tore zu schießen.
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{12.10}
+\textbf{Stochastic frontier analysis}
+
+\begin{enumerate}
+\item The density of the merged error term $\varepsilon $ is%
+\begin{eqnarray}
+f_{\varepsilon }\left( x\right)  &=&f_{v-u}\left( x\right)   \notag \\
+&=&\int_{0}^{\infty }f_{v}\left( u+x\right) \cdot f_{u}\left( u\right) du
+\notag \\
+&=&\int_{0}^{\infty }\phi \left( \frac{u+x}{\sigma }\right) \cdot \lambda
+e^{-\lambda u}du  \notag \\
+&=&\int_{0}^{\infty }\frac{1}{\sqrt{2\pi }}e^{-\frac{1}{2}\left( \frac{u+x}{%
+\sigma }\right) ^{2}}\lambda e^{-\lambda u}du  \notag \\
+&=&\frac{\lambda }{\sqrt{2\pi }}\int_{0}^{\infty }\exp \left( -\frac{1}{2}%
+\left( \frac{u+x}{\sigma }\right) ^{2}-\lambda u\right) du.  \label{eq1}
+\end{eqnarray}%
+The integral in (\ref{eq1}) can be manipulated in a way similar to exercise %
+\ref{moments}.2,%
+\begin{eqnarray*}
+&&\int_{0}^{\infty }\exp \left( -\frac{1}{2}\left( \frac{u+x}{\sigma }%
+\right) ^{2}-\lambda u\right) du \\
+&=&\int_{0}^{\infty }\exp \left( -\frac{u^{2}+2u\left( x+\lambda \sigma
+^{2}\right) +x^{2}}{2\sigma ^{2}}\right) du \\
+&=&\int_{0}^{\infty }\exp \left( -\frac{u^{2}+2u\left( x+\lambda \sigma
+^{2}\right) +\left( x+\lambda \sigma ^{2}\right) ^{2}+x^{2}-\left( x+\lambda
+\sigma ^{2}\right) ^{2}}{2\sigma ^{2}}\right) du \\
+&=&\int_{0}^{\infty }\exp \left( -\frac{\left( u+\left( x+\lambda \sigma
+^{2}\right) \right) ^{2}+x^{2}-\left( x+\lambda \sigma ^{2}\right) ^{2}}{%
+2\sigma ^{2}}\right) du \\
+&=&\exp \left( -\frac{x^{2}-\left( x+\lambda \sigma ^{2}\right) ^{2}}{%
+2\sigma ^{2}}\right) \int_{0}^{\infty }\exp \left( -\frac{1}{2}\left( \frac{%
+u-\left( -x-\lambda \sigma ^{2}\right) }{\sigma }\right) ^{2}\right) du.
+\end{eqnarray*}%
+Substituting the integral in (\ref{eq1}) we arrive at%
+\begin{eqnarray*}
+f_{\varepsilon }\left( x\right)  &=&\lambda \exp \left( -\frac{x^{2}-\left(
+x+\lambda \sigma ^{2}\right) ^{2}}{2\sigma ^{2}}\right)  \\
+&&\times \int_{0}^{\infty }\frac{1}{\sqrt{2\pi }}\exp \left( -\frac{1}{2}%
+\left( \frac{u-\left( -x-\lambda \sigma ^{2}\right) }{\sigma }\right)
+^{2}\right) du.
+\end{eqnarray*}%
+The first factor can be simplified to%
+\begin{equation*}
+\lambda \exp \left( -\frac{x^{2}-\left( x+\lambda \sigma ^{2}\right) ^{2}}{%
+2\sigma ^{2}}\right) =\lambda \exp \left( \lambda x+\frac{\sigma ^{2}\lambda
+^{2}}{2}\right) ,
+\end{equation*}%
+and the integrand in the second factor is simply the density of a normal
+distribution with mean $\left( -x-\lambda \sigma ^{2}\right) $ and variance $%
+\sigma ^{2}$. Thus the value of the integral can be derived from the cdf of $%
+N(0,1)$ as follows,%
+\begin{equation*}
+\int_{0}^{\infty }\frac{1}{\sqrt{2\pi }}\exp \left( -\frac{1}{2}\left( \frac{%
+u-\left( -x-\lambda \sigma ^{2}\right) }{\sigma }\right) ^{2}\right) du=\Phi
+\left( \frac{-x-\lambda \sigma ^{2}}{\sigma }\right) .
+\end{equation*}%
+In sum, the density of $\varepsilon $ is%
+\begin{equation*}
+f_{\varepsilon }\left( x\right) =\lambda \exp \left( \lambda x+\frac{\sigma
+^{2}\lambda ^{2}}{2}\right) \Phi \left( \frac{-x-\lambda \sigma ^{2}}{\sigma
+}\right)
+\end{equation*}%
+and its logarithm is%
+\begin{equation*}
+\ln f_{\varepsilon }\left( x\right) =\ln \lambda +\lambda x+\frac{\sigma
+^{2}\lambda ^{2}}{2}+\ln \Phi \left( \frac{-x-\lambda \sigma ^{2}}{\sigma }%
+\right) .
+\end{equation*}
+
+\item The code might look like this:
+\begin{verbatim}
+######################################
+#### Stochastic Frontier Analysis ####
+######################################
+
+##Log-Likelihood Funktion, die maximiert werden soll
+neg_log_likeli <- function(theta, daten){
+  A <- theta[1]
+  alpha <- theta[2]
+  beta <- theta[3]
+  lambda <- theta[4]
+  sigma <- theta[5]
+
+  x1 <- daten[,3]
+  x2 <- daten[,4]
+  y <- daten[,2]
+
+  logA <- log(A)
+  logy <- log(y)
+  logx1 <- log(x1)
+  logx2 <- log(x2)
+
+  eps <- logy - logA - alpha*logx1 - beta*logx2
+
+  log_likeli <- sum(log(lambda*exp(lambda*eps+lambda^2/2*sigma^2)*pnorm(
+                                  -eps/sigma-lambda*sigma,mean=0,sd=1)))
+  return(-log_likeli)
+}
+
+daten <- read.csv(file.choose())
+head(daten)
+
+##Schätzung der Parameter
+opt <- optim(c(7, 0.3, 0.7, 10, 3), neg_log_likeli, daten=daten, hessian=T)
+opt
+
+A <- opt$par[1]
+alpha <- opt$par[2]
+beta <- opt$par[3]
+lambda <- opt$par[4]
+sigma <- opt$par[5]
+
+##Standardfehler: Problem mit negativen Werten, hier kleine Stichprobe das Problem
+diag(solve(opt$hessian))
+
+##Geschätzte Ineffizienzen
+epsilon <- log(daten$ValueAdd)-log(A)-alpha*log(daten$Capital)-beta*log(daten$Labor)
+plot(epsilon)
+hist(epsilon, freq=F)
+curve(lambda*exp(lambda*x+lambda^2/2*sigma^2)*pnorm(-x/sigma-lambda*sigma, mean=0, sd=1),
+                                                        from=-1, to=1, add=T, col="red")
+\end{verbatim}
+\end{enumerate}
+
+\begin{itemize}
+  \item SFA are also called \emph{composed error models}. In a production context efficiency loss is modelled as $-u$, in a cost context as $+u$.
+  \item SFA models are also used to measure efficiency of the banking system, level of competitiveness of a market, quality of inputs and outputs, regulation, management evaluation,\dots
+  \item Basic idea is that the ratio of observed output to maximum possible output is less or equal to 1.
+  \item How to estimate inefficiency?
+  \begin{itemize}
+    \item We can compute residuals $\hat{\varepsilon_t} = \widehat{u_t+v_t}$. Since $E(v_t)=0$ we can conclude that if the residual is high, then so is the inefficiency.
+    \item Jondrow, Lovell, Materov, Schmidt (JLMS) approach: Look at the mean (or mode) of the conditional distribution.
+  \end{itemize}
+\end{itemize}
+\end{Solution}
+\begin{Solution}{12.11}
+\textbf{ARCH models}
+
+For ARCH models we have:
+\begin{align*}
+E(X_t|X_{t-1}) = E(\varepsilon_t \sigma_t|X_{t-1}) = E(\varepsilon_t\sqrt{\omega+\alpha X_{t-1}^2}|X_{t-1}) =\sqrt{\omega+\alpha X_{t-1}^2} E(\varepsilon_t|X_{t-1}) = 0
+\end{align*}
+and
+\begin{align*}
+Var(X_t|X_{t-1}) = Var(\varepsilon_t \sigma_t|X_{t-1}) = Var(\varepsilon_t\sqrt{\omega+\alpha X_{t-1}^2}|X_{t-1}) = (\omega+\alpha X_{t-1}^2)\underbrace{E(\varepsilon_t^2|X_{t-1})}_{=1} = \omega+\alpha X_{t-1}^2
+\end{align*}
+since $\varepsilon_t$ is independent of $X_{t-1}$. Given that $\varepsilon_t \sim N(0,1)$, the conditional density of $X_t$ given $X_{t-1}$ is
+\begin{align*}
+X_t|X_{t-1} \sim N(0,\omega+\alpha X_{t-1}^2)
+\end{align*}
+In general we can factorize a joint likelihood function:
+\begin{align*}
+  f_{X_1,\dots,X_T}(x_1,\dots,x_T) = \prod_{t=1}^{T}f_{X_t|X_{t-1},\dots,X_1}(x_t|X_{t-1,\dots,x_1})
+\end{align*}
+In our case:
+\begin{align*}
+  f_{X_1,\dots,X_T}(x_1,\dots,x_T) = f_{X_1}(x_1)\prod_{t=2}^{T}\frac{1}{\sqrt{2\pi(\omega+\alpha x_{t-1}^2)}}\exp\left(-\frac{1}{2}\left(\frac{x_t}{\omega+\alpha x_{t-1}^2}\right)^2\right)
+\end{align*}
+We can ignore $f_{X_1}(x_1)$ for large sample sizes, since it contribution is relatively small the larger the sample size. The log-likelihood is then given by
+\begin{align*}
+  -\frac{T-2}{2}log(2\pi)-\frac{1}{2}\sum_{t=2}^{T}log(\omega+\alpha x_{t-1}^2) - \frac{1}{2} \sum_{t=2}^{T} \left(\frac{x_t}{\omega+\alpha x_{t-1}^2}\right)^2
+\end{align*}
+The code might look like this
+\begin{verbatim}
+#####################
+#### ARCH Models ####
+#####################
+
+arch1_ll <- function(theta, tseries) {
+  omega <- theta[1]
+  alpha <- theta[2]
+  Te <- length(tseries)
+  return((Te - 1) / 2 * log(2 * pi)
+         + 0.5 * sum(log(omega + alpha * tseries[1:(Te - 1)]^2))
+         + 0.5 * sum((tseries[2:Te]^2 /
+                        (omega + alpha * tseries[1:(Te - 1)]^2))))
+}
+
+arch1bsp <- read.csv(file.choose(), header = TRUE)
+
+estimate <- optim(par = c(0.2, 0.9), fn = arch1_ll, tseries = arch1bsp$x,
+                  hessian = TRUE)
+estimate$par
+solve(estimate$hessian)
+
+gitter <- seq(0.05, 0.95, by = 0.01)
+value_omega <- rep(NA, length(gitter))
+value_alpha <- rep(NA, length(gitter))
+for (i in 1:length(gitter)) {
+  value_omega[i] <- -arch1_ll(c(gitter[i], estimate$par[2]),
+                              tseries = arch1bsp$x)
+  value_alpha[i] <- -arch1_ll(c(estimate$par[1], gitter[i]),
+                              tseries = arch1bsp$x)
+}
+plot(gitter, value_omega, type = "l", xlab = expression(omega),
+     ylab = "",
+     main = expression(paste("log-Likelihood in Abhängigkeit von ", omega,
+                             ", ", alpha, " = 0.9376")), lwd = 2,
+     cex.axis = 1.5, cex.lab = 2, cex.main = 2)
+mtext(text = expression(paste("logL(", omega, ")")), side = 2, cex = 2,
+      line = 2.2)
+abline(h = -estimate$value, col = "red")
+abline(v = estimate$par[1], col = "red")
+
+plot(gitter, value_alpha, type = "l", xlab = expression(alpha),
+     ylab = "",
+     main = expression(paste("log-Likelihood in Abhängigkeit von ", alpha,
+                             ", ", omega, " = 0.2056")), lwd = 2,
+     cex.axis = 1.5, cex.lab = 2, cex.main = 2)
+mtext(text = expression(paste("logL(", alpha, ")")), side = 2, cex = 2,
+      line = 2.2)
+abline(h = -estimate$value, col = "red")
+abline(v = estimate$par[2], col = "red")
+
+# Unbedingte Varianz
+estimate$par[1] / (1 - estimate$par[2])
+\end{verbatim}
+\begin{itemize}
+\item Volatility is not observable. To measure volatility by the empirical standard deviation is only valid if volatility is relatively stable, but usually we have time-variation in volatility.
+\item Idea of ARCH is that volatility is dependent on past observations (conditional distribution is time-varying), however, the unconditional distribution is still stationary.
+\end{itemize}
+\end{Solution}
+\begin{Solution}{12.12}
+\textbf{Duration models}
+
+\begin{enumerate}
+\item Obtaining the survivor function is very easy:
+\begin{align*}
+  S(t) \equiv 1-F(t) = exp(-(\theta t)^\alpha)
+\end{align*}
+For the pdf
+\begin{align*}
+  f(t) = \frac{\partial F(t)}{\partial t} = \alpha \theta^\alpha t^{\alpha-1} exp(-(\theta t)^\alpha)
+\end{align*}
+The hazard function is then given by
+\begin{align*}
+h(t) \equiv \frac{f(t)}{S(t)} = \frac{ \alpha \theta^\alpha t^{\alpha-1} exp(-(\theta t)^\alpha)}{exp(-(\theta t)^\alpha)} = \alpha \theta^\alpha t^{\alpha-1}
+\end{align*}
+When $\alpha=1$, the Weibull distribution collapses to the exponential and the hazard is just a constant (duration independent). For $\alpha<1$, the hazard is decreasing over time (negative duration dependence) and for $\alpha>1$ it is increasing (positive duration dependence).
+\item Taking the log of $f(t_i)$ yields
+\begin{align*}
+  log(f(t_i)) = log\left(h(t_i)\right) + log\left(S(t_i)\right) = log(\alpha_i) +\alpha_i log(\theta_i) + (\alpha_i-1)log(t_i) -(\theta_i t_i)^\alpha_i
+\end{align*}
+Since $\theta_i = exp(X_i\beta)$ and $\alpha_i=\alpha$ for all i, we have
+\begin{align*}
+  log(f(t_i,X_i,\alpha,\beta)) = log(\alpha) +\alpha X_i \beta + (\alpha-1)log(t_i) - t_i^\alpha \cdot exp(\alpha X_i \beta)
+\end{align*}
+Summing over all n independent observations gives the log-likelihood
+\begin{align*}
+log(f(t,X,\alpha,\beta)) = n log(\alpha) + \alpha \sum_{i=1}^{n} X_i\beta + (\alpha-1) \sum_{i=1}^{n}log(t_i) - \sum_{i=1}^{n} t_i^\alpha \cdot exp(\alpha X_i \beta)
+\end{align*}
+Since data sets contain observations for which $t_i$ is not actually observed (e.g. sample of people who entered unemployment at various points in time, then it is extremely likely that some peaple in the sample were still unemployed when data collection ended). We can deal with this censoring, i.e. the observed $t_i$ is the duration of an incomplete spell, it is the logarithm of the probability of censoring, which is the probability that the duration exceed $t_i$, that is, the log of the survivor function. Denote U as the set of $n_u$ uncensored observations, the loglikelihood function for the entire sample is then
+\begin{align*}
+log(f(t,X,\alpha,\beta)) = n_u log(\alpha) + \alpha \sum_{i\in U} X_i\beta + (\alpha-1) \sum_{i\in U}log(t_i)  - \sum_{i=1}^{n} t_i^\alpha \cdot exp(\alpha X_i \beta)
+\end{align*}
+Uncensored observations contribute to both terms, while censored observations contribute only to the Survivor function.
+\item The code might look like this
+\begin{verbatim}
+#########################
+#### Duration models ####
+#########################
+
+## Load data
+spells <- read.csv(file.choose())
+View(spells)
+
+##Negative log-likelihood
+neg_log_likeli <- function(param, dat) {
+  beta <- as.matrix(param[1:3])
+  alpha <- param[4]
+
+  t <- dat$duration
+  const <- dat$const
+  x1 <- dat$X1
+  x2 <- dat$X2
+  X <- as.matrix(cbind(const,x1,x2))
+  idx_uncens <- which(t<0.5)
+  nu <- length(idx_uncens)
+  log_likeli <- nu*log(alpha) + alpha*sum(X[idx_uncens,]%*%beta)
+            + (alpha-1)*sum(log(t[idx_uncens])) - sum((t^alpha)*exp(alpha*X%*%beta))
+  return(-log_likeli)
+}
+
+##Schätzung der Parameter
+par_anf <- c(1,0.7,0.3, 1.3)
+neg_log_likeli(par_anf,spells)
+opt <- optim(par=par_anf, neg_log_likeli, dat=spells, hessian=T)
+print(opt$par)
+
+##Standardfehler
+diag(solve(opt$hessian))
+\end{verbatim}
+\end{enumerate}
+\begin{itemize}
+\item The terminology like survival or hazard is due to evolutionary concepts, however, duration models in economics are quite often found in the labor market literature. Also: strike duration, state of being single (until marriage), etc.
+\end{itemize}
+\end{Solution}
+\begin{Solution}{12.13}
+\textbf{Ultra-high-frequency data}
+\end{Solution}
+\begin{Solution}{12.14}
+\textbf{Spatial dependence }
+
+\begin{enumerate}
+\item The model can be written as%
+\begin{eqnarray*}
+\left( I-\rho W\right) y &=&\alpha +\delta z+u \\
+y &=&\left( I-\rho W\right) ^{-1}\left( \alpha +\delta z\right) +\left(
+I-\rho W\right) ^{-1}u.
+\end{eqnarray*}%
+To keep the notation short, define $D=\left( I-\rho W\right) ^{-1}$. Since $u
+$ is multivariate normal, $u\sim N(0,\sigma ^{2}I_{n})$, we find that%
+\begin{equation*}
+y\sim N\left( \mu ,\Sigma \right)
+\end{equation*}%
+with%
+\begin{eqnarray*}
+\mu  &=&D\left( \alpha +\delta z\right)  \\
+\Sigma  &=&\sigma ^{2}DD^{\prime }
+\end{eqnarray*}
+
+\item The joint density of $y$, i.e. the likelihood function, is%
+\begin{eqnarray*}
+L\left( \alpha ,\delta ,\rho ,\sigma \right)  &=&(2\pi )^{-n/2}\left[ \det (%
+\mathbf{\Sigma })\right] ^{-1/2}\cdot \exp \left( -\frac{1}{2}\left( \mathbf{%
+x}-\mathbf{\mu }\right) ^{\prime }\mathbf{\Sigma }^{-1}\left( \mathbf{x}-%
+\mathbf{\mu }\right) \right)  \\
+&=&(2\pi )^{-n/2}\left[ \det (\sigma ^{2}DD^{\prime })\right] ^{-1/2} \\
+&&\times \exp \left( -\frac{1}{2}\left( y-D\left( \alpha +\delta z\right)
+\right) ^{\prime }\left( \sigma ^{2}DD^{\prime }\right) ^{-1}\left(
+y-D\left( \alpha +\delta z\right) \right) \right) .
+\end{eqnarray*}%
+Consider the terms in turn,%
+\begin{eqnarray*}
+\left[ \det (\sigma ^{2}DD^{\prime })\right] ^{-1/2} &=&\left[ \sigma
+^{2n}\det \left( DD^{\prime }\right) \right] ^{-1/2} \\
+&=&\left( \sigma ^{2}\right) ^{-n/2}\det \left( D\right) ^{-1} \\
+&=&\left( \sigma ^{2}\right) ^{-n/2}\det (I-\rho W)
+\end{eqnarray*}%
+since $\det (D)=\det (D^{\prime })$ and $\det (D)^{-1}=\det (I-\rho W)$.
+Next, the term inside the exponential function is%
+\begin{eqnarray*}
+&&-\frac{1}{2}\left( y-D\left( \alpha +\delta z\right) \right) ^{\prime
+}\left( \sigma ^{2}DD^{\prime }\right) ^{-1}\left( y-D\left( \alpha +\delta
+z\right) \right)  \\
+&=&-\frac{1}{2\sigma ^{2}}\left( y-D\left( \alpha +\delta z\right) \right)
+^{\prime }D^{-1\prime }D^{-1}\left( y-D\left( \alpha +\delta z\right)
+\right)  \\
+&=&-\frac{1}{2\sigma ^{2}}\left[ D^{-1}\left( y-D\left( \alpha +\delta
+z\right) \right) \right] ^{\prime }\left[ D^{-1}\left( y-D\left( \alpha
++\delta z\right) \right) \right]  \\
+&=&-\frac{1}{2\sigma ^{2}}\left[ D^{-1}y-\alpha -\delta z\right] ^{\prime }%
+\left[ D^{-1}y-\alpha -\delta z\right]  \\
+&=&-\frac{\left( y-\rho Wy-\alpha -\delta z\right) ^{\prime }\left( y-\rho
+Wy-\alpha -\delta z\right) }{2\sigma ^{2}}.
+\end{eqnarray*}%
+Hence, the log-likelihood function is%
+\begin{eqnarray*}
+\ln L\left( \alpha ,\delta ,\rho ,\sigma \right)  &=&-\frac{n}{2}\ln \left(
+2\pi \sigma ^{2}\right) +\ln \left( \det \left( I-\rho W\right) \right)  \\
+&&-\frac{\left( y-\rho Wy-\alpha -\delta z\right) ^{\prime }\left( y-\rho
+Wy-\alpha -\delta z\right) }{2\sigma ^{2}}.
+\end{eqnarray*}
+
+\item (...)
+\end{enumerate}
+
+The code might look like this:
+\begin{verbatim}
+############################
+#### Spatial dependence ####
+############################
+# 3)
+# Einlesen der Datensätze
+spatial = read.csv(file.choose(), header = T, sep = "")
+neighbour = read.csv(file.choose(), header = T, sep = "")
+
+# 4)
+# Normalisieren der Nachbarschaftsmatrix
+W.norm = neighbour / rowSums(neighbour)
+
+# 5)
+# Log-Likelihood-Funktion bestimmen und optimieren
+ll_Spatial = function(y, z, W, theta){
+  W = as.matrix(W)
+  n = length(y)
+  rho = theta[1]
+  alpha = theta[2]
+  delta = theta[3]
+  sigma = theta[4] # hier sigma^2
+  In = diag(n)
+  A = t(y - rho*W%*%y - alpha - delta*z)%*%(y - rho*W%*%y - alpha - delta*z)
+  loglik = -n/2*log(2*pi*sigma) + log(det(In - rho*W)) - A/(2*sigma)
+  return(loglik)
+}
+
+optModel = optim(c(0.5 ,1 ,2 ,3) , ll_Spatial , y = spatial$HPrice07 ,
+                 z =spatial$HHIncome07 , W = W.norm, hessian = T,
+                 method = "L-BFGS-B",lower = c(-1,-Inf ,-Inf ,0),
+                 upper = c(1, Inf , Inf , Inf), control = list(fnscale = -1))
+
+# optimale Parameter des Modells
+(param <- optModel$par)
+
+# 6)
+# Test auf signifikante spatiale Autokorrelation
+# Hessematrix
+(H = optModel$hessian)
+
+# Geschätzte Kovarianzmatrix
+(covmat <- -solve(H))
+
+# Berechnen der Standardfehler
+(errors = sqrt(diag(covmat)))
+
+# t-Test auf signifikante Autokorrelation
+param[1]/errors[1]
+# Eindeutig größer als das 1-alpha/2 Quantil der N(0,1)-Verteilung (1.96)
+# --> zum Niveau 5% ein von 0 verschiedene räumliche Autokorrelation
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{13.1}
+\textbf{The miracle of the instruments}
+The code might look like this:
+\begin{verbatim}
+########################################
+#### The miracle of the instruments ####
+########################################
+  #1)
+  library(MASS)
+  library(AER)
+
+  # Generate data: both exogenous variables are correlated with u
+  Omega <- matrix(c(
+  2,0.3,0.5,0.7,
+  0.3,1,0.5,0.7,
+  0.5,0.5,1,0,
+  0.7,0.7,0,1),nrow=4,ncol=4)
+
+  n <- 100
+  dat <- mvrnorm(n,c(5,5,0,5),Omega)
+  x1 <- dat[,1]
+  x2 <- dat[,2]
+  u <- dat[,3]
+  w <- dat[,4] # instrument
+  y <- 1+2*x1+3*x2+u
+  obj <- ivreg(y~x1+x2|w) #does not work
+
+  #2)
+  R <- 1000
+  Z <- matrix(NA,nrow=R,ncol=3)
+  ZZ <- matrix(NA,nrow=R,ncol=3)
+  for(r in 1:R) {
+    dat <- mvrnorm(n,c(5,5,0,5),Omega)
+    x1 <- dat[,1]
+    x2 <- dat[,2]
+    u <- dat[,3]
+    w <- dat[,4] # instrument
+    y <- 1+2*x1+3*x2+u
+
+    #OLS is inconsistent
+    ols <- lm(y~x1+x2)
+
+    # IV from AER-package
+    w2 <- w^2
+    w3 <- w^3
+    obj <- ivreg(y~x1+x2|w2+w3)
+
+    #store estimates
+    Z[r,] <- coefficients(obj)
+    ZZ[r,] <- coefficients(ols)
+    }
+
+  print(apply(Z,2,median))
+  print(apply(Z,2,mean))
+  print(apply(Z,2,sd))
+
+  print(apply(ZZ,2,median))
+  print(apply(ZZ,2,mean))
+  print(apply(ZZ,2,sd))
+
+  par(mfrow=c(3,1))
+  truehist(Z[,1])
+  truehist(Z[,2])
+  truehist(Z[,3])
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{13.2}
+\textbf{Linear combinations of instruments}
+
+\end{Solution}
+\begin{Solution}{13.3}
+\textbf{Compulsory School Attendance}
+
+The code might look like this:
+\begin{verbatim}
+######################################
+#### Compulsory School Attendance ####
+######################################
+  library(foreign)
+  library(AER)
+  graphics.off()
+
+  #1) Replicate Figure I and II
+    x <- read.dta(file.choose())
+    View(x)
+    dob <- x$yob+(x$qob-1)*0.25
+
+    # Figure I
+    Z <- matrix(NA,40,2)
+    Z[,1] <- seq(1930,1939.75,by=0.25)
+    for(i in 1:dim(Z)[1]) {
+      Z[i,2] <- mean(x$educ[dob==Z[i,1]])
+    }
+    plot(Z,t="o",main="Figure I",xlab="Year of Birth",
+                                        ylab="Years of Completed Education",ylim=c(12.2,13.2))
+
+    # Figure II
+    Z <- matrix(NA,40,2)
+    Z[,1] <- seq(1940,1949.75,by=0.25)
+    for(i in 1:dim(Z)[1]) {
+      Z[i,2] <- mean(x$educ[dob==Z[i,1]])
+    }
+    plot(Z,t="o",main="Figure II",xlab="Year of Birth"
+                                        ,ylab="Years of Completed Education",ylim=c(13,13.9))
+
+  #2) Replicate Figure V
+    Z <- matrix(NA,80,2)
+    Z[,1] <- seq(1930,1949.75,by=0.25)
+    for(i in 1:dim(Z)[1]) {
+      Z[i,2] <- mean(x$lwklywge[dob==Z[i,1]])
+    }
+    plot(Z,t="o",main="Figure V",xlab="Year of Birth",ylab="Log Weekly Earnings")
+
+  #3) Replicate column 1 of table IV
+    # Backup data
+    backup <- x
+    # Drop all persons born after 1929Q4
+    x <- x[x$yob<1930,]
+    dob <- x$yob+(x$qob-1)*0.25
+
+    # Create yob dummies
+    Dyear <- factor(x$yob)
+
+    # Column (1)
+    regr <- lm(x$lwklywge ~ x$educ + Dyear)
+    summary(regr)
+
+  #4) Replicate column 3 of table IV
+    age <- 1970-dob
+    # Column (3)
+    regr <- lm(x$lwklywge~x$educ+Dyear+age+I(age^2))
+    summary(regr)
+
+  #5) Replicate column 2 of table IV
+    Dq <- dob
+    Dq[Dq-floor(Dq)==0.75] <- 0
+    Dq <- factor(Dq)
+    # Column (2)
+    regr <- ivreg(x$lwklywge~x$educ+Dyear|Dq+Dyear)
+    summary(regr)
+
+  #6) Replicate column 4 of table IV
+    # Column (4)
+    regr <- ivreg(x$lwklywge~x$educ+age+I(age^2)+Dyear|Dq+Dyear)
+    summary(regr)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{13.4}
+\textbf{A simple example}
+\end{Solution}
+\begin{Solution}{13.5}
+\textbf{Money demand}
+\begin{enumerate}
+  \item Durbin-Wu-Hausman test: \\
+  $H_0:$ $r_t$ can be treated as exogenous (OLS is better $E(X'u)=0$) vs.
+      $H_1:$ $r_t$ cannot be treated as exogenous (OLS is not consistent,
+      IV model is better $E(W'u)=0$), with $r_{t-1}$ and $r_{t-2}$ as
+      additional instruments.\\
+      Idea: compare $\widehat{\beta_{IV}} -
+      \widehat{\beta_{OLS}}$. To test if this difference is significantly
+      different from zero, perform a Wald test of $\delta=0$ in the
+      Wu-regression: $y=X\beta + P_W \widetilde{X}\delta$ with
+      $\widetilde{X}$ including all possible endogenous regressors (here
+      $r_t$) and $P_W = W(W'W)^{-1}W'$
+  \item $\widehat{\beta_{GIV}} = (X'P_WX)^{-1}X'P_Wy$
+  \item Test of overidentifying restrictions: \\
+  Idea: Test if IV residuals can be explained by the full set of
+      instruments $W$.\\ $H_0:$ Instruments are valid and uncorrelated
+      with the residuals. \\Testregression: $u_i=W_i'\gamma +
+      \varepsilon_i$ with $i=1,\dots,n$. \\Teststatistics:$n~R^2 \sim
+      \chi^2(m)$ with $m:$ degrees of overidentification. \\If
+      instruments pass the test (that is $H_0$ is not rejected), they are
+      valid by this criterion.
+\end{enumerate}
+The code might look like this:
+\begin{verbatim}
+######################
+#### Money demand ####
+######################
+  library(AER)
+  # read data, define vectors and matrices
+  money <- read.csv(file.choose())
+  View(money)
+  m <- money$m
+  r <- money$r
+  y <- money$y
+  TT <- length(m)
+  # Matrix of regressors
+  X <- cbind(1,r[5:TT],y[5:TT],m[4:(TT-1)],m[3:(TT-2)])
+  # Matrix of Instruments
+  W <- cbind(1,r[4:(TT-1)], r[3:(TT-2)],y[5:TT], m[4:(TT-1)], m[3:(TT-2)])
+  # Projection-matrix
+  Pw <- W %*% solve( t(W)%*%W ) %*% t(W)
+
+  #1)
+  OLS <- lm(m[5:TT] ~ r[5:TT] + y[5:TT] + m[4:(TT-1)] + m[3:(TT-2)])
+  summary(OLS)
+
+  # Durbin-Wu-Hausman test
+  WuRegr <- lm(m[5:TT] ~ Pw%*%r[5:TT] + y[5:TT] + m[4:(TT-1)] + m[3:(TT-2)])
+  summary(WuRegr)
+  # H0 can be rejected.
+  # If r_t-1 and r_t-2 are appropriate instruments for r_t,
+  # then the OLS estimator is not consistent, but the IV-estimator is!
+  # Hence, r_t should not be treated as exogenous!
+
+  #2)
+  IV <- ivreg(m[5:TT] ~ r[5:TT] + y[5:TT] + m[4:(TT-1)] + m[3:(TT-2)]
+                        |r[4:(TT-1)]+ r[3:(TT-2)] + y[5:TT] + m[4:(TT-1)] + m[3:(TT-2)])
+  summary(IV)
+  #You can get the same coefficients, if you simply use the Formula
+  betaGIV <- solve(t(X)%*%Pw%*%X)%*%t(X)%*%Pw%*%m[5:TT]
+  betaGIV
+
+  # compare to OLS coefficients:
+  OLS$coefficients
+  IV$coefficients
+
+  # Test if the coefficient is the same
+  covmat <- IV$sigma^2*IV$cov
+  linearHypothesis(IV,paste("r[5:TT]=",OLS$coefficients[2]),V=covmat) # H0 can not be rejected
+
+  #3)
+  u <- residuals(IV)
+  n <- length(u)
+  #perform OLS and store the results
+  obj <- summary(lm(u ~ r[4:(TT-1)] + r[3:(TT-2)] + y[5:TT] + m[4:(TT-1)] + m[3:(TT-2)]))
+  teststat <- n*obj$r.squared
+  1-pchisq(teststat,df=1) # p-value
+  #Nullhypothesis can be rejected, the model is thus not overidentified.
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{13.6}
+\textbf{Tests for the IV model}
+
+The code might look like this:
+\begin{verbatim}
+################################
+#### Tests for the IV model ####
+################################
+  library(AER)
+  fertility <- read.csv2(file.choose())
+  View(fertility)
+  attach(fertility)
+  #1)
+    n <- dim(fertility)[1] #number of families
+    x <- fertility[morekids==1,] # only families that had another child
+    m <- dim(x)[1] #number of families that had another child
+    dim(x[x$samesex==1,])[1]/m
+    dim(x[x$samesex==0,])[1]/m
+
+  #2)
+    regr <- lm(weeksm1 ~ morekids + boy1st + boy2nd + agem1 + black + hispan + othrace)
+    summary(regr)
+
+  #3)
+    #Relevance of instrument
+    relevInst <- lm(morekids ~ samesex)
+    summary(relevInst) # F-Statistic is high!
+
+  #4)
+    ivmod <- ivreg(weeksm1 ~ morekids+boy1st + boy2nd + agem1 + black
+                            + hispan + othrace|samesex + boy1st + boy2nd
+                                                + agem1 + black + hispan + othrace)
+    summary(ivmod)
+
+  #5) t-test that two coefficients are equal
+    covmat <- ivmod$sigma^2*ivmod$cov
+    betaHisp <- ivmod$coefficients[7]
+    betaOthr <- ivmod$coefficients[6]
+    varHisp <- covmat[7,7]
+    varOthr <- covmat[6,6]
+    ttest <- (betaHisp -betaOthr)/sqrt(varHisp + varOthr)
+    abs(ttest) > 2.56 # reject H0 at least on a 1% level!
+    1-pt(abs(ttest),n-7) #p-value is zero!
+
+  #6)
+  betahat <- ivmod$coefficients[c(3,4,7)]
+  beta0 <- c(0,0,0)
+  ivmod0 <- ivreg(weeksm1 ~ morekids + agem1 + black + hispan
+                                + othrace|samesex + boy1st + boy2nd
+                                            + agem1 + black + hispan + othrace)
+  # Wald test formula and p-value
+  Wald <- (betahat-beta0)%*%solve(covmat[c(3,4,7),c(3,4,7)])%*%(betahat - beta0)
+  1-pchisq(Wald,df=3)
+  #or simply use the linearHypothesis command
+  linearHypothesis(ivmod,c("boy1st=0","boy2nd=0","hispan=0"), V=covmat)
+\end{verbatim}
+Additional remarks:
+\begin{itemize}
+  \item[2)] The coefficient is -6.23209. This indicates that women with
+      more than 2 children work 6.23209 fewer weeks per year than women
+      with 2 or fewer children. However, both fertility (morekids) and
+      laborsupply (weeks worked) are choice variables. A woman who works
+      more than average (positive regression error) may also be a woman
+      who is less likely to have an additional child. This would imply
+      that morekids is positively correlated with the regression error.
+      OLS estimator is thus positively biased.
+  \item[3)] Samesex is random and unrelated to any of the other variables
+      including the error term in the labor supply equation. Thus, the
+      instrument is exogenous. The instrument is also relevant (see part
+      1). You can also test for relevance: compute the F-Statistic in the
+      regression: $morekids_i = \beta_0+\beta_1 samesex_i +
+      \varepsilon_i$.
+  \item[5)] $H_0: \beta_4-\beta_5 = 0,$ $ t=\frac{\widehat{\beta_4} -
+      \widehat{\beta_5}}{\sqrt{\widehat{var(\beta_4)}+\widehat{var(\beta_5)}}}$
+      under the assumption that $\beta_4$ and $\beta_5$ are independent.
+  \end{itemize}
+\end{Solution}
+\begin{Solution}{14.1}
+\textbf{The R packagae gmm}
+
+Basic scheme to use gmm:
+\begin{enumerate}
+  \item Set up matices with data $Y$ and/or instruments $W$.
+  \item Specify the moment conditions
+  \begin{verbatim} g <- function(param,dat) {moment conditions} \end{verbatim}.
+  For the gmm package this means that you have to program the formula
+      inbetween the expectation $E[g(\theta,Y)]=0$. Here: \begin{align*}
+      X-\mu\\
+      (X-\mu)^2 - \sigma^2\\
+      X^3-\mu(\mu^2-3\sigma^2)
+      \end{align*}
+  \item Call
+      $gmm(\underbrace{g=g}_\text{function},\underbrace{x=Y}_\text{data},\underbrace{t0=c(0,\dots,0)}_{\text{starting
+      values}},\dots)$. Use appropriate arguments for numerical
+      optimization, weights, gradient (to improve precision), etc. Most
+      of the times just use the standard setting.
+\end{enumerate}
+
+The code might look like this:
+\begin{verbatim}
+############################
+#### The R packagae gmm ####
+############################
+install.packages("gmm")
+library(gmm)
+##generate data
+set.seed(123)
+n <- 200
+dat <- rnorm(n,mean=4,sd=2)
+
+##moment conditions
+g <- function(param,x) {
+  m1 <- param[1]-x
+  m2 <- param[2]^2-(x-param[1])^2
+  m3 <- x^3 - param[1]*(param[1]^2+3*param[2]^2)
+  f <- cbind(m1,m2,m3)
+  return(f)
+}
+g(c(3,1),dat) #gives you a n-by-L matrix with n observations and L moments
+
+##gmm estimation with standard settings
+t0 <- c(mu=3, sigm=1)
+res1 <- gmm(g,dat,t0)
+print(res1)
+summary(res1)
+coef(res1)
+vcov(res1)
+confint(res1)
+specTest(res1)
+
+##gmm estimation with gradient
+#gradient of gbar=1/n*sum(g)
+Dgbar <- function(param,x){
+  xbar <- mean(x)
+  Dgbar <- matrix(c(1, 2*(xbar-param[1]), -3*(param[1]^2+param[2]^2), 0, 2*param[2], -6*param[1]*param[2]),nrow=3)
+  return(Dgbar)
+}
+Dgbar(c(3,1),dat)
+t0 <- c(mu=3, sigm=1)
+res2 <- gmm(g,dat,t0,grad=Dgbar)
+print(res2);summary(res2);coef(res2);vcov(res2);confint(res2);specTest(res2)
+
+##gmm estimation with restrictions on parameter space (with nlminb)
+t0 <- c(mu=3, sigm=1)
+res3 <- gmm(g,dat,t0,optfct="nlminb",lower=c(-5,0),upper=c(5,5))
+print(res3);summary(res3);coef(res3);vcov(res3);confint(res3);specTest(res3)
+
+##gmm estimation: Iterative GMM (ITGMM) and continuous updated GMM (CUE)
+t0 <- c(mu=3, sigm=1)
+res4 <- gmm(g,dat,t0,type="iterative",crit=1e-5,itermax=200)
+print(res4);summary(res4);coef(res4);vcov(res4);confint(res4);specTest(res4)
+res5 <- gmm(g,dat,res4$coef,type="cue")#use ITGMM as starting values
+print(res5);summary(res5);coef(res5);vcov(res5);confint(res5);specTest(res5)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{14.2}
+\textbf{Nonlinear least squares estimation and GMM}
+
+\begin{enumerate}
+  \item As elementary zero functions we can use $E(u_t)=0$ and $E(u_t^2-\sigma^2)=0$. As Instruments we can use the elementary zero function itself and $x_t(\beta)$, since $E(x_t(\beta)\cdot u_t)=E(x_t(\beta)\cdot (y_t-x_t(\beta)))=0$. That is we have three moment conditions:
+      \begin{align*}
+      E(u_t) = E(y_t-x_t(\beta)) &= 0\\
+      E(x_t(\beta) u_t) = E(x_t(\beta)\cdot (y_t-x_t(\beta)))&= 0\\
+      E(u_t^2-\sigma^2) = E((y_t-x_t(\beta)^2-\sigma^2) &=0
+      \end{align*}
+  \item Here $x_t(\beta)=exp(\alpha+\beta x_t)$. This yields the same results as in exercise \ref{nls1}.
+\end{enumerate}
+The code might look like this:
+\begin{verbatim}
+####################################
+#### Nonlinear regression model ####
+####################################
+expgrowth <- read.csv(file.choose())
+View(expgrowth)
+x <- expgrowth$x
+y <- expgrowth$y
+
+g <- function(param,dat){
+  y <- dat[,1]
+  x <- dat[,2]
+  u <- y - exp(param[1]+param[2]*x)
+  f1 <- u
+  f2 <- u^2
+  m1 <- 1*f1
+  m2 <- x*f1
+  m3 <- f2-param[3]^2
+  return(cbind(m1,m2,m3))
+}
+g(c(1,0.1,1),cbind(y,x)) # g gives you a nxq matrix with n observations and q moments
+
+gmmmod <- gmm(g,x=cbind(y,x),c(alpha=0,beta=0.01,sigma=1))
+print(gmmmod)
+gmmmod <- gmm(g,x=cbind(y,x),c(alpha=2,beta=0.01,sigma=2))
+print(gmmmod$coefficients)
+#depends on the start-values, in order to be more precise one could specify the gradient
+summary(gmmmod)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{14.3}
+\textbf{Ordinary least squares estimation and GMM}
+
+The code might look like this
+\begin{verbatim}
+###################################################
+#### Ordinary least squares estimation and GMM ####
+###################################################
+#Get data
+olsgmm <- read.csv(file.choose())
+View(olsgmm)
+y <- olsgmm$y
+x1 <- olsgmm$x1
+x2 <- olsgmm$x2
+
+#OLS
+ols <- lm(y~x1+x2)
+summary(ols)
+
+#GMM estimation explicitly taking into account linearity
+gmm_lin <- gmm(y~x1+x2,cbind(x1,x2))
+gmm_lin$coef - ols$coef #numerically the same
+
+#GMM estimation without linearity
+g <- function(param,dat){
+  y <- dat$y
+  x1 <- dat$x1
+  x2 <- dat$x2
+  u <- y -param[1] -param[2]*x1 -param[3]*x2
+  f1 <- u
+  f2 <- u*x1
+  f3 <- u*x2
+  return(cbind(f1,f2,f3))
+}
+g(c(1,0.5,1.2),olsgmm) # g gives you a nxq matrix with n observations and q moments
+
+t0<-c(alpha=1,beta1=0.5,beta2=1.2)
+gmm_nonlin <- gmm(g,olsgmm,t0)
+print(gmm_nonlin$coefficients)
+print(gmm_lin$coefficients)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{14.4}
+Maximum likelihood estimation and GMM
+
+The code might look like this
+\begin{verbatim}
+## Maximum Likelihood of Normal Distribution
+mue = 1; sigm =1;
+X <- rnorm(1000,mean=mue,sd=sigm)
+
+g <- function(param,x){
+  mue <- param[1]
+  sigm <- param[2]
+  dmue <- 1/(sigm^2)*(x-mue)
+  dsig <- -1/sigm +1/(sigm^3)*(x-mue)^2
+  cbind(dmue,dsig)
+}
+
+Dg <- function(param,x){
+  mue <- param[1]
+  sigm <- param[2]
+  z <- matrix(c( -1/sigm^2, (2*mue - 2*mean(x))/sigm^3, (2*(mue - mean(x))/sigm^3), 1/sigm^2 - (3*(mue - mean(x))^2)/sigm^4),nrow=2)
+  return(z)
+}
+
+Dg(c(1,0.1),X)
+gmm(g,X,c(2,.01))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{14.5}
+\textbf{Instrumental variables estimation and GMM }
+
+The gmm framework is given by
+\begin{align*}
+  E[m_t -X_t\beta] = 0\\
+  E[y_t(m_t -X_t\beta)] = 0\\
+  E[m_{t-1}(m_t -X_t\beta)] = 0\\
+  E[m_{t-2}(m_t -X_t\beta)] = 0\\
+  E[r_{t-1}(m_t -X_t\beta)] = 0\\
+  E[r_{t-2}(m_t -X_t\beta)] = 0
+\end{align*}
+
+ The code might look like this:
+\begin{verbatim}
+###################################################
+#### Instrumental variables estimation and GMM ####
+###################################################
+library(gmm)
+library(AER)
+# read data, define vectors and matrices
+money <- read.csv(file.choose())
+View(money)
+m <- money$m
+r <- money$r
+y <- money$y
+TT <- length(m)
+
+yt <- y[5:TT]
+mt <- m[5:TT]; mt1 <- m[4:(TT-1)]; mt2 <- m[3:(TT-2)]
+rt <- r[5:TT]; rt1 <- r[4:(TT-1)]; rt2 <- r[3:(TT-2)]
+
+# Gmm estimation in linear model notation
+obj <- gmm(mt~rt+yt+mt1+mt2, ~rt1+rt2+yt+mt1+mt2)
+obj$coefficients
+
+# Generalized IV estimation
+IV <- ivreg(mt~rt+yt+mt1+mt2|rt1+rt2+yt+mt1+mt2)
+IV$coefficients
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{14.6}
+\textbf{Moment conditions and moment existence }
+
+The code might look like this:
+\begin{verbatim}
+################################################
+#### Moment conditions and moment existence ####
+################################################
+library(gmm)
+library(MASS)
+
+n <- 100
+x <- rt(n,df=3)/sqrt(3)
+u <- rt(n,df=3)/sqrt(3)
+y <- 0.9*x+u
+
+g <- function(theta,dat) {
+  y <- dat[,1]
+  x <- dat[,2]
+  bet <- theta[1]
+  sigm <- theta[2]
+  u <- y-bet*x
+  m1 <- u
+  m2 <- u*x
+  m3 <- u^2-sigm^2
+  return(cbind(m1,m2,m3))
+}
+# GMM estimates for beta and sigma
+obj <- gmm(g,cbind(y,x),t0=c(0.9,1),wmatrix="optimal")
+obj1 <- gmm(g,cbind(y,x),t0=c(0.9,1),wmatrix="ident")
+obj
+obj1
+
+# Whole thing within a loop
+R <- 1000
+n <- 100 # or try n=1000
+nu <- 3
+Z1 <- matrix(NA,R,2)
+Z2 <- matrix(NA,R,2)
+for(r in 1:R) {
+  x <- rt(n,df=nu)/sqrt(nu/(nu-2))
+  u <- rt(n,df=nu)/sqrt(nu/(nu-2))
+  y <- 0.9*x+u
+  obj1 <- gmm(g,x=cbind(y,x),t0=c(0.9,1),wmatrix="optimal")
+  Z1[r,] <- (coefficients(obj1)-c(0.9,1))/sqrt(diag(vcov(obj1)))
+  obj2 <- gmm(g,x=cbind(y,x),t0=c(0.9,1),wmatrix="ident")
+  Z2[r,] <- (coefficients(obj2)-c(0.9,1))/sqrt(diag(vcov(obj2)))
+}
+# mean of the estimates for beta and sigma
+apply(Z1,2,mean)
+apply(Z2,2,mean)
+#histogram of sigma compared to a normal distribution
+truehist(Z1[,2])
+xx <- seq(min(Z1[,2]),max(Z1[,2]),length=500)
+lines(xx,dnorm(xx,mean(Z1[,2]),sd(Z1[,2])))
+
+truehist(Z2[,2])
+xx <- seq(min(Z2[,2]),max(Z2[,2]),length=500)
+lines(xx,dnorm(xx,mean(Z2[,2]),sd(Z2[,2])))
+
+###Now with the normal distribution
+R <- 1000 # or try R=1000
+n <- 100 # or try n=1000
+Z1 <- matrix(NA,R,2)
+Z2 <- matrix(NA,R,2)
+for(r in 1:R) {
+  x <- rnorm(n)
+  u <- rnorm(n)
+  y <- 0.9*x+u
+  obj1 <- gmm(g,cbind(y,x),t0=c(0.9,1),wmatrix="optimal")
+  obj2 <- gmm(g,cbind(y,x),t0=c(0.9,1),wmatrix="ident")
+  Z1[r,] <- (coefficients(obj1)-c(0.9,1))/sqrt(diag(vcov(obj1)))
+  Z2[r,] <- (coefficients(obj2)-c(0.9,1))/sqrt(diag(vcov(obj2)))
+}
+# mean of the estimates for beta and sigma
+apply(Z1,2,mean)
+apply(Z2,2,mean)
+
+#histogram of sigma compared to a normal distribution
+truehist(Z1[,2])
+xx <- seq(min(Z1[,2]),max(Z1[,2]),length=500)
+lines(xx,dnorm(xx,mean(Z1[,2]),sd(Z1[,2])))
+
+truehist(Z2[,2])
+xx <- seq(min(Z2[,2]),max(Z2[,2]),length=500)
+lines(xx,dnorm(xx,mean(Z2[,2]),sd(Z2[,2])))
+\end{verbatim}
+\begin{itemize}
+  \item The GMM estimator is asymptotically normally distributed.
+      However, the estimator for the t-distribution with 3 degrees of
+      freedom is not asymptotically normally distributed. This is because
+      for convergence higher moments have to exist, which they don't for
+      the t-distribution. If you use the normal distribution or another
+      distribution, then the distribution is well approximated by a
+      normal distribution.
+  \item The weighting scheme does not influence the approximate
+      distribution.
+\end{itemize}
+\end{Solution}
+\begin{Solution}{14.7}
+\textbf{Standard CAPM }
+
+The moment conditions are given by
+\begin{equation*}
+  E\left[(\theta_1+\theta_2 R_{mt})R_{it}-1\right]=0
+\end{equation*}
+The code might look like this:
+\begin{verbatim}
+#######################
+#### Standard CAPM ####
+#######################
+library(gmm)
+#Get data
+data(Finance)
+?Finance
+View(Finance)
+#let's only take the first 500 observations
+r <- Finance[,c("WMK","UIS","ORB","MAT","ABAX")]
+rm <- Finance[,"rm"]
+
+#Define moment conditions
+g <- function(param,dat){
+  R <- 1+dat[,1:5]
+  Rm <- 1+ dat[,6]
+  m <- (param[1]+param[2]*Rm)*R-1
+  return(m)
+}
+
+#estimate GMM
+obj <- gmm(g,x=cbind(r,rm),c(0,0)) #this gives you an error
+mode(r) # problem is in the data: r is a list and not numeric. gmm needs numeric data
+mode(rm) # rm is numeric
+mode(cbind(r,rm)) #if we combine the data, we still get a list
+X <- as.matrix(cbind(r,rm)) #so let's convert it into a numeric structure
+mode(X)
+obj <- gmm(g,x=X,c(0,0))
+obj
+summary(obj)
+
+# Test of overidentifying restrictions
+specTest(obj) #confirms the non-rejection of the theory
+\end{verbatim}
+We can think of a return as a payoff with price one. If you pay one dollar
+today, the return is how many dollars or units of consumption you get
+tomorrow.
+
+The asset pricing model says that, although expected returns can vary
+across time and assets, expected discounted returns should always be the
+same, 1.
+\end{Solution}
+\begin{Solution}{14.8}
+\textbf{Consumption-based CAPM}
+
+The code might look like this:
+\begin{verbatim}
+####################################
+###### Consumption-based CAPM ######
+####################################
+#Load Data
+consumptiondata <- read.csv(file.choose(), sep=";", dec=",")
+dax30ann <- read.csv(file.choose())
+View(consumptiondata)
+View(dax30ann)
+V7 <- consumptiondata$V7
+dax30 <- dax30ann$dax30
+
+#growth rates for consumption
+gr1 <- V7[2:22]/V7[1:21]
+gr2 <- V7[24:42]/V7[23:41]
+gr <- c(gr1,gr2)
+#gross return of DAX
+R <- dax30[3:42]/dax30[2:41]
+#Matrix of data
+X <- cbind(gr,R)
+
+g <- function(param,dat){
+  TT <- dim(dat)[1]
+  gr <- dat[,1]
+  R <- dat[,2]
+  f <- param[1]*(gr[-1]^(-param[2]))*R[-1]-1
+  z <- cbind(1,gr[-TT],R[-TT])
+  m <- f*z
+  return(m)
+}
+g(c(1,1),X)
+obj <- gmm(g,x=X,c(1,1))
+obj
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{14.9}
+\textbf{Minimum distance estimation}
+\end{Solution}
+\begin{Solution}{15.1}
+\textbf{AR(1) processes}
+
+The code might look like this:
+\begin{verbatim}
+############################################
+#### Indirect Inference - AR(1) process ####
+############################################
+library(MASS)
+#Define function that estimates the ar process for different values of rho,n and R
+simestim <- function(rho,n,R) {
+  Z <- matrix(NA,R,3)
+  for (r in 1:R) {
+    x <- filter(rnorm(n),rho,method="r",init=rnorm(1))
+    Z[r,1]<- ar(x,aic=F,order = 1,method = "yw")$ar # method: yule-walker
+    Z[r,2]<- ar(x,aic=F,order = 1, method = "ols")$ar #method: ols
+    Z[r,3]<- ar(x,aic=F,order = 1, method = "mle")$ar #method: mle
+  }
+  return(Z)
+}
+
+#1) Stationary AR(1)
+stationary <- simestim(rho=0.9,n=100,R=1000)
+truehist(stationary[,1],main="Yule-Walker")
+truehist(stationary[,2],main="OLS")
+truehist(stationary[,3],main="ML")
+
+#2) Random Walk, methods: yule-walker, ols, mle
+randomwalk <- simestim(rho=1,n=100,R=1000)
+truehist(randomwalk[,1],main="Yule-Walker")
+truehist(randomwalk[,2],main="OLS")
+truehist(randomwalk[,3],main="ML")
+
+#3) Explosive AR(1)
+explosive <- simestim(rho=1.01,n=100,R=1000)
+truehist(explosive[,1],main="Yule-Walker")
+truehist(explosive[,2],main="OLS")
+truehist(explosive[,3],main="ML")
+
+
+#4) Estimation by indirect inference, auxiliary model is an AR(1)-process
+H <- 100; n <- 100; W <- diag(1)
+
+rhohat <- function(truedata,H,n,W){
+  thetahat <- ar(truedata,aic=F,order = 1)$ar #auxiliary model with true data
+  thetahat <- as.matrix(thetahat)             #as matrix so you can compute Q
+
+  f <- function(rho){
+    thetahatsim <- rep(NA,H)
+    set.seed(123)
+    for (h in 1:H){
+      simdata <- filter(rnorm(n),rho,method="r",init=rnorm(1)) #simulated data depending on beta
+      thetahatsim[h] <- ar(simdata,aic=F,order = 1)$ar          #store estimator
+    }
+    thetatilde <- mean(thetahatsim)
+    Q <- t(thetahat - thetatilde) %*% W %*% (thetahat - thetatilde)
+    return(Q)
+  }
+  # indirect inference estimator for rho
+  rhohat <- optimize(f,lower=0.7,upper=1.5)
+  return(rhohat$minimum)
+}
+
+truedata <- filter(rnorm(n),0.9,method="r",init=rnorm(1)) #true model with rho=0.8
+
+rhohat(truedata,H=10,n=100,W=diag(1))
+ar(truedata,aic=F,order = 1,method="ols")$ar #method: ols
+ar(truedata,aic=F,order = 1,method="yw")$ar #method: yw
+ar(truedata,aic=F,order = 1,method="mle")$ar #method: mle
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{15.2}
+\textbf{Filter models }
+\end{Solution}
+\begin{Solution}{15.4}
+\textbf{Ornstein-Uhlenbeck process}
+
+The code might look like this
+\begin{verbatim}
+  #########################################################
+  #### Indirect Inference - Ornstein-Uhlenbeck process ####
+  #########################################################
+
+  #1) Single path of an Ornstein-Uhlenbeck process
+  install.packages("sde")
+  library(sde)
+  ?sde.sim #look at the example
+  # Ornstein-Uhlenbeck
+  drift <- expression(0.9*0 - 0.9 * x)
+  sigma <- expression(1)
+  X <- sde.sim(X0=2,drift=drift, sigma=sigma,N=100,T=100)
+  plot(X,main="Ornstein-Uhlenbeck")
+  # or specify model to generate data
+  mu <- 0;  lambda <- 0.9; sigma <- 1
+  X <- sde.sim(t0=0,T=100,X0=2, N=100,theta=c(lambda*mu,lambda,sigma),model="OU")
+  plot(X,main="Ornstein-Uhlenbeck")
+
+  #2) Estimation of discrete model
+  library(AER)
+  R <- 1000
+  Z <- rep(NA,R)
+  mu <- 0;  lambda <- 0.9; sigma <- 1
+
+  for (r in 1:R){
+    X <- sde.sim(t0=0,T=100,X0=2, N=100,theta=c(lambda*mu,lambda,sigma),model="OU")
+    estim <- arima(X,order=c(1,0,0))
+    Z[r] <- estim$coef[1]
+  }
+
+  truehist(Z) #histogram of 1-lambda, totally wrong
+  truehist(1-Z) #histogram of lambda, totally wrong
+
+  #3) Indirect inference estimation
+  oupath <- read.table(file.choose(), header=T)
+  truedata <- oupath$x
+  plot(truedata,type="l")
+  #Hint: The data generating process uses lambda=1.3; mu=9; sigma=3; T=N<-100
+
+  OUIndirect <- function(truedata,H,W,startval){
+    estim <- arima(truedata,order=c(1,0,0)) #auxiliary model with true data
+    lambdahat <- 1-estim$coef[1]
+    muhat <- estim$coef[2]/lambdahat
+    sigmahat <- sqrt(estim$sigma2)
+    thetahat <- rbind(lambdahat,muhat,sigmahat)
+
+    f <- function(theta){
+      thetahatsim <- matrix(NA,H,3)
+      set.seed(123)
+      for (h in 1:H){
+        lambda <- theta[1]; mu <- theta[2]; sigma <- theta[3]
+        #simulated data depending on theta
+        simdata <- sde.sim(t0=0,T=100,X0=mu, N=100,theta=c(lambda*mu,lambda,sigma),model="OU")
+        estimsim <- arima(simdata,order=c(1,0,0))         #store estimator
+        lambdahatsim <- 1-estimsim$coef[1]
+        muhatsim <- estimsim$coef[2]/lambdahatsim
+        sigmahatsim <- estimsim$sigma2
+        thetahatsim[h,1] <- lambdahatsim
+        thetahatsim[h,2] <- muhatsim
+        thetahatsim[h,3] <- sigmahatsim
+      }
+      thetatilde <- colMeans(thetahatsim)
+      Q <- t(thetahat - thetatilde) %*% W %*% (thetahat - thetatilde)
+      return(Q)
+    }
+    # optimize ove all thetas
+    res <- optim(startval,f)
+    return(res$par)
+  }
+
+  OUIndirect(truedata=truedata,H=10,W=diag(3),startval=c(1.3,9,3))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{15.5}
+\textbf{Time-aggregated observations}
+\end{Solution}
+\begin{Solution}{16.1}
+\textbf{Omitted variables bias does not go away }
+
+The code might look like this:
+\begin{verbatim}
+  #################################################
+  #### Omitted variables bias does not go away ####
+  #################################################
+  #1)
+  #Input data and make it accessible
+  omitted <- read.csv(file.choose(), sep=";", dec=",")
+  x1 <- omitted$x1
+  x2 <- omitted$x2
+  x3 <- omitted$x3
+  x4 <- omitted$x4
+  y <- omitted$y
+  n <- length(y)
+  #Estimate by OLS without x4
+  #Reminder: the true model is Y = 1 + 2X1 + 3X2 + 4X3 + 5X4
+  # X1 is uncorrelated, X2&X3 are correlated and X3&X4, X2&X4 are uncorrelated
+  mod <- lm(y~x1+x2+x3)
+  summary(mod) #only the uncorrelated variable x1 is estimated well
+
+  #2)
+  ### 1.Alternative: Bootstrap the residuals
+  uhat <- mod$residuals
+  ahat <- coefficients(mod)[1]
+  beta1hat <- coefficients(mod)[2]
+  beta2hat <- coefficients(mod)[3]
+  beta3hat <- coefficients(mod)[4]
+
+  B <- 1000
+  betastar <- matrix(NA,B,2)
+  SEbetastar <- matrix(NA,B,2)
+  for(b in 1:B) {
+    ustar <- sample(uhat,n,replace=TRUE)
+    ystar <- ahat+beta1hat*x1+beta2hat*x2+beta3hat*x3+ustar
+    bootmod <- lm(ystar~x1+x2+x3)
+    betastar[b,1] <- coefficients(bootmod)[3] #coef for x2
+    betastar[b,2] <- coefficients(bootmod)[4] #coef for x3
+    SEbetastar[b,1] <- sqrt(vcov(bootmod)[3,3]) #SE for x2
+    SEbetastar[b,2] <- sqrt(vcov(bootmod)[4,4]) #SE for x3
+  }
+
+  # Calculate the bias
+  print(colMeans(betastar)-c(beta2hat,beta3hat)) #omitted variable bias does not go away
+  colMeans(SEbetastar)
+
+  ### 2. Alternative: Bootstrap of the observations
+  B <- 1000
+  betastar <- matrix(NA,B,2)
+  SEbetastar <- matrix(NA,B,2)
+  for(b in 1:B) {
+    indices <- sample(1:n,n,replace=TRUE)
+    x1star <- x1[indices]
+    x2star <- x2[indices]
+    x3star <- x3[indices]
+    ystar <- y[indices]
+    bootmod <- lm(ystar~x1star+x2star+x3star)
+    betastar[b,1] <- coefficients(bootmod)[3] #coef for x2
+    betastar[b,2] <- coefficients(bootmod)[4] #coef for x3
+    SEbetastar[b,1] <- sqrt(vcov(bootmod)[3,3]) #SE for x2
+    SEbetastar[b,2] <- sqrt(vcov(bootmod)[4,4]) #SE for x3
+  }
+
+  # Calculate the bias
+  print(colMeans(betastar)-c(beta2hat,beta3hat)) #omitted variable bias does not go away
+  colMeans(SEbetastar)
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{16.2}
+\textbf{Confidence intervals for the Gini index}
+
+The program could look like this:
+\begin{verbatim}
+  #################################################
+  #### Confidence intervals for the Gini index ####
+  #################################################
+
+  #1)
+  install.packages("ineq")
+  library(ineq)
+  earnings <- read.csv(file.choose(), header=T)
+  x <- earnings$x
+  ?ineq
+  ineq(x,type="Gini")
+  Ginihat <- Gini(x)
+  print(Ginihat)
+  #2)
+  n <- length(x)
+  B <- 1000
+  Ginistar <- rep(NA,B)
+
+  for(b in 1:B) {
+    # Draw a resample
+    xx <- sample(x,n,replace=TRUE)
+    # Compute and save the Gini-coefficient for the resample
+    Ginistar[b] <- Gini(xx)
+    }
+
+  # Compute the standard error
+  print(sd(Ginistar))
+
+  #3)
+  # Sort Ginistar
+  Ginistar <- sort(Ginistar)
+
+  print(paste("Lower limit = ",2*Ginihat-Ginistar[0.975*B]))
+  print(paste("Upper limit = ",2*Ginihat-Ginistar[0.025*B]))
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{16.3}
+\textbf{Confidence intervals for correlation coefficients }
+
+The code might look like this:
+\begin{verbatim}
+  ###########################################################
+  #### Confidence intervals for correlation coefficients ####
+  ###########################################################
+  #1)
+  install.packages("copula")
+  library(copula)
+  x <- qexp(rcopula(gumbelCopula(1.3),1000))
+  plot(x)
+  cor(x)
+
+  #2)
+  library(AER)
+  n <- 50
+  x <- qexp(rcopula(gumbelCopula(1.3),n))
+  corhat <- cor(x)[1,2]
+  B <- 5000
+  corstar <- rep(NA,B)
+
+  for(b in 1:B) {
+    #Draw a resample
+    indices <- sample(1:n,n,replace=T)
+    xx <- x[indices,]
+    corstar[b] <- cor(xx)[1,2]
+  }
+  truehist(corstar)
+  curve(dnorm(x,mean=mean(corstar),sd=sd(corstar)),add=T)
+  # the normal distribution does noch fit
+
+  #3)
+  corstar <- sort(corstar)
+
+  print(paste("Lower limit = ",2*corhat-corstar[0.975*B]))
+  print(paste("Upper limit = ",2*corhat-corstar[0.025*B]))
+  #poor confidence intervals!
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{16.4}
+\textbf{The t-test}
+
+\begin{verbatim}
+  #####################
+  #### The t-test ####
+  ####################
+  ttestboot <- read.csv(file.choose())
+  x <- ttestboot$x
+  y <- ttestboot$y
+  n <- length(y)
+  #Reminder: the data is generated by a=1, b=0, sigma=2
+
+  #1)
+  ols <- lm(y~x)
+  obj <- summary(ols)
+  tols <- obj$coefficients[2,3]
+  pols <- obj$coefficients[2,4]
+
+  #2)
+  alphahat <- coefficients(ols)[1]
+  betahat <- coefficients(ols)[2]
+  uhat <- residuals(ols)
+  sigma2hat <- 1/(n-2)*sum(uhat^2)
+
+  #3)
+  R <- 5000
+  Z <- rep(NA,R)
+
+  for(r in 1:R){
+    ustar <- rnorm(n,sd=sqrt(sigma2hat))
+    ystar <- alphahat + betahat*x + ustar
+    olsstar <- lm(ystar~x)
+    betahatstar <- coefficients(olsstar)[2]
+    SEbetahatstar <- summary(olsstar)$coefficients[2,2]
+    Z[r] <- (betahatstar - betahat)/(SEbetahatstar)
+  }
+
+  #4)
+  library(AER)
+  truehist(Z)
+  curve(dt(x,df=7),add=T) #the approximation fits perfectly
+
+  #5)
+  length(Z[abs(Z)>abs(tols)])/length(abs(Z))
+  pols
+  #p-value is almost the same!
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{16.5}
+\textbf{The percentile-t-method }
+
+The code might look like this:
+\begin{verbatim}
+  #################################
+  #### The percentile-t-method ####
+  #################################
+  library(AER)
+  # read data
+  money <- read.csv(file.choose())
+  m <- money$m
+  r <- money$r
+  y <- money$y
+  TT <- length(m)
+
+  yt <- y[5:TT]
+  mt <- m[5:TT]; mt1 <- m[4:(TT-1)]; mt2 <- m[3:(TT-2)]
+  rt <- r[5:TT]; rt1 <- r[4:(TT-1)]; rt2 <- r[3:(TT-2)]
+
+  # Generalized IV estimation with confidence interval
+  IV <- ivreg(mt~rt+yt+mt1+mt2|rt1+rt2+yt+mt1+mt2)
+  summary(IV)
+  confint(IV,parm="rt",level=.95)
+
+  # Bootstrap 0.95-percentile-t condfidence intervals
+  # estimate for original data
+  rhat <- coefficients(IV)[2]
+  SErhat <- sqrt(vcov(IV)[2,2])
+
+  # Draw resamples
+  B <- 1000
+  Taustar <- rep(NA,B)
+  for(b in 1:B) {
+    indices <- sample(1:TT,TT,replace=TRUE)
+    mtstar <- mt[indices]
+    rtstar <- rt[indices]
+    ytstar <- yt[indices]
+    mt1star <- mt1[indices]
+    mt2star <- mt2[indices]
+    rt1star <- rt1[indices]
+    rt2star <- rt2[indices]
+    bootmod <- ivreg(mtstar~rtstar+ytstar+mt1star+mt2star|rt1star+rt2star+ytstar+mt1star+mt2star)
+    SErstar <- sqrt(vcov(bootmod)[2,2])
+    rstar <- bootmod$coefficients[2]
+    Taustar[b] <- (rstar-rhat)/SErstar
+  }
+
+  # Sort
+  Taustar <- sort(Taustar)
+
+  #Compute the interval
+  low <- rhat-Taustar[0.975*B]*SErhat
+  high <- rhat-Taustar[0.025*B]*SErhat
+  names(low)="2.5%"; names(high)="97.5%"
+  CI <- c(low,high)
+
+  print(CI) #CI using bootstrap
+  confint(IV,parm="rt",level=.95) #CI using GIV estimation
+\end{verbatim}
+\end{Solution}
+\begin{Solution}{16.8}
+\textbf{Bootstrap test for the Zipf index of city size distributions}
+
+The code might look like this:
+\begin{verbatim}
+  ######################################################################
+  #### Bootstrap test for the Zipf index of city size distributions ####
+  ######################################################################
+  #1)
+  library(AER)
+  n <- 20
+  R <- 1000
+  y <- 1:n
+  Z <- rep(NA,R)
+
+  for (r in 1:R) {
+    x <- sort(exp(rexp(n)),decreasing=TRUE)
+    obj <- lm(log(y) ~ log(x))
+    Z[r] <- coefficients(obj)[2]
+  }
+  truehist(Z)
+
+  #2)
+  n <- 20
+  R <- 1000
+  y <- 1:n
+  TT <- rep(NA,R)
+  for (r in 1:R) {
+    x <- sort(exp(rexp(n)),decreasing=TRUE)
+    obj <- lm(log(y) ~ log(x))
+   TT[r] <- (coefficients(obj)[2]-1)/ sqrt(vcov(obj)[2,2])
+  }
+  truehist(TT)
+  curve(dt(x,df=n-2),add=T)
+
+  #3)
+  # True data
+  n <- 20
+  alpha <- 1 #true value
+  x <- sort(exp(rexp(n,rate=alpha)),decreasing=TRUE)
+  y <- 1:n
+
+  # Hypothetical value (here it is also the true value), Nullhypothesis
+  alpha0 <- 1
+
+  # Compute the test statistics for the true data
+  obj <- lm(log(y)~log(x))
+  alphahat <- coefficients(obj)[2]
+  SEalphahat <- sqrt(vcov(obj)[2,2])
+  Tstat <- (alphahat-alpha0)/SEalphahat #test statistic for true data
+
+  # Approximate distribution through bootstrap
+  B <- 1000
+  Tsharp <- rep(NA,B)
+
+  for(b in 1:B) {
+    #draw a resample taking into account the nullhypothesis, alpha=alpha0=1
+    #here it is also the true value
+    xx <- sort(exp(rexp(n,rate=alpha0)),decreasing=TRUE)
+    obj <- lm(log(y)~log(xx))
+    alphasharp <- coefficients(obj)[2]
+    SEalphasharp <- sqrt(vcov(obj)[2,2])
+    Tsharp[b] <- (alphasharp-alpha0)/SEalphasharp
+    }
+
+  # Sort the Tsharp values
+  Tsharp <- sort(Tsharp)
+  truehist(Tsharp)
+  critlow <- Tsharp[0.025*B]
+  crithigh <- Tsharp[0.975*B]
+
+  if(Tstat<critlow | Tstat>crithigh)
+   print("Reject H0") else
+   print("Don't reject H0")
+\end{verbatim}
+
+Please note that there are better ways to remedy the failure of standard OLS than using the bootstrap. In particular, extreme value theory provides many useful tools for estimation and testing.
+\end{Solution}

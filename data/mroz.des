@@ -1,0 +1,50 @@
+-------------------------------------------------------------------------------
+       log:  C:\mitbook\textfiles\mroz.des
+  log type:  text
+ opened on:  22 Apr 2002, 11:01:12
+
+. ds
+inlf      hours     kidslt6   kidsge6   age       educ      wage      repwage  
+hushrs    husage    huseduc   huswage   faminc    mtr       motheduc  fatheduc 
+unem      city      exper     nwifeinc  lwage     expersq   
+
+. des
+
+Contains data from mroz.dta
+  obs:           753                          
+ vars:            22                          2 Sep 1996 16:04
+ size:        39,909 (95.8% of memory free)
+-------------------------------------------------------------------------------
+              storage  display     value
+variable name   type   format      label      variable label
+-------------------------------------------------------------------------------
+inlf            byte   %9.0g                  =1 if in lab frce, 1975
+hours           int    %9.0g                  hours worked, 1975
+kidslt6         byte   %9.0g                  # kids < 6 years
+kidsge6         byte   %9.0g                  # kids 6-18
+age             byte   %9.0g                  woman's age in yrs
+educ            byte   %9.0g                  years of schooling
+wage            float  %9.0g                  est. wage from earn, hrs
+repwage         float  %9.0g                  rep. wage at interview in 1976
+hushrs          int    %9.0g                  hours worked by husband, 1975
+husage          byte   %9.0g                  husband's age
+huseduc         byte   %9.0g                  husband's years of schooling
+huswage         float  %9.0g                  husband's hourly wage, 1975
+faminc          float  %9.0g                  family income, 1975
+mtr             float  %9.0g                  fed. marg. tax rte facing woman
+motheduc        byte   %9.0g                  mother's years of schooling
+fatheduc        byte   %9.0g                  father's years of schooling
+unem            float  %9.0g                  unem. rate in county of resid.
+city            byte   %9.0g                  =1 if live in SMSA
+exper           byte   %9.0g                  actual labor mkt exper
+nwifeinc        float  %9.0g                  (faminc - wage*hours)/1000
+lwage           float  %9.0g                  log(wage)
+expersq         int    %9.0g                  exper^2
+-------------------------------------------------------------------------------
+Sorted by:  
+
+. log close
+       log:  C:\mitbook\textfiles\mroz.des
+  log type:  text
+ closed on:  22 Apr 2002, 11:01:19
+-------------------------------------------------------------------------------

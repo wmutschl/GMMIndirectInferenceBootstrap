@@ -1,0 +1,1069 @@
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage[a4paper]{geometry}
+
+\parskip2.5ex
+\parindent0mm
+\raggedright
+\begin{document}
+
+
+\section{Delta method}
+
+See also exercise ''Delta Method''.
+
+Let $Y_{1},Y_{2},\ldots $ be a sequence of random variables such that $E(Y_i)=\mu$, $Var(Y_i) = \sigma^2 < \infty $ and
+\begin{equation*}
+\sqrt{n}\left( Y_{i}-\mu \right) \rightarrow U\sim N(0,\sigma ^{2}).
+\end{equation*}
+Of course, in this context $Y_{i}$ is usually just the mean $\bar{X}_{i}$.
+
+Define a new sequence of random variables
+\begin{equation*}
+Z_{i}=f(Y_{i})
+\end{equation*}%
+where $f$ is differentiable and measurable (at least at $\mu$). What does the asymptotic distribution of $Z_{i}$ look like?
+
+The first order Taylor expansion of $f$ around $\mu $ is
+\begin{equation*}
+f\left( y\right) =f\left( \mu \right) +f^{\prime }\left( \mu \right) \left(y-\mu \right) +\text{rest}
+\end{equation*}
+where the rest is negligible in the limit (and dropped from the notation). Thus
+\begin{equation*}
+Z_{i}=f\left( \mu \right) +f^{\prime }\left( \mu \right) \left( Y_{i}-\mu
+\right) .
+\end{equation*}%
+We see that $Z_{i}$ is just a linear transformation of $Y_{i}$. Since $Y_{i}$ is asymptotically normal, so is $Z_{i}$. The asymptotic mean of $Z_{i}$ is
+\begin{equation*}
+E\left( Z_{i}\right) =E\left( f\left( \mu \right) +f^{\prime }\left( \mu \right) \left( Y_{i}-\mu \right) \right) = f\left( \mu \right)
+\end{equation*}%
+and the asymptotic variance is
+\begin{eqnarray*}
+Var\left( Z_{i}\right) &=&Var\left( f\left( \mu \right) +f^{\prime }\left(\mu \right) \left( Y_{i}-\mu \right) \right) \\
+&=&\left[ f^{\prime }\left( \mu \right) \right] ^{2}Var\left( Y_{i}\right) \\
+&= &\left[ f^{\prime }\left( \mu \right) \right] ^{2}\sigma ^{2}.
+\end{eqnarray*}
+
+\section{Expected gradient vector}
+
+First we show that for all elements of $G$%
+\begin{equation*}
+E_{\theta }\left( G_{ij}\left( \theta ,X_{i}\right) \right) =0.
+\end{equation*}%
+Consider the identity%
+\begin{equation*}
+\int e^{\ln f_{X}\left( x_{i};\theta \right) }dx_{i}=1
+\end{equation*}%
+and differentiate both sides with respect to the $j$-th component of $\theta
+$,%
+\begin{eqnarray*}
+\int e^{\ln f_{X}\left( x_{i};\theta \right) }\frac{\partial \ln f_{X}\left(
+x_{i};\theta \right) }{\partial \theta _{j}}dx_{i} &=&0 \\
+E_{\theta }\left( \frac{\partial \ln f_{X}\left( x_{i};\theta \right) }{%
+\partial \theta _{j}}\right) &=&0 \\
+E\left( G_{ij}\left( \theta ,X_{i}\right) \right) &=&0.
+\end{eqnarray*}%
+Summing over $i=1,\ldots ,n$ yields%
+\begin{equation*}
+E\left( g_{j}\left( \theta \right) \right) =0
+\end{equation*}%
+and hence%
+\begin{equation*}
+E\left( g\left( \theta \right) \right) =0.
+\end{equation*}
+
+\section{Information matrix equality}
+
+Consider the expected gradient component equation $E\left( G_{ij}\left(
+\theta ,X_{i}\right) \right) =0$ and differentiate both sides once more with
+respect to $\theta $. The left hand side is%
+\begin{equation*}
+E\left( G_{ij}\left( \theta ,X_{i}\right) \right) =\int e^{\ln f_{X}\left(
+x_{i};\theta \right) }\frac{\partial \ln f_{X}\left( x_{i};\theta \right) }{%
+\partial \theta _{j}}dx_{i}
+\end{equation*}%
+and the derivative with respect to $\theta _{k}$ is%
+\begin{eqnarray*}
+\frac{\partial }{\partial \theta _{k}}\int e^{\ln f_{X}\left( x_{i};\theta
+\right) }\frac{\partial \ln f_{X}\left( x_{i};\theta \right) }{\partial
+\theta _{j}}dx_{i} &=&\int \frac{\partial }{\partial \theta _{k}}e^{\ln
+f_{X}\left( x_{i};\theta \right) }\frac{\partial \ln f_{X}\left(
+x_{i};\theta \right) }{\partial \theta _{j}}dx_{i} \\
+&=&\int e^{\ln f_{X}\left( x_{i};\theta \right) }\frac{\partial \ln
+f_{X}\left( x_{i};\theta \right) }{\partial \theta _{k}}\frac{\partial \ln
+f_{X}\left( x_{i};\theta \right) }{\partial \theta _{j}}dx_{i} \\
+&&+\int e^{\ln f_{X}\left( x_{i};\theta \right) }\frac{\partial \ln
+f_{X}\left( x_{i};\theta \right) }{\partial \theta _{j}\partial \theta _{k}}%
+dx_{i}.
+\end{eqnarray*}%
+Thus%
+\begin{equation*}
+\int e^{\ln f_{X}\left( x_{i};\theta \right) }\frac{\partial \ln f_{X}\left(
+x_{i};\theta \right) }{\partial \theta _{k}}\frac{\partial \ln f_{X}\left(
+x_{i};\theta \right) }{\partial \theta _{j}}dx_{i}=-\int e^{\ln f_{X}\left(
+x_{i};\theta \right) }\frac{\partial \ln f_{X}\left( x_{i};\theta \right) }{%
+\partial \theta _{j}\partial \theta _{k}}dx_{i}
+\end{equation*}%
+or%
+\begin{equation*}
+E_{\theta }\left( \frac{\partial \ln f_{X}\left( x_{i};\theta \right) }{%
+\partial \theta _{k}}\frac{\partial \ln f_{X}\left( x_{i};\theta \right) }{%
+\partial \theta _{j}}\right) =-E_{\theta }\left( \frac{\partial \ln
+f_{X}\left( x_{i};\theta \right) }{\partial \theta _{j}\partial \theta _{k}}%
+\right) .
+\end{equation*}%
+Summing over all $i=1,\ldots ,n$ and arranging the terms as a matrix yields%
+\begin{equation*}
+Cov\left( g\left( \theta \right) \right) =-E\left( H\left( \theta \right)
+\right) .
+\end{equation*}
+
+\section{Consistency of ML estimator}
+
+See Davidson and MacKinnon (2004, section 10.3).
+
+Finite sample identification condition: The log-likelihood must be different
+for different parameter values,%
+\begin{equation*}
+\ln L\left( \theta ,x\right) \neq \ln L\left( \theta ^{\prime },x\right)
+\end{equation*}%
+for $\theta \neq \theta ^{\prime }$ and all $x$. Let $\theta _{0}$ denote
+the true parameter values. Then by Jensen's inequality%
+\begin{equation}
+E_{0}\ln \left( \frac{L\left( \theta ^{\prime }\right) }{L\left( \theta
+_{0}\right) }\right) <\ln E_{0}\left( \frac{L\left( \theta ^{\prime }\right)
+}{L\left( \theta _{0}\right) }\right)  \label{jensen1}
+\end{equation}%
+since the logarithm is a concave transformation. The expectation on the
+right hand side is%
+\begin{eqnarray*}
+E_{0}\left( \frac{L\left( \theta ^{\prime }\right) }{L\left( \theta
+_{0}\right) }\right) &=&\int \frac{L\left( \theta ^{\prime }\right) }{%
+L\left( \theta _{0}\right) }L\left( \theta _{0}\right) dx \\
+&=&\int L\left( \theta ^{\prime }\right) dx \\
+&=&1
+\end{eqnarray*}%
+since $L\left( \theta ^{\prime }\right) $ is a density function (the joint
+density of $x$ at $\theta ^{\prime }$). Hence, the right hand side of (\ref%
+{jensen1}) vanishes,%
+\begin{equation*}
+E_{0}\ln \left( \frac{L\left( \theta ^{\prime }\right) }{L\left( \theta
+_{0}\right) }\right) <0
+\end{equation*}%
+or%
+\begin{equation}
+E_{0}\ln L\left( \theta ^{\prime }\right) <E_{0}\ln L\left( \theta
+_{0}\right) .  \label{ineq1}
+\end{equation}%
+By a law of large numbers
+\begin{equation*}
+\textsl{plim}\left( \frac{1}{n}\ln L\left( \theta \right) \right) =\lim
+\left( \frac{1}{n}E_{0}\ln L\left( \theta \right) \right)
+\end{equation*}%
+for all $\theta $. Therefore, from (\ref{ineq1}) we conclude%
+\begin{equation}
+\textsl{plim}\left( \frac{1}{n}\ln L\left( \theta ^{\prime }\right) \right)
+\leq \textsl{plim}\left( \frac{1}{n}\ln L\left( \theta _{0}\right) \right)
+\label{ineq2}
+\end{equation}%
+for all $\theta ^{\prime }$ where the inequality is not strict because of
+the limits.
+
+Since the ML estimator $\hat{\theta}$ maximizes $\ln L\left( \theta \right) $
+it must be true that%
+\begin{equation}
+\textsl{plim}\left( \frac{1}{n}\ln L\left( \hat{\theta}\right) \right) \geq
+\textsl{plim}\left( \frac{1}{n}\ln L\left( \theta _{0}\right) \right) .
+\label{ineq3}
+\end{equation}%
+The only way that (\ref{ineq2}) and (\ref{ineq3}) can both be true is if%
+\begin{equation*}
+\textsl{plim}\left( \frac{1}{n}\ln L\left( \hat{\theta}\right) \right) =%
+\textsl{plim}\left( \frac{1}{n}\ln L\left( \theta _{0}\right) \right) .
+\end{equation*}%
+Since the asymptotic identification condition requires $\textsl{plim}\left(
+\frac{1}{n}\ln L\left( \theta ^{\prime }\right) \right) \neq \textsl{plim}%
+\left( \frac{1}{n}\ln L\left( \theta _{0}\right) \right) $ for all $\theta
+^{\prime }\neq \theta _{0}$, consistency follows.
+
+\section{Asymptotic normality of ML estimator}
+
+Ignoring the residual term, the Taylor expansion is%
+\begin{equation*}
+g(\hat{\theta})=g\left( \theta _{0}\right) +H\left( \theta _{0}\right) (\hat{%
+\theta}-\theta _{0})=0.
+\end{equation*}%
+Hence,%
+\begin{eqnarray*}
+(\hat{\theta}-\theta _{0}) &=&-\left[ H\left( \theta _{0}\right) \right]
+^{-1}g\left( \theta _{0}\right) \\
+\sqrt{n}(\hat{\theta}-\theta _{0}) &=&-\left[ H\left( \theta _{0}\right) %
+\right] ^{-1}\sqrt{n}g\left( \theta _{0}\right) \\
+\sqrt{n}(\hat{\theta}-\theta _{0}) &=&-\left[ \frac{1}{n}H\left( \theta
+_{0}\right) \right] ^{-1}\sqrt{n}\bar{g}\left( \theta _{0}\right)
+\end{eqnarray*}%
+where $\bar{g}\left( \theta _{0}\right) =n^{-1}g\left( \theta _{0}\right) $.
+By the central limit theorem, $\sqrt{n}\bar{g}\left( \theta _{0}\right) $ is
+asymptotically normally distributed with%
+\begin{eqnarray*}
+E\left( \sqrt{n}\bar{g}\left( \theta _{0}\right) \right) &=&0 \\
+Cov\left( \sqrt{n}\bar{g}\left( \theta _{0}\right) \right) &=&-E\left( \frac{%
+1}{n}H\left( \theta _{0}\right) \right) .
+\end{eqnarray*}%
+Since $\sqrt{n}(\hat{\theta}-\theta _{0})$ is just a linear transformation
+of $\sqrt{n}\bar{g}\left( \theta _{0}\right) $ it is asymptotically normal
+as well with%
+\begin{eqnarray*}
+E\left( \sqrt{n}(\hat{\theta}-\theta _{0})\right) &=&0 \\
+Cov\left( \sqrt{n}(\hat{\theta}-\theta _{0})\right) &=&-\left[ \frac{1}{n}%
+H\left( \theta _{0}\right) \right] ^{-1}E\left( \frac{1}{n}H\left( \theta
+_{0}\right) \right) \left[ \frac{1}{n}H\left( \theta _{0}\right) \right]
+^{-1}.
+\end{eqnarray*}%
+In the limit $\textsl{plim}\frac{1}{n}H\left( \theta _{0}\right) =E\left(
+\frac{1}{n}H\left( \theta _{0}\right) \right) $ and thus the covariance
+matrix simplifies to%
+\begin{equation*}
+Cov\left( \sqrt{n}(\hat{\theta}-\theta _{0})\right) =-\left[ E\left( \frac{1%
+}{n}H\left( \theta _{0}\right) \right) \right] ^{-1},
+\end{equation*}%
+and hence approximately%
+\begin{equation*}
+\hat{\theta}\sim N\left( \theta _{0},-\left[ E\left( H\left( \theta
+_{0}\right) \right) \right] ^{-1}\right) .
+\end{equation*}
+
+\section{Errors in variables}
+
+The model with the unobservable exogenous variable is
+
+\begin{equation*}
+y_{t}=\alpha +\beta x_{t}^{\ast }+\varepsilon _{t},\quad \varepsilon
+_{t}\sim iid(0,\sigma _{\varepsilon }^{2}).
+\end{equation*}%
+We can only observe
+\begin{equation*}
+x_{t}=x_{t}^{\ast }+v_{t}.
+\end{equation*}%
+Estimate the model%
+\begin{eqnarray*}
+y_{t} &=&\alpha +\beta \left( x_{t}-v_{t}\right) +\varepsilon _{t} \\
+&=&\alpha +\beta x_{t}+\underbrace{\varepsilon _{t}-\beta v_{t}}_{=u_{t}}.
+\end{eqnarray*}%
+The error $u_{t}$ is correlated with the exogenous variable $x_{t}$ and%
+\begin{equation*}
+E\left( u_{t}|x_{t}\right) =E\left( u_{t}|v_{t}\right) =-\beta v_{t},
+\end{equation*}%
+hence%
+\begin{eqnarray*}
+Cov\left( x_{t},u_{t}\right) &=&E\left( x_{t}u_{t}\right) \\
+&=&E\left( x_{t}E\left( u_{t}|x_{t}\right) \right) \\
+&=&E\left( \left( x_{t}^{\ast }+v_{t}\right) \left( -\beta v_{t}\right)
+\right) \\
+&=&-\beta \sigma _{v}^{2}.
+\end{eqnarray*}%
+Generalization:
+\begin{equation*}
+y=X^{\ast }\beta +\varepsilon ,\quad \varepsilon \sim N(0,\sigma ^{2}I)
+\end{equation*}%
+where a single column of the $T\times K$ matrix $X^{\ast }$ is latent (say,
+the last column). We can observe%
+\begin{equation*}
+X=X^{\ast }+V
+\end{equation*}%
+where the $T\times K$ matrix of measurement errors $V$ is zero everywhere
+except in the last column. Estimate the model%
+\begin{eqnarray*}
+y &=&\left( X-V\right) \beta +\varepsilon \\
+&=&X\beta +\underbrace{\left( \varepsilon -V\beta \right) }_{=u}.
+\end{eqnarray*}%
+Then $E\left( u|X\right) =E\left( u|V\right) =-V\beta $. Note that \emph{all}
+parameters are estimated inconsistently -- not just the last one. See
+\texttt{errorsinvars.R}.
+
+\section{Consistency of simple IV estimator}
+
+The probability limit of%
+\begin{eqnarray*}
+\hat{\beta} &=&(W'X)^{-1}W'y = \beta +\left( W^{\prime }X\right) ^{-1}W^{\prime }u \\
+&=&\beta +\left( \frac{1}{n}W^{\prime }X\right) ^{-1}\frac{1}{n}W^{\prime }u
+\end{eqnarray*}%
+is%
+\begin{eqnarray*}
+\textsl{plim}\hat{\beta}_{IV} &=&\beta +\textsl{plim}\left( \left( \frac{1%
+}{n}W^{\prime }X\right) ^{-1}\frac{1}{n}W^{\prime }u\right) \\
+&=&\beta +\textsl{plim}\left( \frac{1}{n}W^{\prime }X\right) ^{-1}\textsl{%
+plim}\frac{1}{n}W^{\prime }u \\
+&=&\beta +\left( \textsl{plim}\frac{1}{n}W^{\prime }X\right) ^{-1}\textsl{%
+plim}\frac{1}{n}W^{\prime }u.
+\end{eqnarray*}%
+$\textsl{plim}\frac{1}{n}W^{\prime }u$ is a normal average, so we can use the law of large numbers.\\
+If $\textsl{plim}\frac{1}{n}W^{\prime }X=S_{WX}$ is deterministic and
+nonsingular, then%
+\begin{equation*}
+\textsl{plim}\hat{\beta}_{IV}=\beta +S_{WX}^{-1}\cdot \textsl{plim}\frac{1%
+}{n}W^{\prime }u.
+\end{equation*}
+In other words, asymptotically, we require that W und X are correlated, since this converges to $E(w_i X_j)$
+Obviously, $\hat{\beta}_{IV}$ is consistent if $\textsl{plim}\frac{1}{n}%
+W^{\prime }u=0$. Write%
+\begin{equation*}
+\frac{1}{n}W^{\prime }u=\frac{1}{n}\sum_{t=1}^{n}W_{t}^{\prime }u_{t}
+\end{equation*}%
+where $W_{t}$ is the $t$-th row of $W$ (as a row vector). By the law of
+large numbers%
+\begin{equation*}
+\frac{1}{n}\sum_{t=1}^{n}W_{t}^{\prime }u_{t}\overset{p}{\rightarrow }%
+E\left( W^{\prime }u\right) =0
+\end{equation*}%
+or $\textsl{plim}\frac{1}{n}W^{\prime }u=0$. This establishes the
+consistency of $\hat{\beta}_{IV}$.
+
+\section{Asymptotic normality of simple IV estimator}
+
+Multiply%
+\begin{equation*}
+\hat{\beta}_{IV}-\beta =\left( \frac{1}{n}W^{\prime }X\right) ^{-1}\frac{1}{n%
+}W^{\prime }u
+\end{equation*}%
+by $\sqrt{n}$ to get%
+\begin{equation}
+\sqrt{n}\left( \hat{\beta}_{IV}-\beta \right) =\left( \frac{1}{n}W^{\prime
+}X\right) ^{-1}\sqrt{n}\left( \frac{1}{n}W^{\prime }u\right) .  \label{1}
+\end{equation}%
+$\left( \frac{1}{n}W^{\prime}X\right) ^{-1}$: Law of large numbers, converges in probability to $S_{WX}^{-1}$.\\
+$\sqrt{n}\left( \frac{1}{n}W^{\prime }u\right)$: Central limit theorem, converges in distribution to a Gaussian distribution.\\
+The right hand side of (\ref{1}) has two terms. We already know that the
+first one, $\left( \frac{1}{n}W^{\prime }X\right) ^{-1}$ converges in
+probability to $S_{WX}^{-1}$. The second term is
+\begin{equation*}
+\sqrt{n}\left( \frac{1}{n}W^{\prime }u\right) =\sqrt{n}\left( \frac{1}{n}%
+\sum_{t=1}^{n}W_{t}^{\prime }u_{t}\right) .
+\end{equation*}%
+We apply the central limit theorem to the mean $\frac{1}{n}%
+\sum_{t=1}^{n}W_{t}^{\prime }u_{t}$. The expectation of a single summand is $%
+E\left( W_{t}^{\prime }u_{t}\right) =0$ (this is a vector of length $K$),
+and the $K\times K$ covariance matrix is
+\begin{eqnarray*}
+Cov\left( W_{t}^{\prime }u_{t}\right) &=&E\left( W_{t}^{\prime
+}u_{t}u_{t}^{\prime }W_{t}\right) \\
+&=&E\left( E\left( W_{t}^{\prime }u_{t}u_{t}^{\prime }W_{t}|W_{t}\right)
+\right) \\
+&=&E\left( W_{t}^{\prime }E\left( u_{t}u_{t}^{\prime }|W_{t}\right)
+W_{t}\right) \\
+&=&E\left( W_{t}^{\prime }\sigma ^{2}IW_{t}\right) \\
+&=&\sigma ^{2}E\left( W_{t}^{\prime }W_{t}\right) \\
+&=&:\sigma ^{2}S_{WW}
+\end{eqnarray*}%
+If the instruments satisfy the asymptotic identification condition $\frac{1}{%
+n}W^{\prime }W\overset{p}{\rightarrow }S_{WW},$ then the central limit
+theorem implies%
+\begin{equation*}
+\sqrt{n}\left( \frac{1}{n}\sum_{t=1}^{n}W_{t}^{\prime }u_{t}\right)
+\rightarrow N\left( 0,\sigma ^{2}S_{WW}\right) .
+\end{equation*}%
+Thus, the second term in (\ref{1}) converges in distribution. By Cramer's
+rule, if one factor of a product converges in probability and the other
+factor converges in distribution, then the product converges in
+distribution. So,%
+\begin{eqnarray*}
+\sqrt{n}\left( \hat{\beta}_{IV}-\beta \right) &=&\left( \frac{1}{n}W^{\prime
+}X\right) ^{-1}\sqrt{n}\left( \frac{1}{n}W^{\prime }u\right) \\
+&&\overset{d}{\rightarrow }S_{WX}^{-1}\cdot U
+\end{eqnarray*}%
+where $U\sim N\left( 0,\sigma ^{2}S_{WW}\right) .$ The final step is to move
+the matrix $S_{WX}^{-1}$ into the covariance matrix of the normal
+distribution,%
+\begin{equation*}
+\sqrt{n}\left( \hat{\beta}_{IV}-\beta \right) \overset{d}{\rightarrow }%
+N\left( 0,\sigma ^{2}\left( S_{WX}\right) ^{-1}S_{WW}\left( S_{WX}^{\prime
+}\right) ^{-1}\right) .
+\end{equation*}%
+Consider the covariance matrix. By definition
+\begin{eqnarray*}
+\sigma ^{2}\left( S_{WX}\right) ^{-1}S_{WW}\left( S_{WX}^{\prime }\right)
+^{-1} &=&\sigma ^{2}\textsl{plim}\left[ \left( \frac{1}{n}W^{\prime
+}X\right) ^{-1}\left( \frac{1}{n}W^{\prime }W\right) \left( \frac{1}{n}%
+X^{\prime }W\right) ^{-1}\right] \\
+&=&\sigma ^{2}\textsl{plim}\left[ n\left( W^{\prime }X\right) ^{-1}\left(
+W^{\prime }W\right) \left( X^{\prime }W\right) ^{-1}\right] \\
+&=&\sigma ^{2}\textsl{plim}\left[ \frac{1}{n}X^{\prime }W\left( W^{\prime
+}W\right) ^{-1}W^{\prime }X\right] ^{-1} \\
+&=&\sigma ^{2}\textsl{plim}\left[ \frac{1}{n}X^{\prime }P_{W}X\right] ^{-1}
+\end{eqnarray*}%
+where $P_{W}=W\left( W^{\prime }W\right) ^{-1}W^{\prime }$ is a projection
+matrix. Hence, for large samples, approximately%
+\begin{equation*}
+\hat{\beta}_{IV}\sim N\left( \beta ,\sigma ^{2}\left( X^{\prime
+}P_{W}X\right) ^{-1}\right) .
+\end{equation*}
+
+\section{Durbin-Wu-Hausman test}
+
+The difference between the estimators is%
+\begin{eqnarray*}
+&&\hat{\beta}_{IV}-\hat{\beta}_{OLS} \\
+&=&\left( X^{\prime }P_{W}X\right) ^{-1}X^{\prime }P_{W}y-\left( X^{\prime
+}X\right) ^{-1}X^{\prime }y \\
+&=&\left( X^{\prime }P_{W}X\right) ^{-1}\left( X^{\prime }P_{W}y-\left(
+X^{\prime }P_{W}X\right) \left( X^{\prime }X\right) ^{-1}X^{\prime }y\right)
+\\
+&=&\left( X^{\prime }P_{W}X\right) ^{-1}\left( X^{\prime }P_{W}\left(
+I-X\left( X^{\prime }X\right) ^{-1}X^{\prime }\right) y\right) \\
+&=&\left( X^{\prime }P_{W}X\right) ^{-1}\left( X^{\prime
+}P_{W}M_{X}\,y\right)
+\end{eqnarray*}%
+We need to test if $X^{\prime }P_{W}M_{X}\,y$ is significantly different
+from 0. This term is identically equal to zero for all variables in $X$ that
+are instruments (i.e. that are also in $W$). Denote the exogenous variable
+in $X$ by $Z$, then%
+\begin{equation*}
+Z^{\prime }P_{W}M_{X}y=0
+\end{equation*}%
+because $Z^{\prime }P_{W}=Z^{\prime }$ since $Z$ is a subset of $W$ and $%
+P_{W}W=W\left( W^{\prime }W\right) ^{-1}W^{\prime }W=W$ and $P_{W}$ is
+symmetric. Next, $Z^{\prime }M_{X}=0$ since $Z$ is a subset of $X$ and $%
+M_{X}X=\left( I-X\left( X^{\prime }X\right) ^{-1}X^{\prime }\right) X=0$ and
+$M_{X}$ is symmetric.
+
+Denote by $\tilde{X}$ all possibly endogenous regressors. To test if $\tilde{%
+X}^{\prime }P_{W}M_{X}\,y$ is significantly different from zero, perform a
+Wald test of $\delta =0$ in the regression%
+\begin{equation*}
+y=X\beta +P_{W}\tilde{X}\delta +u.
+\end{equation*}%
+The OLS estimator of $\delta $ can be obtained by regression $M_{X}y$ on $%
+M_{X}P_{W}\tilde{X}$, i.e.%
+\begin{equation*}
+\hat{\delta}=\left( \tilde{X}^{\prime }P_{W}M_{X}P_{W}\tilde{X}\right) ^{-1}%
+\tilde{X}^{\prime }P_{W}M_{X}y.
+\end{equation*}%
+Since $\left( \tilde{X}^{\prime }P_{W}M_{X}P_{W}\tilde{X}\right) ^{-1}$ is
+positive definite, testing if $\delta =0$ is equivalent to testing if $%
+\tilde{X}^{\prime }P_{W}M_{X}y$ is significantly different from 0. This
+reasoning is copied from Davidson and MacKinnon (2004, section 8.7).
+
+\section{GMM estimation of the linear regression model}
+
+Part I: Model description. The unknown parameter vector to be estimated is $%
+\beta $ (we do not attempt to estimate $\sigma ^{2}$ at this point). The
+observations are $y_{t}=(X_{t},y_{t})$ where, of course, $y_{t}$ and $y_{t}$
+are different things. The elementary zero functions are%
+\begin{equation*}
+f_{t}(\theta ,y_{t})=f_{t}(\beta ,y_{t},X_{t})=y_{t}-X_{t}^{\prime }\beta
+\end{equation*}%
+because%
+\begin{equation*}
+E(y_{t}-X_{t}^{\prime }\beta )=0.
+\end{equation*}%
+Note that this equation defines the model but does not say anything about
+the estimating equation.
+
+Part II: Covariance matrix. The covariance matrix of $f\left( \theta
+,y\right) $ has elements%
+\begin{equation*}
+E(f_{t}(\theta ,y_{t})f_{s}(\theta ,y_{s}))=\left\{
+\begin{array}{ll}
+\sigma ^{2} & \quad \text{if }s=t \\
+0 & \quad \text{if }s\neq t%
+\end{array}%
+\right.
+\end{equation*}%
+since $f_{t}$ and $f_{s}$ are independent, and $E(f_{t}^{2})=E(u_{t}^{2})=%
+\sigma ^{2}$.
+
+\section{GMM estimation of log-normal distribution}
+
+Part I: Model description. Suppose there is a random sample $X_{1},\ldots
+,X_{n}$ from $X\sim LN(\mu ,\sigma ^{2})$. The raw moment of order $p$ is%
+\begin{equation*}
+E\left( X^{p}\right) =\exp \left( p\mu +\frac{1}{2}p^{2}\sigma ^{2}\right) .
+\end{equation*}%
+The parameters to be estimated are $\theta =\left( \mu ,\sigma ^{2}\right) $%
+. The observations are $y_{t}=X_{t}$. The elementary zero functions are%
+\begin{equation*}
+f_{t}\left( \theta ,y_{t}\right) =\left[
+\begin{array}{c}
+f_{t1}\left( \theta ,y_{t}\right) \\
+f_{t2}\left( \theta ,y_{t}\right)%
+\end{array}%
+\right] =\left[
+\begin{array}{c}
+X_{t}-\exp \left( \mu +\frac{1}{2}\sigma ^{2}\right) \\
+X_{t}^{2}-\exp \left( 2\mu +2\sigma ^{2}\right)%
+\end{array}%
+\right]
+\end{equation*}%
+because%
+\begin{eqnarray*}
+E\left( f_{t}\left( \theta ,y_{t}\right) \right) &=&E\left( \left[
+\begin{array}{c}
+X_{t}-\exp \left( \mu +\frac{1}{2}\sigma ^{2}\right) \\
+X_{t}^{2}-\exp \left( 2\mu +2\sigma ^{2}\right)%
+\end{array}%
+\right] \right) \\
+&=&\left[
+\begin{array}{c}
+E\left( X_{t}-\exp \left( \mu +\frac{1}{2}\sigma ^{2}\right) \right) \\
+E\left( X_{t}^{2}-\exp \left( 2\mu +2\sigma ^{2}\right) \right)%
+\end{array}%
+\right] \\
+&=&\left[
+\begin{array}{c}
+E\left( X_{t}\right) -\exp \left( \mu +\frac{1}{2}\sigma ^{2}\right) \\
+E\left( X_{t}^{2}\right) -\exp \left( 2\mu +2\sigma ^{2}\right)%
+\end{array}%
+\right] \\
+&=&0
+\end{eqnarray*}%
+Part II: Covariance matrix. The covariance matrix of $f\left( \theta
+,y\right) $ is%
+\begin{equation*}
+E\left( f(\theta ,y\right) \,f\left( \theta ,y\right) )=E\left(
+\begin{array}{ccccc}
+f_{11}^{2} & f_{11}f_{12} & \ldots & f_{11}f_{n1} & f_{11}f_{n2} \\
+f_{12}f_{11} & f_{12}^{2} & \ldots & f_{12}f_{n1} & f_{12}f_{n2} \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+f_{n1}f_{11} & f_{n1}f_{12} & \ldots & f_{n1}^{2} & f_{n1}f_{n2} \\
+f_{n2}f_{11} & f_{n2}f_{12} & \ldots & f_{n2}f_{n1} & f_{n2}^{2}%
+\end{array}%
+\right) .
+\end{equation*}%
+Since the elements of the random sample are independent,%
+\begin{equation*}
+E\left( f_{ti}\left( \theta ,y_{t}\right) f_{sj}\left( \theta ,y_{t}\right)
+\right) =E\left( f_{tj}\left( \theta ,y_{t}\right) \right) \cdot E\left(
+f_{sj}\left( \theta ,y_{t}\right) \right) =0
+\end{equation*}%
+for $s\neq t$ and $i,j\in \{1,2\}$. Hence, the covariance matrix is of
+block-diagonal form,%
+\begin{equation*}
+E\left( f(\theta ,y\right) \,f\left( \theta ,y\right) )=E\left(
+\begin{array}{ccccc}
+f_{11}^{2} & f_{11}f_{12} &  &  &  \\
+f_{12}f_{11} & f_{12}^{2} &  &  &  \\
+&  & \ddots &  &  \\
+&  &  & f_{n1}^{2} & f_{n1}f_{n2} \\
+&  &  & f_{n2}f_{n1} & f_{n2}^{2}%
+\end{array}%
+\right) .
+\end{equation*}%
+The blocks have elements%
+\begin{eqnarray*}
+E\left( f_{t1}\left( \theta ,y_{t}\right) ^{2}\right) &=&E\left( \left(
+X_{t}-\exp \left( \mu +\frac{1}{2}\sigma ^{2}\right) \right) ^{2}\right) \\
+&=&E\left( X_{t}^{2}-2X_{t}\exp \left( \mu +\frac{1}{2}\sigma ^{2}\right)
++\exp \left( 2\mu +\sigma ^{2}\right) \right) \\
+&=&E\left( X_{t}^{2}\right) -2E\left( X_{t}\right) \exp \left( \mu +\frac{1}{%
+2}\sigma ^{2}\right) +\exp \left( 2\mu +\sigma ^{2}\right) \\
+&=&\exp \left( 2\mu +2\sigma ^{2}\right) -2\exp \left( \mu +\frac{1}{2}%
+\sigma ^{2}\right) \exp \left( \mu +\frac{1}{2}\sigma ^{2}\right) +\exp
+\left( 2\mu +\sigma ^{2}\right) \\
+&=&\exp \left( 2\mu +2\sigma ^{2}\right) \allowbreak -\exp \left( 2\mu
++\sigma ^{2}\right) ,
+\end{eqnarray*}%
+In a similar way, one can derive the other two covariances%
+\begin{eqnarray*}
+E\left( f_{t1}f_{t2}\right) &=&\allowbreak \exp \left( 3\mu +\frac{9}{2}%
+\sigma ^{2}\right) -\exp \left( 3\mu +\frac{5}{2}\sigma ^{2}\right) \\
+E\left( f_{t2}\left( \theta ,y_{t}\right) ^{2}\right) &=&\exp \left( 4\mu
++8\sigma ^{2}\right) -\exp \left( 4\mu +4\sigma ^{2}\right)
+\end{eqnarray*}
+
+\section{GMM estimation of a general asset pricing model}
+
+Part I: Model description. The parameters to be estimated depend on the
+specific case. For instance, if the stochastic discount factor is%
+\begin{equation*}
+m_{t}=\beta \left( \frac{c_{t}}{c_{t-1}}\right) ^{-\gamma }
+\end{equation*}%
+then $\theta =\left( \beta ,\gamma \right) ^{\prime }$. The observations are
+time series of prices $p_{1},\ldots ,p_{n}$ and payoffs $x_{1},\ldots ,x_{n}$%
+. If required, other variables may be included, e.g. time series of
+consumption $c_{t}$. The elementary zero functions are%
+\begin{equation*}
+f_{t}\left( \theta ,y_{t}\right) =m_{t+1}\left( \theta \right) x_{t+1}-p_{t}
+\end{equation*}%
+because $E\left( f_{t}\left( \theta ,y_{t}\right) \right) =E\left(
+m_{t+1}\left( \theta \right) x_{t+1}\right) -E\left( p_{t}\right) $ and
+asset pricing models imply the general moment condition%
+\begin{equation*}
+E\left( p_{t}\right) =E\left( m_{t+1}\left( \theta \right) x_{t+1}\right) .
+\end{equation*}%
+Part II: Covariance matrix. Since time series are dependent over time, the
+observations are not independent,%
+\begin{equation*}
+E\left( f(\theta ,y\right) \,f\left( \theta ,y\right) )=E\left(
+\begin{array}{ccc}
+f_{11}^{2} & \ldots & f_{11}f_{n1} \\
+\vdots & \ddots & \vdots \\
+f_{n1}f_{11} & \ldots & f_{n1}^{2}%
+\end{array}%
+\right) .
+\end{equation*}%
+A typical element of this matrix is%
+\begin{eqnarray*}
+E\left( \left( f_{t}(\theta ,y_{t}\right) \,f_{s}\left( \theta ,y_{s}\right)
+\right) &=&E\left( \left( m_{t+1}\left( \theta \right) x_{t+1}-p_{t}\right)
+\left( m_{s+1}\left( \theta \right) x_{s+1}-p_{s}\right) \right) \\
+&=&E\left( m_{t+1}\left( \theta \right) m_{s+1}\left( \theta \right)
+x_{t+1}x_{s+1}\right) -E\left( m_{t+1}\left( \theta \right)
+x_{t+1}p_{s}\right) \\
+&&-E\left( m_{s+1}\left( \theta \right) x_{s+1}p_{t}\right) +E\left(
+p_{t}p_{s}\right) .
+\end{eqnarray*}%
+The exact form depends on the time series properties of the series.
+
+\section{Consistency of GMM estimator}
+
+Limiting estimation functions%
+\begin{equation*}
+\alpha \left( \theta \right) =\textsl{plim}\frac{1}{n}Z^{\prime }f\left(
+\theta ,y\right)
+\end{equation*}%
+and limiting estimation equations%
+\begin{equation*}
+\alpha \left( \theta \right) =0.
+\end{equation*}%
+Here we assume that $\frac{1}{n}Z^{\prime }f\left( \theta ,y\right) $
+actually converges in probability, i.e. that a law of large numbers holds.
+In addition, we assume the asymptotic identification condition, $\alpha
+\left( \theta \right) \neq \alpha \left( \theta _{0}\right) $ for all $%
+\theta \neq \theta _{0}$.
+
+We do not prove consistency rigorously, but only heuristically (following
+Davidson and MacKinnon, 2004, p. 218f). To do so, assume that $\hat{\theta}$
+has a deterministic probability limit, $\hat{\theta}\rightarrow \theta
+_{\infty }$. We now show that $\theta _{\infty }$ must equal the true value $%
+\theta _{0}$ if the asymptotic identification condition is satisfied. We
+start by assuming the opposite, i.e. that $\theta _{\infty }\neq \theta _{0}$%
+. By definition, the GMM estimator satisfies%
+\begin{equation*}
+\frac{1}{n}Z^{\prime }f\left( \hat{\theta},y\right) =0.
+\end{equation*}%
+Applying the $\textsl{plim}$-operator on both sides gives%
+\begin{eqnarray*}
+\textsl{plim}\frac{1}{n}Z^{\prime }f\left( \hat{\theta},y\right) &=&%
+\textsl{plim}0 \\
+\frac{1}{n}Z^{\prime }f\left( \textsl{plim}\hat{\theta},y\right) &=&0 \\
+\frac{1}{n}Z^{\prime }f\left( \hat{\theta}_{\infty },y\right) &=&0 \\
+\alpha \left( \theta _{\infty }\right) &=&0
+\end{eqnarray*}%
+However, the asymptotic identification condition requires that $\alpha
+\left( \theta \right) \neq 0$ for all $\theta \neq \theta _{0}.$ It follows
+that $\theta _{\infty }=\theta _{0}$, i.e. the probability limit is the true
+value. The GMM estimator is consistent.
+
+\section{Asymptotic normality of GMM estimator}
+$\sqrt{n}(\hat{\theta}-\theta) \sim N(\cdot,\cdot)$ based on Taylor Series expansion or Mean Value Theorem with LLN and CLT.
+A first order Taylor series expansion of
+\begin{equation*}
+\frac{1}{n}Z^{\prime }f\left( \theta \right) =0
+\end{equation*}%
+in $\hat{\theta}$ around $\theta _{0}$ gives%
+\begin{equation*}
+\frac{1}{n}Z^{\prime }f\left( \hat{\theta}\right) =\frac{1}{n}Z^{\prime
+}f\left( \theta _{0}\right) +\frac{1}{n}Z^{\prime }F\left( \bar{\theta}\right) \left( \hat{\theta}-\theta _{0}\right) =0
+\end{equation*}%
+with $\bar{\theta}$ lies element by element between $\theta_0$ and $\hat{\theta}_T$.
+The Jacobian matrix is
+\begin{equation*}
+F(\theta )=\frac{\partial f(\theta )}{\partial \theta }.
+\end{equation*}%
+A typical element of the $n\times K$ matrix $F(\theta )$ is%
+\begin{equation*}
+F_{ti}(\theta )=\frac{\partial f_{t}(\theta )}{\partial \theta _{i}}.
+\end{equation*}%
+[What is $F(\theta )$ in the linear regression model? $f=y-X\beta, \frac{\partial f}{\partial \beta}=-X$]
+
+Note that $F(\theta )$ also depends on $y$ and, thus, it is stochastic.
+Multiplication by $\sqrt{n}$ gives%
+\begin{equation*}
+\sqrt{n}\frac{1}{n}Z^{\prime }f\left( \theta _{0}\right) +\frac{1}{n}Z^{\prime }F\left( \bar{\theta} \right) \sqrt{n}\left( \hat{\theta}-\theta
+_{0}\right) =0
+\end{equation*}%
+or%
+\begin{equation*}
+\sqrt{n}\left( \hat{\theta}-\theta _{0}\right) =-\left( \frac{1}{n}Z^{\prime}F\left( \bar{\theta} \right) \right) ^{-1}\sqrt{n}\frac{1}{n}Z^{\prime
+}f\left( \theta _{0}\right) .
+\end{equation*}
+$\left( \frac{1}{n}Z^{\prime}F\left( \bar{\theta} \right) \right) ^{-1}$ is an average and converges in probability to $\textsl{plim} \left( \frac{1}{n}Z^{\prime}F(\bar{\theta}) \right) ^{-1}$. Consistency of $\hat{\theta}$ implies $\bar{\theta}$ tends to $\theta_0$, i.e. $\textsl{plim} \left( \frac{1}{n}Z^{\prime}F(\bar{\theta}) \right) ^{-1}=\textsl{plim} \left( \frac{1}{n}Z^{\prime}F(\theta_0) \right) ^{-1}$.\\
+For $\sqrt{n}\frac{1}{n}Z^{\prime}f\left( \theta _{0}\right)$ we have a CLT.\\
+
+Now, let $n\rightarrow \infty $. By the law of large numbers the mean%
+\begin{equation*}
+\frac{1}{n}Z^{\prime }F\left( \bar{\theta}\right)
+\end{equation*}%
+converges in probability. We assume that the limit $\textsl{plim}\frac{1}{n}Z^{\prime }F\left( \theta _{0}\right) $ is deterministic and nonsingular. As
+to the second term on the right hand side, i.e.%
+\begin{equation*}
+\sqrt{n}\left( \frac{1}{n}Z^{\prime }f\left( \theta _{0}\right) \right)
+\end{equation*}%
+and we can invoke the central limit theorem. Hence, asymptotic normality of $%
+n^{-1/2}Z^{\prime }f\left( \theta _{0}\right) $ is established. What are the
+expectation and the covariance matrix of the asymptotic normal distribution?
+The expectation vector is obviously 0, since $E(f(\theta _{0}))=0$. As to
+the covariance matrix,%
+\begin{equation*}
+E\left[ \left( \sqrt{n}\frac{1}{n}Z^{\prime }f\left( \theta _{0}\right)
+\right) \left( \sqrt{n}\frac{1}{n}Z^{\prime }f\left( \theta _{0}\right)
+\right) ^{\prime }\right] =E\left[ \frac{1}{n}Z^{\prime }f\left( \theta
+_{0}\right) f^{\prime }(\theta _{0})Z\right] .
+\end{equation*}%
+For $n\rightarrow \infty $, this converges to%
+\begin{equation*}
+\textsl{plim}\frac{1}{n}Z^{\prime }\Omega Z.
+\end{equation*}%
+Note that the convergence by the law of large numbers breaks down if the
+second moment of $f\left( \theta _{0}\right) f^{\prime }(\theta _{0})$ does
+not exist, i.e. if the fourth moment of $f(\theta _{0})$ does not exist.
+This normally happens for return distributions!
+
+The asymptotic distribution of $\sqrt{n}\left( \hat{\theta}-\theta
+_{0}\right) $ also has expectation vector 0. Its covariance matrix is the
+\textquotedblleft sandwich covariance matrix\textquotedblright
+\begin{equation*}
+\left( \textsl{plim}\frac{1}{n}Z^{\prime }F\left( \theta _{0}\right)
+\right) ^{-1}\left( \textsl{plim}\frac{1}{n}Z^{\prime }\Omega Z\right)
+\left( \textsl{plim}\frac{1}{n}F\left( \theta _{0}\right) ^{\prime
+}Z\right) ^{-1}
+\end{equation*}%
+or%
+\begin{equation*}
+\left( \textsl{plim}\frac{1}{n}J^{\prime }W^{\prime }F\left( \theta
+_{0}\right) \right) ^{-1}\left( \textsl{plim}\frac{1}{n}J^{\prime
+}W^{\prime }\Omega WJ\right) \left( \textsl{plim}\frac{1}{n}F\left( \theta
+_{0}\right) ^{\prime }WJ\right) ^{-1}.
+\end{equation*}
+In general this is not an asymptotic efficient estimator.
+\section{Asymptotic efficiency}
+
+The estimating equations are%
+\begin{equation*}
+\frac{1}{n}Z^{\prime }f(\theta )=0.
+\end{equation*}%
+The matrix $Z$ can be chosen by the user. The optimal choice depends on the
+assumptions about $F(\theta )$ and $\Omega $. We consider three cases.
+
+\subsection{Case 1}
+
+We start with the simplest case, $\Omega =\sigma ^{2}I$ and $F(\theta _{0})$
+is predetermined, i.e. $F_{t}$ and $f_{t}$ are contemporaneously
+uncorrelated,%
+\begin{equation*}
+E\left( F_{t}(\theta _{0})f_{t}(\theta _{0})\right) =0.
+\end{equation*}%
+This assumption is similar to the assumption that $X_{t}$ and $u_{t}$ are
+contemporaneously uncorrelated, in the linear regression model. To keep the
+notation simple, ignore the probability limit and the factors of $n^{-1}$.
+The asymptotic covariance matrix of the GMM estimator is%
+\begin{equation*}
+\left( Z^{\prime }F_{0}\right) ^{-1}Z^{\prime }\Omega Z\left(
+F_{0}{}^{\prime }Z\right) ^{-1}
+\end{equation*}%
+where $F_{0}$ is an abbreviation for $F(\theta _{0})$. We now make use of
+the following lemma: Let $A$ and $B$ be two positive definite matrices; then
+$A-B$ is positive semidefinite if and only if $B^{-1}-A^{-1}$ is positive
+semidefinite.
+
+The inverse of the covariance matrix (often called precision matrix, as a
+small variance means a large precision) is%
+\begin{eqnarray}
+&&\left( F_{0}{}^{\prime }Z\right) \left( Z^{\prime }\Omega Z\right)
+^{-1}\left( Z^{\prime }F_{0}\right)  \notag \\
+&=&\frac{1}{\sigma ^{2}}F_{0}{}^{\prime }Z\left( Z^{\prime }Z\right)
+^{-1}Z^{\prime }F_{0}  \notag \\
+&=&\frac{1}{\sigma ^{2}}F_{0}{}^{\prime }P_{Z}F_{0}  \label{prec1}
+\end{eqnarray}%
+where $P_{Z}=Z\left( Z^{\prime }Z\right) ^{-1}Z^{\prime }$ is a projection
+matrix. If we let $Z=F_{0}$ then the precision matrix becomes%
+\begin{equation}
+\frac{1}{\sigma ^{2}}F_{0}{}^{\prime }F_{0}.  \label{prec2}
+\end{equation}%
+The difference between (\ref{prec2}) and (\ref{prec1}) is%
+\begin{equation*}
+\frac{1}{\sigma ^{2}}F_{0}{}^{\prime }F_{0}-\frac{1}{\sigma ^{2}}%
+F_{0}{}^{\prime }P_{Z}F_{0}=\frac{1}{\sigma ^{2}}F_{0}^{\prime
+}(I-P_{Z})F_{0}\text{.}
+\end{equation*}%
+Since the \textquotedblleft hat matrix\textquotedblright\ $I-P_{Z}$ is a
+positive semidefinite matrix, the best possible precision matrix is $\frac{1%
+}{\sigma ^{2}}F_{0}{}^{\prime }F_{0}$, and hence the optimal choice is $%
+Z=F(\theta _{0})$.
+
+Special case: Standard linear regression model with covariance matrix $Cov(%
+\hat{\beta})=\sigma ^{2}(X^{\prime }X)^{-1}$.
+
+\subsection{Case 2}
+
+Suppose, $\Omega =\sigma ^{2}I$ but $F(\theta _{0})$ is not predetermined,
+i.e.%
+\begin{equation*}
+E(F_{t}(\theta _{0})f_{t}(\theta _{0}))\neq 0\text{.}
+\end{equation*}%
+Define (i.e. variables that are exogenous or predetermined)
+\begin{eqnarray}
+\bar{F}_{t} &:&=E\left( F_{t}(\theta _{0})|\Omega _{t}\right)  \label{Fbar}
+\\
+V_{t} &:&=F_{t}(\theta _{0})-\bar{F}_{t}.  \notag
+\end{eqnarray}%
+Consider the covariance matrix of $\sqrt{n}(\hat{\theta}-\theta _{0})$ if we
+set $Z_{t}=\bar{F}_{t}$. It is%
+\begin{equation}
+\sigma ^{2}\left( \textsl{plim}\frac{1}{n}\bar{F}^{\prime }F_{0}{}\right)
+^{-1}\left( \textsl{plim}\frac{1}{n}\bar{F}^{\prime }\bar{F}\right) \left(
+\textsl{plim}\frac{1}{n}F_{0}^{\prime }\bar{F}\right) ^{-1}.  \label{vcov1}
+\end{equation}%
+By definition of (\ref{Fbar}) we have%
+\begin{equation*}
+\textsl{plim}\frac{1}{n}\bar{F}^{\prime }F_{0}=\textsl{plim}\frac{1}{n}%
+\bar{F}^{\prime }\left( \bar{F}+V\right) =\textsl{plim}\frac{1}{n}\bar{F}%
+^{\prime }\bar{F},
+\end{equation*}%
+so (\ref{vcov1}) simplifies to
+\begin{equation}
+\sigma ^{2}\left( \textsl{plim}\frac{1}{n}\bar{F}^{\prime }\bar{F}\right)
+^{-1}.  \label{vcov2}
+\end{equation}%
+For other instrument matrices $Z$ we find%
+\begin{equation*}
+\sigma ^{2}\left( \textsl{plim}\frac{1}{n}Z^{\prime }\bar{F}\right)
+^{-1}\left( \textsl{plim}\frac{1}{n}Z^{\prime }Z\right) \left( \textsl{plim%
+}\frac{1}{n}\bar{F}^{\prime }Z\right) ^{-1}
+\end{equation*}%
+where $\textsl{plim}\frac{1}{n}Z^{\prime }\bar{F}=\textsl{plim}\frac{1}{n}%
+Z^{\prime }F_{0}$. Using the shorthand notation, the limit of the precision
+matrix is $1/\sigma ^{2}$ times%
+\begin{equation*}
+\bar{F}^{\prime }Z\left( Z^{\prime }Z\right) ^{-1}Z^{\prime }\bar{F}=\bar{F}%
+^{\prime }P_{Z}\bar{F}
+\end{equation*}%
+while the precision matrix of (\ref{vcov2}) is $1/\sigma ^{2}$ times
+\begin{equation*}
+\bar{F}^{\prime }\bar{F}
+\end{equation*}%
+so their difference is always positive semidefinite and the optimality of $Z=%
+\bar{F}$ is proved. In practice, we substitute $\bar{F}$ (which is normally
+unobserved) by its linear projection $P_{W}F(\theta )$. Then the estimating
+equations become%
+\begin{equation*}
+\frac{1}{n}F(\theta )^{\prime }P_{W}f(\theta )=0
+\end{equation*}%
+and the asymptotic covariance matrix of $\hat{\theta}$ is estimated by%
+\begin{eqnarray*}
+Cov(\hat{\theta}) &=&\hat{\sigma}^{2}\left( F(\hat{\theta})^{\prime
+}P_{W}P_{W}F(\hat{\theta})\right) ^{-1} \\
+&=&\hat{\sigma}^{2}\left( F(\hat{\theta})^{\prime }P_{W}F(\hat{\theta}%
+)\right) ^{-1}
+\end{eqnarray*}%
+where $\hat{\sigma}^{2}=\frac{1}{n}\sum_{i=1}^{n}f_{t}^{2}(\hat{\theta})$.
+That is regress $F(\hat{\theta})$ on instruments W, i.e. use fitted values.
+\subsection{Case 3}
+
+Suppose, $\Omega $ is unknown. Since it contains $n\left( n+1\right) /2$
+elements it cannot be estimated consistently. The asymptotic covariance
+matrix of $\sqrt{n}(\hat{\theta}-\theta _{0})$ has the sandwich form%
+\begin{equation*}
+\left( \textsl{plim}\frac{1}{n}J^{\prime }W^{\prime }F_{0}\right)
+^{-1}\left( \textsl{plim}\frac{1}{n}J^{\prime }W^{\prime }\Omega WJ\right)
+\left( \textsl{plim}\frac{1}{n}F_{0}{}^{\prime }WJ\right) ^{-1}.
+\end{equation*}%
+For $J=\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime }F_{0}$ we get the
+optimal covariance matrix%
+\begin{eqnarray*}
+Cov\left( \sqrt{n}(\hat{\theta}-\theta _{0})\right) &=&\left( \textsl{plim}%
+\frac{1}{n}F_{0}^{\prime }W\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime
+}F_{0}\right) ^{-1} \\
+&&\times \left( \textsl{plim}\frac{1}{n}F_{0}^{\prime }W\left( W^{\prime
+}\Omega W\right) ^{-1}W^{\prime }\Omega W\left( W^{\prime }\Omega W\right)
+^{-1}W^{\prime }F_{0}\right) \\
+&&\times \left( \textsl{plim}\frac{1}{n}F_{0}{}^{\prime }W\left( W^{\prime
+}\Omega W\right) ^{-1}W^{\prime }F_{0}\right) ^{-1} \\
+&=&\left( \textsl{plim}\frac{1}{n}F_{0}^{\prime }W\left( W^{\prime }\Omega
+W\right) ^{-1}W^{\prime }F_{0}\right) ^{-1}.
+\end{eqnarray*}%
+We now show (a bit heuristically) that $J$ $=\left( W^{\prime }\Omega
+W\right) ^{-1}W^{\prime }F_{0}$ is in fact the optimal weighting matrix, see
+also exercise 9.1 in Davidson and MacKinnon (2004). The optimal precision
+matrix of $\sqrt{n}\left( \hat{\theta}-\theta _{0}\right) $ is (without
+plims and $n^{-1}$)%
+\begin{equation*}
+F_{0}^{\prime }W\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime }F_{0}
+\end{equation*}%
+which can be written as%
+\begin{equation*}
+F_{0}^{\prime }\Omega ^{-1/2}P_{\Omega ^{1/2}W}\Omega ^{-1/2\prime }F_{0}
+\end{equation*}%
+with the projection matrix%
+\begin{equation*}
+P_{\Omega ^{1/2}W}=\Omega ^{1/2}W\left( W^{\prime }\Omega W\right)
+^{-1}W^{\prime }\Omega ^{1/2\prime }.
+\end{equation*}%
+The non-optimal precision matrix for arbitrary $J$ is (without plims and $%
+n^{-1}$)%
+\begin{equation*}
+F_{0}{}^{\prime }WJ\left( J^{\prime }W^{\prime }\Omega WJ\right)
+^{-1}J^{\prime }W^{\prime }F_{0}
+\end{equation*}%
+which can be written as%
+\begin{equation*}
+F_{0}^{\prime }\Omega ^{-1/2}P_{\Omega ^{1/2}WJ}\Omega ^{-1/2\prime }F_{0}
+\end{equation*}%
+where
+\begin{equation*}
+P_{\Omega ^{1/2}WJ}=\Omega ^{1/2}WJ\left( J^{\prime }W^{\prime }\Omega
+WJ\right) ^{-1}J^{\prime }W^{\prime }\Omega ^{1/2\prime }.
+\end{equation*}%
+The difference between the precision matrices is%
+\begin{eqnarray*}
+&&F_{0}^{\prime }\Omega ^{-1/2}P_{\Omega ^{1/2}W}\Omega ^{-1/2\prime
+}F_{0}-F_{0}^{\prime }\Omega ^{-1/2}P_{\Omega ^{1/2}WJ}\Omega ^{-1/2\prime
+}F_{0} \\
+&=&F_{0}^{\prime }\Omega ^{-1/2}\left( P_{\Omega ^{1/2}W}-P_{\Omega
+^{1/2}WJ}\right) \Omega ^{-1/2\prime }F_{0}.
+\end{eqnarray*}%
+The matrix $P_{\Omega ^{1/2}W}-P_{\Omega ^{1/2}WJ}$ is obviously symmetric;
+and it is easy to show that it is idempotent, and hence it is a positive
+semidefinite orthogonal projection matrix.
+
+The optimal asymptotic covariance matrix%
+\begin{equation*}
+\left( \textsl{plim}\frac{1}{n}F_{0}^{\prime }W\left( W^{\prime }\Omega
+W\right) ^{-1}W^{\prime }F_{0}\right) ^{-1}
+\end{equation*}%
+contains the unknown $\Omega $ which cannot be estimated consistently (due
+to its $n(n+1)/2$ elements). However, the $L\times L$ matrix $\frac{1}{n}%
+W^{\prime }\Omega W$ can be estimated consistently. Suppose that $\hat{\Sigma%
+}$ is a consistent estimator of $\frac{1}{n}W^{\prime }\Omega W$. Then%
+\begin{equation*}
+\left( \textsl{plim}\frac{1}{n^{2}}F_{0}^{\prime }W\hat{\Sigma}%
+^{-1}W^{\prime }F_{0}\right) ^{-1}
+\end{equation*}%
+is the asymptotic covariance matrix of $\sqrt{n}(\hat{\theta}-\theta _{0})$
+and%
+\begin{equation*}
+\widehat{Cov}(\hat{\theta})=n\left( F(\hat{\theta})^{\prime }W\hat{\Sigma}%
+^{-1}W^{\prime }F(\hat{\theta})\right) ^{-1}
+\end{equation*}%
+is the estimated covariance matrix of $\hat{\theta}$.
+
+\section{Alternative notation for GMM}
+
+As usual, we start with a Taylor series expansion of $\bar{g}$ in $\hat{%
+\theta}$ around the true value $\theta _{0}$,%
+\begin{equation*}
+\bar{g}\left( \hat{\theta}\right) =\bar{g}\left( \theta _{0}\right) +G\left(
+\theta _{0}\right) \left( \hat{\theta}-\theta _{0}\right) .
+\end{equation*}%
+Pre-multiply from the left by $G(\hat{\theta})^{\prime }A$,%
+\begin{equation*}
+G(\hat{\theta})^{\prime }A\bar{g}\left( \hat{\theta}\right) =G(\hat{\theta}%
+)^{\prime }A\bar{g}\left( \theta _{0}\right) +G(\hat{\theta})^{\prime
+}AG\left( \theta _{0}\right) \left( \hat{\theta}-\theta _{0}\right) .
+\end{equation*}%
+Note that $G(\hat{\theta})^{\prime }A\bar{g}\left( \hat{\theta}\right) =0$
+are the first order conditions for the minimization problem $\bar{g}(\hat{%
+\theta})^{\prime }Ag(\hat{\theta})$. Hence%
+\begin{equation*}
+G(\hat{\theta})^{\prime }A\bar{g}\left( \theta _{0}\right) +G(\hat{\theta}%
+)^{\prime }AG\left( \theta _{0}\right) \left( \hat{\theta}-\theta
+_{0}\right) =0
+\end{equation*}%
+or%
+\begin{equation*}
+\sqrt{n}\left( \hat{\theta}-\theta _{0}\right) =-\left( G(\hat{\theta}%
+)^{\prime }AG\left( \theta _{0}\right) \right) ^{-1}G(\hat{\theta})^{\prime
+}A\sqrt{n}\bar{g}\left( \theta _{0}\right) .
+\end{equation*}%
+By assumption, $\sqrt{n}\bar{g}\left( \theta _{0}\right) $ is asymptotically
+normal with expectation 0 and covariance matrix $V$. Asymptotically, $G(\hat{%
+\theta})$ and $G(\theta _{0})$ are the same since $\hat{\theta}$ is
+consistent. We may denote both simply by $G$. Hence, $\sqrt{n}\left( \hat{%
+\theta}-\theta \right) $ is also asymptotically normal with expectation 0.
+Its covariance matrix is%
+\begin{equation*}
+\left( G^{\prime }AG\right) ^{-1}G^{\prime }AVA^{\prime }G\left( G^{\prime
+}AG\right) ^{-1}.
+\end{equation*}%
+Hence, the weighting matrix $A$ has an impact on the asymptotic covariance
+matrix and should be chosen optimally to minimize the covariance matrix.
+
+\section{Optimal weighting matrix in the alternative notation}
+
+It can be shown that%
+\begin{equation*}
+(G^{\prime }AG)^{-1}G^{\prime }AVAG(G^{\prime }A^{\prime }G)^{-1}-(G^{\prime
+}V^{-1}G)^{-1}
+\end{equation*}%
+is positive semidefinite for all $A.$ Hence, the best possible covariance
+matrix is $(G^{\prime }V^{-1}G)^{-1}$, and the optimal weighting matrix is
+\begin{equation*}
+A=V^{-1}.
+\end{equation*}%
+Since $V$ is usually unknown, use the sequence of weight matrices $A_{n}=%
+\hat{V}_{n}^{-1}$.
+
+\section{List of equivalences}
+
+First a brief review of the notation used e.g by Davidson and MacKinnon.
+
+\begin{center}
+\begin{tabular}{ll}
+elementary zero functions & $f_{t}\left( \theta ,y_{t}\right) $ \\
+& $E(f)=0$ \\
+& $E(ff^{\prime })=\Omega $ \\
+instrumental variables & $W$ \\
+moment conditions & $E(W^{\prime }f)=0$ \\
+estimation equations & $J^{\prime }W^{\prime }f=0$ \\
+asymptotic covariance of $\hat{\theta}$ & $\left( J^{\prime }W^{\prime
+}F\right) ^{-1}\left( J^{\prime }W^{\prime }\Omega WJ\right) \left(
+F^{\prime }WJ\right) ^{-1}$ \\
+to be estimated & $W^{\prime }\Omega W\quad $(or $\Sigma $) \\
+optimal $J$ matrix & $\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime }F$
+\\
+optimal asympt. covariance & $\left( F^{\prime }W\left( W^{\prime }\Omega
+W\right) ^{-1}W^{\prime }F\right) ^{-1}$%
+\end{tabular}
+\end{center}
+
+And a brief review of the notation used by many others.
+
+\begin{center}
+\begin{tabular}{ll}
+moment conditions & $E(g)=0$ \\
+& $\bar{g}=0$ \\
+estimation by minimizing & $\bar{g}^{\prime }A\bar{g}$ \\
+or estimation equations & $G^{\prime }A\bar{g}=0$ \\
+asymptotic covariance of $\hat{\theta}$ & $\left( G^{\prime }AG\right)
+^{-1}G^{\prime }AVA^{\prime }G\left( G^{\prime }AG\right) ^{-1}$ \\
+to be estimated & $V$ \\
+optimal $A$ matrix & $V^{-1}$ \\
+optimal asympt. covariance & $\left( G^{\prime }V^{-1}G\right) ^{-1}$%
+\end{tabular}
+\end{center}
+
+List of equivalences between both notations.
+
+\begin{center}
+\begin{tabular}{ll}
+Davidson \& MacKinnon & Other notation \\ \hline
+$E(W^{\prime }f)=0$ & $E(g)=0$ \\
+$W^{\prime }f$ & $\bar{g}$ \\
+$J^{\prime }W^{\prime }f=0$ & $G^{\prime }A\bar{g}=0$ \\
+$J$ & $A^{\prime }G$ \\
+$W^{\prime }F$ & $G$ \\
+$W^{\prime }\Omega W$ or $\Sigma $ & $V$ \\
+$\left( J^{\prime }W^{\prime }F\right) ^{-1}\left( J^{\prime }W^{\prime
+}\Omega WJ\right) \left( F{}^{\prime }WJ\right) ^{-1}$ & $\left( G^{\prime
+}AG\right) ^{-1}G^{\prime }AVA^{\prime }G\left( G^{\prime }AG\right) ^{-1}$
+\\
+$J=\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime }F$ & $A^{\prime
+}G=V^{-1}G$ \\
+$\left( F^{\prime }W\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime
+}F\right) ^{-1}$ & $\left( G^{\prime }V^{-1}G\right) ^{-1}$%
+\end{tabular}
+\end{center}
+
+\end{document}

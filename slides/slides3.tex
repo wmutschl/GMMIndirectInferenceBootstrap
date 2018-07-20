@@ -1,0 +1,150 @@
+\documentclass[notes=show]{beamer}
+\usepackage{amsmath,amsfonts}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\title{GMM, Indirect Inference and Bootstrap}
+\subtitle{Stochastic convergence and limit theorems}
+\author[Willi Mutschler]{Willi Mutschler}
+\date{Winter 2015/2016}
+\institute{TU Dortmund}
+\maketitle
+\section{Stochastic convergence and limit theorems}
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Sequences of real numbers}
+\begin{itemize}
+    \item Convergence of real sequences: Let $a_{1},a_{2},\ldots $ be a sequence of real numbers
+    \item The sequence $\{a_{n}\}_{n\in \mathbb{N}}$ converges to the limit $a$ if for every (arbitrarily small) $\varepsilon >0$ there is a number $ N(\varepsilon )$ such that
+        \begin{equation*}
+            |a_{n}-a|<\varepsilon
+        \end{equation*}
+        for all $n\geq N(\varepsilon )$
+    \item Notation: $\quad $
+        \begin{equation*}
+            \lim_{n\rightarrow \infty }a_{n}=a\quad \text{or}\quad a_{n}\rightarrow a
+        \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Sequences of random variables}
+Important questions:
+\begin{itemize}
+    \item How can we transfer the idea of convergence to sequences of random variables?
+    \item How can we visualize a sequence of random variables?
+    \item What does convergence of sequences of random variables mean?
+    \item Which sequences of random variables do we typically encounter in econometrics?
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Sequences of random variables}
+\begin{itemize}
+    \item Let $X_{1},X_{2},\ldots $ be random variables
+        \begin{equation*}
+            X_{i}:\Omega \rightarrow \mathbb{R.}
+        \end{equation*}
+        Then $X_{1},X_{2},\ldots $ is called a \textbf{sequence of random variables}
+    \item $X_{1},X_{2},\ldots $ are (countably infinite) multivariate random variables
+    \item Formally, it is a sequence of functions (not real numbers)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Almost sure convergence}
+\begin{itemize}
+    \item A sequence $X_{1},X_{2},\ldots $ of random variables converges \newline \textbf{almost surely (fast sicher)}\emph{\ }to a random variable $X$, if
+        \begin{equation*}
+            P\left( \left\{ \omega :\lim_{n\rightarrow \infty }X_{n}(\omega )=X(\omega)\right\} \right) =1
+        \end{equation*}
+    \item Notation
+    \begin{equation*}
+        X_{n}\overset{a.s.}{\rightarrow }X
+    \end{equation*}
+\item This definition of convergence is not very important in econometrics
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Convergence in probability}
+\begin{itemize}
+    \item A sequence $X_{1},X_{2},\ldots $ of random variables converges \newline \textbf{in probability (nach Wahrscheinlichkeit)}\emph{\ }to a random variable $X$, if
+        \begin{equation*}
+            \lim_{n\rightarrow \infty }P\left( |X_{n}-X|<\varepsilon \right) =1
+        \end{equation*}
+    \item Notation
+        \begin{eqnarray*}
+            X_{n} &\overset{p}{\rightarrow }&X \\
+            \textsl{plim}~X_{n} &=&X
+        \end{eqnarray*}
+    \item This definition of convergence is very important in econometrics
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Convergence in probability}
+\begin{itemize}
+    \item Special case: convergence in probability to a constant
+    \item A sequence $X_{1},X_{2},\ldots $ of random variables converges \newline \textbf{in probability}\emph{\ }to a constant $a\in \mathbb{R}$, if
+        \begin{equation*}
+            \lim_{n\rightarrow \infty }P\left( |X_{n}-a|<\varepsilon \right) =1
+        \end{equation*}
+    \item Notation
+        \begin{eqnarray*}
+            X_{n} &\overset{p}{\rightarrow }&a \\
+            \textsl{plim}~X_{n} &=&a
+        \end{eqnarray*}
+    \item This special case is very often encountered in econometrics
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Convergence in distribution}
+\begin{itemize}
+    \item A sequence $X_{1},X_{2},\ldots $ of random variables with distribution functions $F_{1},F_{2},\ldots $ converges \textbf{in distribution (weakly; in law; nach Verteilung)}\emph{\ }to a random variable $X$ with distribution function $F$, if
+        \begin{equation*}
+            \lim_{n\rightarrow \infty }F_{n}(x)=F(x)
+        \end{equation*}
+        for all $x\in \mathbb{R}$ where $F(x)$ is continuous
+\item Notation
+    \begin{equation*}
+        X_{n}\overset{d}{\rightarrow }X
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Rules of calculus}
+\begin{itemize}
+    \item Let $\textsl{plim}~X_{n}=a$ and $\textsl{plim}~Y_{n}=b$, then
+        \begin{eqnarray*}
+            \textsl{plim}~(X_{n}\pm Y_{n}) &=&a\pm b \\
+            \textsl{plim}~(X_{n}Y_{n}) &=&ab \\
+            \textsl{plim}~\left( \frac{X_{n}}{Y_{n}}\right) &=&\frac{a}{b},\hspace{5mm} \text{if }b\neq 0
+            \end{eqnarray*}
+    \item If a function $g$ is continuous in $a$, then
+        \begin{equation*}
+            \textsl{plim}~g\left( X_{n}\right) =g\left( a\right)
+        \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Stochastic convergence and limit theorems}\framesubtitle{Rules of calculus}
+\begin{itemize}
+    \item If $Y_{n}\overset{d}{\rightarrow }Z$ and $h$ is a continuous function, then
+        \begin{equation*}
+            h\left( Y_{n}\right) \overset{d}{\rightarrow }h\left( Z\right)
+        \end{equation*}
+    \item Cram\'{e}r's theorem: If $X_{n}\overset{p}{\rightarrow }a$ and $Y_{n}\overset{d}{\rightarrow }Z$, then
+        \begin{eqnarray*}
+            &&X_{n}+Y_{n}\overset{d}{\rightarrow }a+Z \\
+            &&X_{n}Y_{n}\overset{d}{\rightarrow }aZ
+        \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+\end{document} 

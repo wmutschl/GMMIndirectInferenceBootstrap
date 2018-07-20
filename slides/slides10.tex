@@ -1,0 +1,136 @@
+\documentclass{beamer}
+\usepackage{amsmath,amsfonts}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+\setbeamertemplate{navigation symbols}{}
+\begin{document}
+\title{GMM, Indirect Inference and Bootstrap}
+\subtitle{Indirect Inference}
+\author[Willi Mutschler]{Willi Mutschler}
+\date{Winter 2015/2016}
+\institute{TU Dortmund}
+\maketitle
+
+\section{Indirect inference}
+
+\begin{frame}\frametitle{Improve}
+  \begin{itemize}
+    \item Notation: $\beta$ vs. $\theta$ vs tilde hat etc
+    \item Slide for binding function: with analytical example and with monte carlo simulation
+    \item Comparison with GMM
+    \item Visualize idea
+    \item Slide for weighting matrix and example!
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{Basic idea}
+Anthony Smith, Jr. (New Palgrave Dictionary of Economics):
+\begin{quote}
+Indirect inference is a \color{red} simulation-based \color{black} method for estimating the parameters of \color{red} economic models\color{black}. Its hallmark is the use of an \color{red} auxiliary model \color{black} to capture aspects of the data upon which to base the estimation. The parameters of the auxiliary model can be estimated using either the \color{red} observed data \color{black} or \color{red} data simulated \color{black} from the economic model. Indirect inference chooses the parameters of the economic model so that these two estimates of the parameters of the auxiliary model are \color{red} as close as possible\color{black}.
+\end{quote}
+\end{frame}
+\note{continuous time models for stock prices, interest rates and discrete-time stochastic volatility models. Models are usually approximated or discretized, but estimation of approximated version yields inconsistent estimators.}
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{The true model}
+\begin{itemize}
+    \item Economic model
+    \begin{equation*}
+    y_{t}=G\left( y_{t-1},x_{t},u_{t};\beta \right) ,\quad t=1,\ldots ,T
+    \end{equation*}
+    \item Exogenous variables $x_{t}$ and endogenous variables $y_{t}$
+    \item Random errors $u_{t}$, i.i.d. with cdf $F$
+    \item Parameter vector $\beta $ of dimension $K$
+    \item Let standard estimation methods for $\beta $ be intractable
+    \item It must be possible (and easy) to simulate $y_{1},\ldots ,y_{T}$ given $y_{0}$ (assumed to be known)$,x_{1},\ldots ,x_{T}$ and $\beta $
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{The auxiliary model}
+\begin{itemize}
+    \item The true model is too complicated for estimation of $\beta $ (but we can simulate data)
+    \item Instead estimate an auxiliary model with parameter vector $\theta $
+    \item The dimension $L$ of $\theta $ must be at least as large as the dimension $K$ of $\beta $
+    \item The auxiliary model must be
+    \begin{itemize}
+    \item \textquotedblleft suitable\textquotedblright\ (but is allowed to be misspecified): Existence of one-to-one- binding function: maps parameters of economic model into parameters of auxiliary model $\theta=h(\beta)$, binding function usually unknown, must be evaluated by Monte-Carlo simulations
+    \item easy and fast to estimate
+    \end{itemize}
+    \item Often, the auxiliary model is a standard time series model, best possible approximation or some flexible form that encompasses approximations to a wide range of models or distributions within class of interest
+    \item what we call moments in GMM, the "moments" that guide estimation are parameters of auxiliary model
+\end{itemize}
+\end{frame}
+\note{Parameters of auxiliary model provide a window through which to view both observed and simulated data: - which aspects of data to focus on (e.g. autocrelation with AR), - observed data and simulated data look the same given the auxiliary model, - }
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{Estimating the auxiliary model}
+\begin{itemize}
+    \item For given $\beta $ (and $y_{0},x_{1},\ldots ,x_{T}$), the auxiliary model's parameters $\theta $ are estimated
+    \begin{enumerate}
+    \item from the observed data $x_{1},\ldots ,x_{T},y_{1},\ldots ,y_{T}$, resulting in estimator $\hat{\theta}$
+    \item from $H$ simulated datasets $x_{1},\ldots ,x_{T},\tilde{y}_{1}^{(h)},\ldots ,\tilde{y}_{T}^{(h)}$ for $h=1,\ldots ,H$, resulting in estimators $\tilde{\theta}^{(h)}(\beta )$
+    \end{enumerate}
+    \item Define
+    \begin{equation*}
+    \tilde{\theta}(\beta )=\frac{1}{H}\sum_{h=1}^{H}\tilde{\theta}^{(h)}(\beta )
+    \end{equation*}
+    this is the approximation of unknown binding function.
+    \item $\tilde{\theta}^{(h)}(\beta )$: set of statistics that capture or summarize certain features of data, we want to reproduce this set of statistcs as losely as possible
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{Optimization}
+\begin{itemize}
+    \item Compute the difference between the vectors $\hat{\theta}$ and $\tilde{\theta}(\beta )$
+    \begin{equation*}
+    Q(\beta )=\left( \hat{\theta}-\tilde{\theta}(\beta )\right) ^{\prime}W\left( \hat{\theta}-\tilde{\theta}(\beta )\right)
+    \end{equation*}
+    where $W$ is a positive definite weighting matrix
+    \item The indirect inference estimator of $\beta $ is
+    \begin{equation*}
+    \hat{\beta}=\arg \min Q(\beta)
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{Remarks}
+\begin{itemize}
+\item The simulations have to be done with the same set of random errors
+\item Indirect inference is similar to GMM: the auxiliary parameters are the \textquotedblleft moments\textquotedblright
+\item The asymptotic distribution of $\hat{\beta}$ can be derived (see Gourieroux et al., 1993)
+\item The weighting matrix $W$ can be chosen optimally such that the estimator becomes asymptotically efficient
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{A simple example (Gourieroux et al., 1993)}
+\begin{itemize}
+    \item Consider the $MA(1)$ process
+    \begin{equation*}
+    y_{t}=\varepsilon _{t}-\beta \varepsilon _{t-1}
+    \end{equation*}
+    with $\varepsilon _{t}\sim N(0,1)$ and $\beta =0.5$ for $t=1,\ldots ,250$
+    \item The maximum likelihood estimator $\hat{\beta}_{ML}$ is not trivial
+    \item Indirect inference estimator $\hat{\beta}_{II}$ of $\beta $ ?
+    \item Auxiliary model: $AR(3)$ with parameters $\theta $
+    \item No weighting, the matrix $W$ is the identity matrix
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Indirect inference}\framesubtitle{A simple example (Gourieroux et al., 1993)}
+Compare the distribution of $\hat{\beta}_{ML}$ and $\hat{\beta}_{II}$
+\begin{itemize}
+    \item Step 1: Simulate a time series $y_{1},\ldots ,y_{250}$
+    \item Step 2: Compute $\hat{\beta}_{ML}$
+    \item Step 3: Estimate $\hat{\theta}$ from $y_{1},\ldots ,y_{250}$
+    \item Step 4: For given $\beta $, simulate 10 paths $\tilde{y}_{1}^{(h)},\ldots ,\tilde{y}_{250}^{(h)}$
+    \item Step 5: Estimate $\tilde{\theta}(\beta )$ from the simulated paths
+    \item Step 6: Repeat steps 4 and 5 for different $\beta $ until the difference between $\hat{\theta}$ and $\tilde{\theta}(\beta )$ is minimized
+    \item Step 7: Save $\hat{\beta}_{II}$ and start again at step 1
+\end{itemize}
+\end{frame}
+
+\end{document} 

@@ -1,0 +1,567 @@
+\documentclass{beamer}
+\usepackage{amsmath,amsfonts}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+\setbeamertemplate{navigation symbols}{}
+\begin{document}
+\title{GMM, Indirect Inference and Bootstrap}
+\subtitle{General Method of Moments (GMM)}
+\author[Willi Mutschler]{Willi Mutschler}
+\date{Winter 2015/2016}
+\institute{TU Dortmund}
+\maketitle
+
+\begin{frame}\frametitle{TO IMPROVE}
+  \begin{itemize}
+    \item Example or exercise for weighting matrix, in particular what is optimal what if not.
+    \item Example without gmm package and optimal weighting matrix
+    \item Clarify $E_{\theta }$:
+    \item Clairfy identification and asymptotic identification: DGP, der zu $\theta$ gehört. Identifikation: Zu $\theta$ können viele DGPs gehören, aber zu jedem DGP gibt es genau ein $\theta$
+    \item Interpretation of asset pricing models
+    \item Do you really want distinction between elementary zero functions or simply moment conditions? NOTATION!!!
+    \item Slide with motivation and ideas
+    \item List with assumptions needed for consistency and normality, see Pesharan's book!
+  \end{itemize}
+\end{frame}
+\section{General Method of Moments}
+\begin{frame}\frametitle{GMM}\framesubtitle{Motivation}
+\begin{itemize}
+    \item Introduced by Lars Peter Hansen (1982, Econometrica)
+    \item Can be applied to time series, cross sectional and panel data
+    \item Many applications: macroeconomics, finance, microeconomics, agricultural economics, environmental economics, labor economics
+    \item Belongs to the class of limited information methods
+    \item Builds upon ideas from method of moments, minimum Chi-Square methods and instrumental variables, however, overcomes (some of) their shortcomings
+\end{itemize}
+\end{frame}
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+Hansen, L. (1982), Large Sample Properties of Generalized Method of Moments Estimators, Econometrica 50, 1029-1054:
+\begin{quote}
+In this paper we study the large sample properties of a class of generalized
+method of moments (GMM) estimators which subsumes many standard econometric
+estimators. To motivate this class, consider an econometric model whose
+parameter vector we wish to estimate. The model implies a family of \textbf{%
+orthogonality conditions that embed any economic theoretical restrictions }%
+that we wish to impose or test.
+\end{quote}
+\end{frame}
+\note{\begin{itemize}
+\item Many applications in macro,finance,agricultural economics, environmental economics, labor economics. 
+\item TS, cross secitional and panel data
+\item ML is a full-information estimator, optimal estimator, we need to specify complete probability distribution, 2 Problems:
+\begin{itemize}
+  \item Sensitivity of statistical properties to distributional assumption, misspecification leads to nonoptimality and worse: biased inference
+  \item Computational burden: implied likelihood hard to evaluate numerically, many additional parameters not pinned down by economic model
+\end{itemize}
+\item GMM is limited-information estimation method, does not need a specification of likelihood, ML is a special case!
+\item We need only population moments which are deduced from assumptions of econometric model
+\item Essentialy GMM builds upon ideas from method of moments but overcomes shortcomings.
+\item Example for shortcomings of method of moments: normal distribution with $\mu_0$ and $\sigma_0^2$. Population moments: $E(X_t)-\mu_0=$ and $E(X_t^2)-\mu_0^2-\sigma_0^2 = 0$. Estimating equations: $T^{-1}\sum X_t - \hat{\mu}=0$ and $T^{-1}\sum X_t^2 - \hat{\mu}^2-\hat{\sigma}^2$.
+\item Weakness 1: higher moments are also functions of $\mu$ and $\sigma$, however, give different estimators, which one to use? Best one: ML!
+\item Weakness 2: What if we want to base estimation on 3 moment conditions? Minimum Chi-Squared approach, setup criterion function, which needs to be minimized
+\item Exploit information of further moment conditions: Instrumental variables!
+\item Instrumental variables are only for linear models, GMM extends this to nonlinear models
+\end{itemize}}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+John Cochrane (2005), Asset Pricing, p. 196: \medskip
+\begin{quote}
+Most of the effort involved with GMM is simply mapping a given problem into
+the very general notation.
+\end{quote}
+\end{frame}
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+\begin{itemize}
+    \item Describe the model by elementary zero functions%
+    \begin{equation*}
+    E_{\theta }\left( f_{t}\left( \theta ,y_{t}\right) \right) =0
+    \end{equation*}%
+    where everything can be vector-valued
+    \item Parameter vector $\theta $ of length $K$
+    \item Observation vectors $y_{t}$
+    \item Identification condition
+    \begin{equation*}
+    E_{\theta _{0}}\left( f_{t}\left( \theta ,y_{t}\right) \right) \neq 0\quad \text{for all }\theta \neq \theta _{0}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+\begin{example}[Linear regression model]
+    Consider the standard model
+    \begin{eqnarray*}
+    y &=&X\beta +u \\
+    u &\sim &N(0,\sigma ^{2}I)\text{, independent of }X
+    \end{eqnarray*}
+    Parameter vector $\theta =?$\\ %$\beta$
+    Observations $y_{t}=?$\\ %$(y_t,x_t)$
+    Elementary zero functions $f_{t}(\theta ,y_{t})=?$ %$E(y_t-x_t'\beta)=0$
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+\begin{example}[Lognormal distribution]
+    Suppose there is a random sample $X_{1},\ldots ,X_{n}$ from
+    \begin{equation*}
+    X\sim LN(\mu ,\sigma ^{2})
+    \end{equation*}
+    Parameter vector $\theta =?$\\ %\mu,\sigma^2$
+    Observations $y_{t}=?$\\ %x_1,\dots,x_n$
+    Elementary zero functions $f_{t}(\theta ,y_{t})=?$ %$1. x_t -exp(\mu+1/2 \sigma^2)$ und 2.$ x_t^2 - exp(2\mu+2\sigma^2)$
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}\small
+\begin{example}[Asset pricing]
+    The basic asset pricing formula is
+    \begin{equation*}
+    p_{t}=E\left( m_{t+1}x_{t+1}|\Omega _{t}\right)
+    \end{equation*}
+    with asset price $p$, stochastic discount factor $m$, payoff $x,$ and information set $\Omega _{t}$. Assume
+    \begin{equation*}
+    m_{t+1} = \beta \left(\frac{c_{t+1}}{c_t}\right)^{-\gamma}
+    \end{equation*}
+    with $c$ consumption, $\beta$ the time preference parameter and $\gamma$ the coefficient of relative risk aversion in the utility function $u(c)=c^{1-\gamma}/(1-\gamma)$.\\~\\
+    Parameter vector $\theta =?$\\
+    Observations $y_{t}=?$\\
+    Elementary zero functions $f_{t}(\theta ,y_{t})=?$
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+\begin{itemize}
+    \item Stack all elementary zero functions
+    \begin{equation*}
+    f\left( \theta ,y\right) =\left[
+    \begin{array}{c}
+    f_{1}\left( \theta ,y_{1}\right) \\
+    \vdots \\
+    f_{n}\left( \theta ,y_{n}\right)%
+    \end{array}
+    \right]
+    \end{equation*}
+    \item Covariance matrix
+    \begin{equation*}
+    E\left( f\left( \theta ,y\right) \,f\left( \theta ,y\right) ^{\prime}\right) =\Omega
+    \end{equation*}
+    \item Dimension of $\Omega $ depends on dimension of $f_{t}(\theta ,y_{t})$
+    \end{itemize}
+\end{frame}
+\note{not necessary n, lognormal is 2n}
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+\begin{example}[Linear regression model]
+    The covariance matrix $\Omega $ is
+    \begin{eqnarray*}
+    E\left( f(\theta ,y\right) \,f\left( \theta ,y\right) ^{\prime }) &=&E\left(u\,u^{\prime }\right) \\
+     &=&\sigma ^{2}I
+    \end{eqnarray*}
+    If there are autocorrelation and heteroskedasticity
+    \begin{equation*}
+    E\left( u\,u^{\prime }\right) =\Omega
+    \end{equation*}
+    \end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+\begin{example}[Lognormal distribution]
+    The covariance matrix $\Omega $ is
+    \begin{eqnarray*}
+    E\left( f(\theta ,y\right) \,f\left( \theta ,y\right) ^{\prime }) &=&E\left(
+    \begin{array}{ccccc}
+    f_{11}^{2} & f_{11}f_{12} & \ldots & f_{11}f_{n1} & f_{11}f_{n2} \\
+    f_{12}f_{11} & f_{12}^{2} & \ldots & f_{12}f_{n1} & f_{12}f_{n2} \\
+    \vdots & \vdots & \ddots & \vdots & \vdots \\
+    f_{n1}f_{11} & f_{n1}f_{12} & \ldots & f_{n1}^{2} & f_{n1}f_{n2} \\
+    f_{n2}f_{11} & f_{n2}f_{12} & \ldots & f_{n2}f_{n1} & f_{n2}^{2}
+    \end{array}
+    \right) \\
+    &=&?
+    \end{eqnarray*}
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Model description}
+\begin{example}[Asset pricing]
+    The covariance matrix $\Omega $ is
+    \begin{eqnarray*}
+    E\left( f(\theta ,y\right) \,f\left( \theta ,y\right) ^{\prime }) &=&E\left(
+    \begin{array}{ccc}
+    f_{11}^{2} & \ldots & f_{11}f_{n1} \\
+    \vdots & \ddots & \vdots \\
+    f_{n1}f_{11} & \ldots & f_{n1}^{2}%
+    \end{array}%
+    \right) \\
+    &=&?
+    \end{eqnarray*}
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Estimating equations}
+\begin{itemize}
+    \item To estimate $\theta $, we need $K$ estimating equations
+    \item In general, they are weighted averages of the $f_{t}$
+    \item In most cases, the estimating equations are based on $L\geq K$ instrumental variables $W$
+    \item If $L>K$, we need to form linear combinations of the instruments
+    \item Let $W$ be the $n\times L$ matrix of instruments and $J$ be an $L\times K$ matrix of full rank (we will discuss how to set J optimally later)
+    \item Define the $n\times K$ matrix $Z=WJ$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Estimating equations}
+\begin{itemize}
+    \item Theoretical \textbf{moment conditions} (orthogonality conditions)
+    \begin{equation*}
+    E\left( Z_{t}^{\prime }f_{t}\left( \theta ,y_{t}\right) \right) =0
+    \end{equation*}
+    \item The \textbf{estimating equations }are the empirical counterpart
+    \begin{equation*}
+    \frac{1}{n}Z^{\prime }f(\theta ,y)=0
+    \end{equation*}
+    \item Solving this system yields the GMM estimator $\hat{\theta}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Estimating equations}
+\begin{example}[Linear regression model]
+    The $K$ moment conditions for the linear regression model are
+    \begin{equation*}
+    E\left( Z_{t}^{\prime }f_{t}\left( \theta ,y_{t}\right) \right) =E\left(X_{t}^{\prime }\left( y_{t}-X_{t}^{\prime }\beta \right) \right) =0
+    \end{equation*}%
+    and the estimating equations are
+    \begin{equation*}
+    \frac{1}{n}X^{\prime }\left( y-X\beta \right) =0.
+    \end{equation*}
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Estimating equations}
+\begin{example}[Lognormal distribution]
+    The two moment conditions for the lognormal distribution are
+    \begin{eqnarray*}
+    E\left( Z_{t}^{\prime }f_{t}\left( \theta ,y_{t}\right) \right) &=&E\left(
+    \left[
+    \begin{array}{ll}
+    1 & 0 \\
+    0 & 1%
+    \end{array}
+    \right] \left[
+    \begin{array}{c}
+    f_{t1}\left( \theta ,y_{t}\right) \\
+    f_{t2}\left( \theta ,y_{t}\right)
+    \end{array}
+    \right] \right) \\
+    &=&E\left( \left[
+    \begin{array}{c}
+    X_{t}-\exp \left( \mu +\frac{1}{2}\sigma ^{2}\right) \\
+    X_{t}^{2}-\exp \left( 2\mu +2\sigma ^{2}\right)
+    \end{array}
+    \right] \right) \\
+    &=&\left(
+    \begin{array}{c}
+    0 \\
+    0
+    \end{array}
+    \right)
+    \end{eqnarray*}
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Estimating equations}
+\begin{example}[contd]
+    \ldots\ and the estimating equations are
+    \begin{eqnarray*}
+    \frac{1}{n}Z^{\prime }f(\theta ,y) &=&\frac{1}{n}\left[
+    \begin{array}{lllllll}
+    1 & 0 & 1 & 0 & \ldots & 1 & 0 \\
+    0 & 1 & 0 & 1 & \ldots & 0 & 1
+    \end{array}
+    \right] \left[
+    \begin{array}{c}
+    f_{11} \\
+    f_{12} \\
+    \vdots \\
+    f_{n1} \\
+    f_{n2}%
+    \end{array}
+    \right] \\
+    &=&\left[
+    \begin{array}{c}
+    \frac{1}{n}\sum_{t=1}^{n}\left( X_{t}-\exp \left( \mu +\frac{1}{2}\sigma
+    ^{2}\right) \right) \\
+    \frac{1}{n}\sum_{t=1}^{n}\left( X_{t}^{2}-\exp \left( 2\mu +2\sigma
+    ^{2}\right) \right)
+    \end{array}
+    \right] =\left[
+    \begin{array}{c}
+    0 \\
+    0
+    \end{array}
+    \right]
+    \end{eqnarray*}
+\end{example}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Properties of GMM estimators}
+Consistency
+\begin{itemize}
+    \item Assume that a law of large numbers applies to $\frac{1}{n}Z^{\prime}f(\theta ,y)$
+    \item Define the limiting estimation functions
+    \begin{equation*}
+    \alpha \left( \theta \right) =\textsl{plim}\frac{1}{n}Z^{\prime }f\left(\theta ,y\right)
+    \end{equation*}
+    and the limiting estimation equations $\alpha \left( \theta \right) =0$
+    \item The GMM estimator $\hat{\theta}$ is consistent if the asymptotic identification condition holds, $\alpha \left( \theta \right) \neq \alpha \left( \theta _{0}\right) $ for all $\theta \neq \theta _{0}$\hfill [P]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Properties of GMM estimators}
+Asymptotic normality
+\begin{itemize}
+    \item Simplified notation: $f_{t}(\theta )=f_{t}(\theta ,y_{t})$, $f\left(\theta \right) =f\left( \theta ,y\right) $
+    \item Additional assumption: $f_{t}\left( \theta \right) $ is continuously differentiable at $\theta _{0}$
+    \item First order Taylor series expansion of
+    \begin{equation*}
+    \frac{1}{n}Z^{\prime }f\left( \theta \right) =0
+    \end{equation*}
+    in $\hat{\theta}$ around $\theta _{0}$\hfill [P]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Asymptotic efficiency}
+\begin{itemize}
+    \item The asymptotic distribution of $\sqrt{n}\left( \hat{\theta}-\theta_{0}\right) $ is normal with \newline
+    mean 0 and covariance matrix
+    \begin{equation*}
+    \left( \textsl{plim}\frac{1}{n}Z^{\prime }F(\theta _{0})\right) ^{-1}\left(\textsl{plim}\frac{1}{n}Z^{\prime }\Omega Z\right) \left( \textsl{plim} \frac{1}{n}F(\theta _{0})^{\prime }Z\right)^{-1}
+    \end{equation*}
+    \item What is the optimal choice of $Z$ in the estimating equations?
+    \item The optimal choice depends on assumptions about the matrices $F(\theta)$ and $\Omega $
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Asymptotic efficiency}
+Case I
+\begin{itemize}
+    \item If $\Omega =\sigma ^{2}I$ and $E(F_{t}(\theta _{0})f_{t}(\theta_{0}))=0$ the optimal choice is
+    \begin{equation*}
+    Z=F(\theta _{0})
+    \end{equation*}
+    \item Problem: $Z$ depends on the unknown $\theta _{0}$
+    \item Solution: Solve the estimating equations
+    \begin{equation*}
+    \frac{1}{n}F^{\prime }(\theta )f(\theta )=0
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Asymptotic efficiency}
+Case II
+\begin{itemize}
+    \item If $\Omega =\sigma ^{2}I$ and $E(F_{t}(\theta _{0})f_{t}(\theta_{0}))\neq 0$ but $W_{t}\in \Omega _{t},$\newline
+    the optimal choice is
+    \begin{equation*}
+    Z=P_{W}F(\theta _{0})
+    \end{equation*}
+    \item Problem: $Z$ depends on the unknown $\theta _{0}$
+    \item Solution: Solve the estimating equations%
+    \begin{equation*}
+    \frac{1}{n}F^{\prime }(\theta )P_{W}f(\theta )=0
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Asymptotic efficiency}
+Case III
+\begin{itemize}
+    \item Suppose, the covariance matrix $\Omega $ is unknown
+    \item Since $Z=WJ$, the covariance matrix of $\sqrt{n}(\hat{\theta}-\theta_{0})$ is
+    \begin{equation*}
+    \left( \textsl{plim}\frac{1}{n}J^{\prime }W^{\prime }F_{0}\right)^{-1}\left( \textsl{plim}\frac{1}{n}J^{\prime }W^{\prime }\Omega WJ\right)
+    \left( \textsl{plim}\frac{1}{n}F_{0}{}^{\prime }WJ\right) ^{-1}
+    \end{equation*}
+    \item For the optimal $J=\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime}F_{0}$ this becomes
+    \begin{equation*}
+    \left( \textsl{plim}\frac{1}{n}F_{0}^{\prime }W\left( W^{\prime }\Omega W\right) ^{-1}W^{\prime }F_{0}\right) ^{-1}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Asymptotic efficiency}
+\begin{itemize}
+    \item Although $\Omega $ \textbf{cannot} be estimated consistently, the term $\frac{1}{n}W^{\prime }\Omega W$ \textbf{can} be estimated consistently (we will do that later)
+    \item If $\hat{\Sigma}$ is an estimator of $\frac{1}{n}W^{\prime }\Omega W$,the optimal estimating equations are
+    \begin{equation*}
+    \frac{1}{n}J^{\prime }W^{\prime }f(\theta )=\frac{1}{n}F(\theta )^{\prime }W \hat{\Sigma}^{-1}W^{\prime }f(\theta )=0
+    \end{equation*}
+    and the estimated covariance matrix of $\hat{\theta}$ is%
+    \begin{equation*}
+    \widehat{Cov}(\hat{\theta})=n\left( \hat{F}^{\prime }W\hat{\Sigma}^{-1}W^{\prime }\hat{F}\right) ^{-1}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Alternative notation}
+\textbf{Attention}
+\begin{itemize}
+    \item Many textbooks use a different notation \newline
+        (and so does the \texttt{gmm} package in R)
+    \item The two approaches are equivalent
+    \item The moment conditions are notated as
+    \begin{equation*}
+    E\left( g\left( \theta ,y_{t}\right) \right) =E\left( W_{t}^{\prime}f_{t}\left( \theta ,y\right) \right) =0
+    \end{equation*}
+    \item The number of moment conditions $L$ can be larger than the number of parameters $K$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Alternative notation}
+\begin{itemize}
+    \item The $L$ estimating equations cannot be solved exactly
+    \begin{equation*}
+    \bar{g}_{n}(\theta ,y)=\frac{1}{n}\sum_{t=1}^{n}g(\theta ,y_{t})=0
+    \end{equation*}
+    \item The GMM estimator is defined by
+    \begin{equation*}
+    \hat{\theta}=\arg \min \bar{g}_{n}(\theta ,y)^{\prime }\,A_{n}\,\bar{g}_{n}(\theta ,y)
+    \end{equation*}
+    where $A_{n}$ is a sequence of $L\times L$ weighting matrices \newline
+    (which can be chosen by the user) with limit $A$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Alternative notation}
+\begin{itemize}
+    \item The GMM estimator based on $\bar{g}_{n}$ is consistent, $\hat{\theta}\overset{p}{\rightarrow }\theta $
+    \item Asymptotic normality: Define the $L\times K$ matrix
+    \begin{equation*}
+    G(\theta )=\frac{\partial \bar{g}_{n}\left( \theta ,y_{t}\right) }{\partial\theta ^{\prime }}=\frac{1}{n}\sum_{t=1}^{n}\frac{\partial g(x_{t},\theta )}{\partial \theta ^{\prime }}
+    \end{equation*}
+    \item Assume that $\sqrt{n}\bar{g}_{n}(\theta ,y)\overset{d}{\rightarrow } N\left( 0,V\right) $, then\hfill \lbrack P]
+    \begin{equation*}
+    \sqrt{n}\left( \hat{\theta}-\theta _{0}\right) \overset{d}{\rightarrow } N\left( 0,\left( G^{\prime }AG\right) ^{-1}G^{\prime }AVAG\left( G^{\prime}A^{\prime }G\right) ^{-1}\right)
+    \end{equation*}
+    \item Asymptotically optimal weighting matrix $A$\hfill [P]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Equivalence}
+\begin{itemize}
+    \item The two GMM approaches (based on $f_{t}$ and $g$) are equivalent
+    \item The first order condition of $\bar{g}(\theta )^{\prime }A\bar{g}(\theta )$ is
+    \begin{equation*}
+    \underset{K\times L\quad }{G^{\prime }}\underset{L\times L\quad }{A}\underset{L\times 1}{g}=\underset{K\times 1}{0}
+    \end{equation*}
+    which is the same as
+    \begin{equation*}
+    \underset{K\times L\quad }{J^{\prime }}\underset{L\times n\quad }{W^{\prime }}\underset{n\times 1}{f}=\underset{K\times 1}{0}
+    \end{equation*}
+    \item List of equivalences\hfill [P]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Covariance matrix estimation}
+\begin{itemize}
+    \item The covariance matrix of the elementary zero functions
+    \begin{equation*}
+    E\left( f\left( \theta ,y\right) f\left( \theta ,y\right) ^{\prime }\right) =\Omega
+    \end{equation*}
+    is often unknown
+    \item There may be heteroskedasticity and autocorrelation in $\Omega $
+    \item Although $\Omega $ cannot be estimated consistently, the term $\frac{1}{n}W^{\prime }\Omega W$ can be estimated consistently
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Covariance matrix estimation}
+\begin{itemize}
+    \item Write
+    \begin{equation*}
+    \Sigma =\textsl{plim}_{n\rightarrow \infty }\frac{1}{n}W^{\prime }\Omega W
+    \end{equation*}
+    \item Assume that a suitable law of large numbers holds,
+    \begin{equation*}
+    \Sigma =\lim_{n\rightarrow \infty }\frac{1}{n}\sum_{t=1}^{n}\sum_{s=1}^{n}E\left( f_{t}f_{s}W_{t}^{\prime }W_{s}\right)
+    \end{equation*}
+    where $f_{t}=f_{t}\left( \theta ,y_{t}\right) $
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Covariance matrix estimation}
+\begin{itemize}
+    \item Define the autocovariance matrices
+    \begin{equation*}
+    \Gamma (j)=\left\{
+    \begin{array}{ll}
+    \frac{1}{n}\sum_{t=j+1}^{n}E\left( f_{t}f_{t-j}W_{t}^{\prime }W_{t-j}\right)
+    & \quad \text{for }j\geq 0 \\
+    \frac{1}{n}\sum_{t=-j+1}^{n}E\left( f_{t+j}f_{t}W_{t+j}^{\prime
+    }W_{t}\right)  & \quad \text{for }j<0
+    \end{array}
+    \right.
+    \end{equation*}
+    \item Then
+    \begin{equation*}
+    \Sigma =\lim_{n\rightarrow \infty }\sum_{j=-n+1}^{n-1}\Gamma(j)=\lim_{n\rightarrow \infty }\left( \Gamma (0)+\sum_{j=1}^{n-1}\left(\Gamma (j)+\Gamma ^{\prime }(j)\right) \right)
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Covariance matrix estimation}
+\begin{itemize}
+    \item The autocovariance matrix $\Gamma (j)$, $j\geq 0$, can be estimated by
+    \begin{equation*}
+    \hat{\Gamma}(j)=\frac{1}{n}\sum_{t=j+1}^{n}\hat{f}_{t}\hat{f}_{t-j}W_{t}^{\prime }W_{t-j}
+    \end{equation*}
+    \item Newey-West estimator of $\Sigma $
+    \begin{equation*}
+    \hat{\Sigma}=\hat{\Gamma}(0)+\sum_{j=1}^{p}\underbrace{\left( 1-\frac{j}{p+1}\right)}_{\text{Adjustment term}} \left( \hat{\Gamma}(j)+\hat{\Gamma}^{\prime }(j)\right)
+    \end{equation*}
+    \item Adjustment term ensures positive (semi)definiteness in finite samples
+    \item Estimator tends to underestimate the autocovariance matrices, unless $p$ increase at an appropriate rate of $n^{1/3}$, see Newey and West (1994) for a procedure to select p automatically
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{GMM}\framesubtitle{Test of overidentifying restrictions}
+    \begin{itemize}
+    \item The GMM estimators minimize the criterion function
+    \begin{equation*}
+    \frac{1}{n}f^{\prime }(\theta )W\hat{\Sigma}^{-1}W^{\prime }f(\theta )
+    \end{equation*}
+    \item Asymptotically, the minimized value (Hansen's $J$ statistics, \newline
+    Hansen's overidentification statistic, Hansen-Sargan statistic)\newline
+    is distributed as $\chi _{L-K}^{2}$ if the overidentifying restrictions hold
+    \item If the null hypothesis is rejected, then something went wrong,\newline
+    e.g. the model is misspecified
+\end{itemize}
+\end{frame}
+
+\end{document}

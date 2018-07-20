@@ -1,0 +1,108 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}A short introduction to R}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Starting and quitting}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Scripts}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Working directory}{3}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Help and comments}{4}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Packages}{4}{subsection.1.5}
+\contentsline {section}{\numberline {2}Importing data into R}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Reading text files}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Reading excel files}{6}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Other data formats}{7}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Missing values and trimming}{7}{subsection.2.4}
+\contentsline {section}{\numberline {3}Describing data in R}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Head and tail}{8}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Attaching dataframes}{8}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Simple plots}{9}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Stock returns}{9}{subsection.3.4}
+\contentsline {section}{\numberline {4}Graphics with R }{11}{section.4}
+\contentsline {subsection}{\numberline {4.1}School data}{11}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Index returns}{13}{subsection.4.2}
+\contentsline {section}{\numberline {5}Programming with R}{14}{section.5}
+\contentsline {subsection}{\numberline {5.1}Using functions}{14}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Sequences and other vectors}{15}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Random numbers}{16}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Loops}{17}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Functions}{18}{subsection.5.5}
+\contentsline {subsection}{\numberline {5.6}Numerical optimization}{19}{subsection.5.6}
+\contentsline {section}{\numberline {6}Probability theory}{19}{section.6}
+\contentsline {subsection}{\numberline {6.1}Moments}{19}{subsection.6.1}
+\contentsline {section}{\numberline {7}Multiple linear regression}{22}{section.7}
+\contentsline {subsection}{\numberline {7.1}Student teacher ratio (I)}{22}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Capital asset pricing model}{24}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Student teacher ratio (II)}{25}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Omitted variable bias}{26}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.5}Asymptotic normality}{27}{subsection.7.5}
+\contentsline {subsection}{\numberline {7.6}Pitfalls in the linear regression model (I)}{29}{subsection.7.6}
+\contentsline {subsection}{\numberline {7.7}Pitfalls in the linear regression model (II)}{30}{subsection.7.7}
+\contentsline {subsection}{\numberline {7.8}Pitfalls in the linear regression model (III)}{31}{subsection.7.8}
+\contentsline {section}{\numberline {8}Multivariate random variables}{32}{section.8}
+\contentsline {subsection}{\numberline {8.1}Joint distributions}{32}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Gaussianity or else?}{33}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}Gaussian and uncorrelated, but dependent}{34}{subsection.8.3}
+\contentsline {section}{\numberline {9}Stochastic convergence and limit theorems}{36}{section.9}
+\contentsline {subsection}{\numberline {9.1}Law of large numbers}{36}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Law of large numbers for the variance}{37}{subsection.9.2}
+\contentsline {subsection}{\numberline {9.3}Central limit theorem}{38}{subsection.9.3}
+\contentsline {subsection}{\numberline {9.4}Central limit theorem for dependent data}{40}{subsection.9.4}
+\contentsline {subsection}{\numberline {9.5}Delta method}{43}{subsection.9.5}
+\contentsline {subsection}{\numberline {9.6}Limits of maxima (I)}{44}{subsection.9.6}
+\contentsline {subsection}{\numberline {9.7}Limits of maxima (II)}{44}{subsection.9.7}
+\contentsline {subsection}{\numberline {9.8}Limits of maxima (III)}{45}{subsection.9.8}
+\contentsline {section}{\numberline {10}Estimators and their properties}{47}{section.10}
+\contentsline {subsection}{\numberline {10.1}Counter examples}{47}{subsection.10.1}
+\contentsline {section}{\numberline {11}Least Squares and Method of Moments}{48}{section.11}
+\contentsline {subsection}{\numberline {11.1}Nonlinear least squares}{48}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}Method of moments for the binomial distribution}{49}{subsection.11.2}
+\contentsline {subsection}{\numberline {11.3}Method of moments for the geometric distribution}{50}{subsection.11.3}
+\contentsline {subsection}{\numberline {11.4}Method of moments for the Gumbel distribution}{50}{subsection.11.4}
+\contentsline {subsection}{\numberline {11.5}Method of moments for the Pareto distribution}{51}{subsection.11.5}
+\contentsline {subsection}{\numberline {11.6}Method of moments for the uniform distribution}{53}{subsection.11.6}
+\contentsline {subsection}{\numberline {11.7}Method of moments for the linear regression model}{54}{subsection.11.7}
+\contentsline {section}{\numberline {12}Maximum likelihood estimation}{56}{section.12}
+\contentsline {subsection}{\numberline {12.1}Extreme values}{56}{subsection.12.1}
+\contentsline {subsection}{\numberline {12.2}Parameters of the uniform distribution}{57}{subsection.12.2}
+\contentsline {subsection}{\numberline {12.3}Censored lognormal distribution}{58}{subsection.12.3}
+\contentsline {subsection}{\numberline {12.4}Exponential model}{59}{subsection.12.4}
+\contentsline {subsection}{\numberline {12.5}Tobit model}{61}{subsection.12.5}
+\contentsline {subsection}{\numberline {12.6}Probit model}{63}{subsection.12.6}
+\contentsline {subsection}{\numberline {12.7}Logit model}{66}{subsection.12.7}
+\contentsline {subsection}{\numberline {12.8}Sample selectivity: Heckman regression}{68}{subsection.12.8}
+\contentsline {subsection}{\numberline {12.9}Count data}{72}{subsection.12.9}
+\contentsline {subsection}{\numberline {12.10}Stochastic frontier analysis}{73}{subsection.12.10}
+\contentsline {subsection}{\numberline {12.11}ARCH models}{76}{subsection.12.11}
+\contentsline {subsection}{\numberline {12.12}Duration models}{78}{subsection.12.12}
+\contentsline {subsection}{\numberline {12.13}Ultra-high-frequency data}{80}{subsection.12.13}
+\contentsline {subsection}{\numberline {12.14}Spatial dependence}{81}{subsection.12.14}
+\contentsline {section}{\numberline {13}Instrumental variables}{85}{section.13}
+\contentsline {subsection}{\numberline {13.1}The miracle of the instruments}{85}{subsection.13.1}
+\contentsline {subsection}{\numberline {13.2}Linear combinations of instruments}{87}{subsection.13.2}
+\contentsline {subsection}{\numberline {13.3}Compulsory School Attendance}{87}{subsection.13.3}
+\contentsline {subsection}{\numberline {13.4}A simple example}{89}{subsection.13.4}
+\contentsline {subsection}{\numberline {13.5}Money demand}{91}{subsection.13.5}
+\contentsline {subsection}{\numberline {13.6}Tests for the IV model}{93}{subsection.13.6}
+\contentsline {section}{\numberline {14}GMM}{96}{section.14}
+\contentsline {subsection}{\numberline {14.1}The R package gmm}{96}{subsection.14.1}
+\contentsline {subsection}{\numberline {14.2}Nonlinear least squares estimation and GMM}{98}{subsection.14.2}
+\contentsline {subsection}{\numberline {14.3}Ordinary least squares estimation and GMM}{99}{subsection.14.3}
+\contentsline {subsection}{\numberline {14.4}Maximum likelihood estimation and GMM}{100}{subsection.14.4}
+\contentsline {subsection}{\numberline {14.5}Instrumental variables estimation and GMM}{102}{subsection.14.5}
+\contentsline {subsection}{\numberline {14.6}Moment conditions and moment existence}{103}{subsection.14.6}
+\contentsline {subsection}{\numberline {14.7}Standard CAPM}{106}{subsection.14.7}
+\contentsline {subsection}{\numberline {14.8}Consumption-based CAPM}{107}{subsection.14.8}
+\contentsline {subsection}{\numberline {14.9}Minimum distance estimation}{108}{subsection.14.9}
+\contentsline {section}{\numberline {15}Indirect inference}{110}{section.15}
+\contentsline {subsection}{\numberline {15.1}AR(1) processes}{110}{subsection.15.1}
+\contentsline {subsection}{\numberline {15.2}Filter models using the Kalman filter}{111}{subsection.15.2}
+\contentsline {subsection}{\numberline {15.3}Estimation of the Cox-Ingersoll-Ross model}{112}{subsection.15.3}
+\contentsline {subsection}{\numberline {15.4}Ornstein-Uhlenbeck process}{116}{subsection.15.4}
+\contentsline {subsection}{\numberline {15.5}Time-aggregated observations}{118}{subsection.15.5}
+\contentsline {section}{\numberline {16}Bootstrap}{120}{section.16}
+\contentsline {subsection}{\numberline {16.1}Omitted variables bias does not go away}{120}{subsection.16.1}
+\contentsline {subsection}{\numberline {16.2}Confidence intervals for the Gini index}{121}{subsection.16.2}
+\contentsline {subsection}{\numberline {16.3}Confidence intervals for correlation coefficients}{122}{subsection.16.3}
+\contentsline {subsection}{\numberline {16.4}The t-test}{124}{subsection.16.4}
+\contentsline {subsection}{\numberline {16.5}The percentile-t-method}{125}{subsection.16.5}
+\contentsline {subsection}{\numberline {16.6}Heavy tails and variance testing}{127}{subsection.16.6}
+\contentsline {subsection}{\numberline {16.7}Time series}{129}{subsection.16.7}
+\contentsline {subsection}{\numberline {16.8}Bootstrap test for the Zipf index of city size distributions}{131}{subsection.16.8}

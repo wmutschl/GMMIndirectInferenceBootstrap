@@ -1,0 +1,461 @@
+\documentclass[notes=show]{beamer}
+\usepackage{amsmath,amsfonts}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\title{GMM, Indirect Inference and Bootstrap}
+\subtitle{Estimators and their properties}
+\author[Willi Mutschler]{Willi Mutschler}
+\date{Winter 2015/2016}
+\institute{TU Dortmund}
+\maketitle
+
+\section{Estimators and their properties}
+\begin{frame}\frametitle{TO IMPROVE}
+  DO YOU REALLY NEED THIS???
+\end{frame}
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Statistical estimation theory}
+\begin{itemize}
+    \item Let $X$ be a random variable (or random vector) representing a random experiment we are interested in
+    \item We would like to say something about the distribution of $X$
+    \item Usually, the distribution of $X$ is unknown
+    \item We have to collect information about the distribution by observing the random outcome $n$ times
+    \item Before the outcomes are actually observed, we may regard the \newline $n$ observations as random variables $X_{1},\ldots ,X_{n}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Random samples}
+\begin{itemize}
+    \item The random variables $X_{1},\ldots ,X_{n}$ are called a (simple)\newline \textbf{random sample} from $X$, if
+    \begin{enumerate}
+        \item each $X_{i},i=1,\ldots ,n$, is distributed in the same way as $X$,
+        \item $X_{1},\ldots ,X_{n}$ are stochastically independent.
+    \end{enumerate}
+    \item The sample elements are i.i.d.
+    \item $n$ is the sample size
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Sample statistics}
+\begin{itemize}
+    \item The joint density of the sample elements $X_{1},\ldots ,X_{n}$ is
+        \begin{equation*}
+            f_{X_{1},\ldots ,X_{n}}(x_{1},\ldots,x_{n})=\prod_{i=1}^{n}f_{X_{i}}(x_{i})=\prod_{i=1}^{n}f_{X}(x_{i})
+        \end{equation*}
+    \item Let $g:\mathbb{R}^{n}\longrightarrow \mathbb{R}$ be a real-valued function with $n$ arguments, not containing any unknown parameters, then
+        \begin{equation*}
+            T=g(X_{1},\ldots ,X_{n})
+        \end{equation*}
+        is called a \textbf{statistic} (or sample function)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Sample statistics}
+Examples
+\begin{itemize}
+    \item Sample mean:
+        \begin{equation*}
+            \bar{X}=g(X_{1},\ldots ,X_{n})=\frac{1}{n}\cdot \sum_{i=1}^{n}X_{i}
+        \end{equation*}
+    \item Sample variance:
+        \begin{eqnarray*}
+            S^{2} &=&g(X_{1},\ldots ,X_{n})=\frac{1}{n}\cdot \sum_{i=1}^{n}\left( X_{i}-\bar{X}\right) ^{2} \\
+            S^{\ast 2} &=&g(X_{1},\ldots ,X_{n})=\frac{1}{n-1}\cdot \sum_{i=1}^{n}\left(X_{i}-\bar{X}\right) ^{2}
+        \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Sample statistics}
+Examples
+\begin{itemize}
+    \item Empirical distribution function
+        \begin{equation*}
+            \hat{F}(x) = \frac{1}{n}\sum_{i=1}^n 1(X_i < x)
+        \end{equation*}
+        where $1(A)=1$ if A is true and $1(A)=0$ else
+    \item Empirical p-quantile
+        \begin{eqnarray*}
+            \hat{x}_p = inf\{x \in \mathbb{R}:\hat{F}(x)\geq p\}
+        \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Sample statistics}
+Remarks:
+\begin{itemize}
+    \item All concepts are easily generalized to the multivariate case
+    \item The statistic $T=g(X_{1},\ldots ,X_{n})$ is a function of random variables and hence also a random variable
+    \item A statistic has a distribution (and thus an expectation and variance)
+    \item Statistics are basic tools for estimation of parameters and hypothesis tests about parameters
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Estimators and estimates}
+\begin{itemize}
+    \item Let $\theta $ be a vector of unknown parameters we are interested in
+    \item A statistic $\hat{\theta}(X_{1},\ldots ,X_{n})$ is called \textbf{estimator (Sch\"{a}tzer)} of $\theta $
+    \item The realization $\hat{\theta}(x_{1},\ldots ,x_{n})$ is called \textbf{estimate (Sch\"{a}tzwert)}
+    \item The estimator $\hat{\theta}(X_{1},\ldots ,X_{n})$ is a random vector
+    \item The estimate $\hat{\theta}(x_{1},\ldots ,x_{n})$ is a vector of real numbers
+    \item Notation: Usually we simply write $\hat{\theta}$ for both, but $\hat{\theta}$ and $\hat{\theta}$ are not the same thing!
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Estimators and estimates}
+Example:
+\begin{itemize}
+    \item Let $X\sim N(\mu ,\sigma ^{2})$ with unknown parameters $\mu $ and $\sigma ^{2}$
+    \item We would like to estimate the parameter vector
+        \begin{equation*}
+            \theta =\left[
+            \begin{array}{c}
+            \mu \\
+            \sigma ^{2}
+            \end{array}
+            \right] =\left[
+            \begin{array}{c}
+            E(X) \\
+            Var(X)
+            \end{array}
+            \right]
+        \end{equation*}
+    \item A possible estimator of $\mu $ is
+        \begin{equation*}
+            \hat{\mu}=\frac{1}{n}\sum_{i=1}^{n}X_{i}
+        \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Estimators and estimates}
+\begin{itemize}
+    \item A possible estimator of $\sigma ^{2}$ is
+        \begin{equation*}
+            \hat{\sigma}^{2}=\frac{1}{n-1}\sum_{i=1}^{n}\left( X_{i}-\hat{\mu}\right)^{2}
+        \end{equation*}
+    \item The estimator of $\theta $ and the estimate are
+        \begin{eqnarray*}
+            \hat{\theta} &=&\left[
+            \begin{array}{c}
+            \hat{\mu} \\
+            \hat{\sigma ^{2}}%
+            \end{array}%
+            \right] =\left[
+            \begin{array}{c}
+            \frac{1}{n}\sum_{i=1}^{n}X_{i} \\
+            \frac{1}{n-1}\sum_{i=1}^{n}\left( X_{i}-\hat{\mu}\right) ^{2}%
+            \end{array}%
+            \right] \\
+            \hat{\theta} &=&\left[
+            \begin{array}{c}
+            \hat{\mu} \\
+            \hat{\sigma ^{2}}%
+            \end{array}%
+            \right] =\left[
+            \begin{array}{c}
+            \frac{1}{n}\sum_{i=1}^{n}x_{i} \\
+            \frac{1}{n-1}\sum_{i=1}^{n}\left( x_{i}-\hat{\mu}\right) ^{2}%
+            \end{array}%
+            \right]
+        \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Estimators and estimates}
+\begin{itemize}
+    \item Why do we need the complex theoretical concept of estimators as random variables?
+    \item Note that \textbf{the} estimator of $\theta $ does not exist, there are always many possible estimators
+    \item Example: Let $\theta =Var(X)$; two possible estimators of $\theta $ are
+        \begin{eqnarray*}
+        \hat{\theta}_{1}(X_{1},\ldots ,X_{n}) &=&\frac{1}{n}\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right) ^{2} \\
+        \hat{\theta}_{2}(X_{1},\ldots ,X_{n}) &=&\frac{1}{n-1}\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right) ^{2}
+        \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Estimators and estimates}
+Important questions:
+\begin{itemize}
+    \item How can we compare different estimators?
+    \item What is a good estimator?
+    \item Which criteria should a good estimator satisfy?
+    \item Is there an optimal estimator?
+    \item How can we find good estimators?
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Properties of estimators}
+\begin{itemize}
+    \item We distinguish two groups of properties:
+    \begin{itemize}
+        \item small (finite) sample properties
+        \item asymptotic properties
+    \end{itemize}
+    \item We consider finite sample properties first
+    \item For simplicity, we only consider univariate estimators
+    \item Thought experiment: repeated samples
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Unbiasedness}
+\begin{itemize}
+    \item An estimator $\hat{\theta}(X_{1},\ldots ,X_{n})$ is called \textbf{unbiased} for $\theta $ if
+    \begin{equation*}
+        E\left( \hat{\theta}\right) =\theta
+    \end{equation*}
+    \item The bias is defined as
+    \begin{equation*}
+        bias(\hat{\theta})=E(\hat{\theta})-\theta
+    \end{equation*}
+    \item Generalization to multivariate case is obvious
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Relative efficiency}
+\begin{itemize}
+    \item How can two unbiased estimators of the unknown parameter $\theta $ be compared to each other?
+    \item Let $\hat{\theta}_{1}$ and $\hat{\theta}_{2}$ be two unbiased estimators for $\theta $. The estimator $\hat{\theta}_{1}$ is \textbf{relatively more efficient }than $\hat{\theta}_{2}$, if
+        \begin{equation*}
+            Var(\hat{\theta}_{1})\leq Var(\hat{\theta}_{2})
+        \end{equation*}
+        for all possible $\theta $ and $Var(\hat{\theta}_{1})<Var(\hat{\theta}_{2})$ for at least one possible $\theta $
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Mean squared error}
+\begin{itemize}
+    \item How can two biased estimators be compared?
+    \item Let $\hat{\theta}$ be an arbitrary estimator for $\theta $. Then
+        \begin{eqnarray*}
+            MSE(\hat{\theta}) &=&E\left[ \left( \hat{\theta}-\theta \right) ^{2}\right]\\
+            &=&Var\left( \hat{\theta}\right) +\left[ bias(\hat{\theta})\right] ^{2}
+        \end{eqnarray*}
+        is called the \textbf{mean-squared error} of the estimator
+    \item If the estimator is unbiased, its MSE is equal to its variance
+    \item If $MSE(\hat{\theta}_{1})<MSE(\hat{\theta}_{2})$, then $\hat{\theta}_{1}$ is more MSE-efficient
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Asymptotic properties}
+\begin{itemize}
+    \item What happens if the sample size goes to infinity?
+    \item Practical relevance: How do estimators behave in large samples?
+    \item We consider a sequence of estimators $\hat{\theta}_{n}(X_{1},\ldots,X_{n})$ for $n=1,2,\ldots $
+    \item Consistency
+    \item Asymptotic normality
+    \item Asymptotic efficiency
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Consistency}
+\begin{itemize}
+    \item An estimator $\hat{\theta}_{n}(X_{1},\ldots ,X_{n})$ is called \textbf{consistent} for $\theta $, if
+        \begin{equation*}
+            \textsl{plim}~\hat{\theta}_{n}(X_{1},\ldots ,X_{n})=\theta
+        \end{equation*}
+    \item Sufficient (but not necessary) condition for consistency:
+    \begin{eqnarray*}
+        \lim_{n\rightarrow \infty }E(\hat{\theta}_{n}) &=&\theta \\
+        \lim_{n\rightarrow \infty }Var(\hat{\theta}_{n}) &=&0
+    \end{eqnarray*}
+    \item Consistency is a basic and very important property of estimators
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Consistency}
+\begin{itemize}
+    \item \textbf{Attention:\\} Consistency and (asymptotic) unbiasedness are not the same thing
+    \item An estimator can be
+    \begin{itemize}
+        \item consistent and unbiased
+        \item inconsistent and unbiased
+        \item consistent and biased
+        \item inconsistent and biased
+        \item consistent and asymptotically unbiased
+        \item inconsistent and asymptotically unbiased
+        \item consistent and asymptotically biased
+        \item inconsistent and asymptotically biased
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Asymptotic normality}
+\begin{itemize}
+    \item An estimator $\hat{\theta}_{n}(X_{1},\ldots ,X_{n})$ for $\theta $ is called \textbf{asymptotically normal}, if there is a sequence of real numbers $\theta _{1},\theta _{2},\ldots $ and a function $V(\theta )$ such that
+        \begin{equation*}
+            \sqrt{n}\cdot \left( \hat{\theta}_{n}-\theta _{n}\right) \overset{d}{\rightarrow }U\sim N(0,V(\theta ))
+        \end{equation*}
+    \item Alternative notation:
+    \begin{equation*}
+        \hat{\theta}_{n}\overset{appr}{\sim }N(\theta _{n},V(\theta )/n)
+    \end{equation*}
+    \item Generalization to the multivariate case
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+\begin{itemize}
+    \item The estimator
+        \begin{equation*}
+            \bar{X}=\frac{1}{n}\sum_{i=1}^{n}X_{i}
+        \end{equation*}
+        for the expectation $E(X)$ is consistent and asymptotically normal under some mild regularity conditions\medskip
+    \item Consistency $\longrightarrow $ laws of large number
+    \item Asymptotic normality $\longrightarrow $ central limit theorems
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+\begin{itemize}
+    \item \textbf{Weak law of large numbers}: Let $X_{1},X_{2},\ldots $ be a sequence of i.i.d. random variables with $E(X_{i})=\mu $ and $Var(X_{i})=\sigma ^{2}<\infty $
+    \item Consider the sequence of random variables
+    \begin{equation*}
+        \bar{X}_{n}=\frac{1}{n}\sum_{i=1}^{n}X_{i}
+    \end{equation*}
+    \item Then $\textsl{plim}~\bar{X}_{n}=\mu $
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+Remarks:
+\begin{itemize}
+    \item The law of large number states that $\bar{X}_{n}$ is consistent for $E(X)=\mu $
+    \item For every (arbitrarily small) $\epsilon >0$, the probability that the sample mean $\bar{X}_{n}$ deviates around $\mu $ by less than $\pm \epsilon $ converges to zero as the sample size goes to infinity
+    \item Generalization to multivariate case is obvious
+    \item Both the assumption of independence and the assumption of identical distributions may be weakened
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+\begin{itemize}
+    \item \textbf{Central limit theorem}: Let $X$ be a random variable with $E(X)=\mu $ and $Var(X)=\sigma ^{2}<\infty $, and let $X_{1},\ldots ,X_{n}$ be a random sample of $X$
+    \item Consider the sequence of random variables
+    \begin{equation*}
+        Z_{n}=\sqrt{n}\frac{\bar{X}_{n}-\mu }{\sigma }
+    \end{equation*}
+    \item Then
+    \begin{equation*}
+        Z_{n}\overset{d}{\rightarrow }U\sim N(0,1)
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+\begin{itemize}
+    \item Common notations:
+    \begin{eqnarray*}
+        \sqrt{n}\frac{\bar{X}_{n}-\mu }{\sigma }\overset{d}{\rightarrow }U &\sim &N(0,1) \\
+        \sqrt{n}\left( \bar{X}_{n}-\mu \right) \overset{d}{\rightarrow }U &\sim &N(0,\sigma ^{2})
+    \end{eqnarray*}
+    \begin{equation*}
+        \bar{X}_{n}\overset{appr}{\sim }N\left( \mu ,\frac{\sigma ^{2}}{n}\right)
+    \end{equation*}
+    \item Convenient (but wrong) notation: $\sqrt{n}\left( \bar{X}_{n}-\mu \right) \overset{d}{\rightarrow }N(0,\sigma ^{2})$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+\begin{itemize}
+    \item \textbf{Multivariate central limit theorem}: Let $X=(X_{1},\ldots,X_{m})^{\prime }$ be a random vector with $E(X)=\mu $ and $Cov(X)=\Sigma $
+    \item Let $X_{1},\ldots ,X_{n}$ be a (multivariate) random sample of $X$ and
+    \begin{equation*}
+        \bar{X}_{n}=\frac{1}{n}\sum_{i=1}^{n}X_{i}
+    \end{equation*}
+    \item Then
+    \begin{equation*}
+        \sqrt{n}\left( \bar{X}_{n}-\mu \right) \overset{d}{\rightarrow }U\sim N(0,\Sigma )
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+Estimators of moments
+\begin{itemize}
+    \item Let $X_{1},\ldots ,X_{n}$ be a random sample of $X$, then
+    \begin{equation*}
+        \hat{\mu}_{p}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{p}
+    \end{equation*}
+    is an estimator for the $p$-th raw moment $\mu _{p}$ of $X$ and
+    \begin{equation*}
+        \hat{\mu}_{p}^{\prime }=\frac{1}{n}\sum_{i=1}^{n}\left( X_{i}-\hat{\mu}_{1}\right) ^{p}
+    \end{equation*}
+    is an estimator for the $p$-th central moment $\mu _{p}^{\prime }$ of $X$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+Weak law of large numbers for moments
+\begin{itemize}
+    \item Let $X_{1},X_{2},\ldots $ be a sequence of iid random variables with
+    \begin{eqnarray*}
+        E(X_{i}^{p}) &=&\mu _{p} \\
+        E(X_{i}^{2p}) &=&\mu _{2p}<\infty
+    \end{eqnarray*}
+    \item Then $\textsl{plim}~\hat{\mu}_{p}=\mu _{p}$
+    \item Attention: The assumption $\mu _{2p}<\infty $ is \emph{not} innocuous!
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Laws of large number and central limit theorems}
+Central limit theorem for moments
+\begin{itemize}
+    \item Let $X_{1},X_{2},\ldots $ be a sequence of iid random variables with
+    \begin{eqnarray*}
+        E(X_{i}^{p}) &=&\mu_{p} \\
+        E(X_{i}^{2p}) &=&\mu_{2p}<\infty
+    \end{eqnarray*}
+\item Then
+    \begin{equation*}
+            \sqrt{n}\left( \hat{\mu}_{p}-\mu _{p}\right) \overset{d}{\rightarrow }U\sim N(0,Var\left( \hat{\mu}_{p}\right) )
+    \end{equation*}
+    where
+    \begin{equation*}
+        Var\left( \hat{\mu}_{p}\right) =\frac{\mu _{2p}-\mu _{p}^{2}}{n}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Estimators and their properties}\framesubtitle{Glivenko-Cantelli theorem}
+Fundamental theorem of mathematical statistics
+\begin{itemize}
+  \item Define
+    \begin{align*}
+      \Delta_n = sup_{x\in\mathbb{R}} \left|\hat{F}(x) - F(x) \right|.
+    \end{align*}
+  \item Let $X_{1},X_{2},\ldots $ be a sequence of iid random variables with distribution function $F(x)$. Then
+      \begin{align*}
+        P\left(lim_{n\rightarrow \infty} \Delta_n = 0\right) =1.
+      \end{align*}
+  \item The empirical distribution function $\hat{F}$ converges uniformly to the cumulative distribution function $F$.
+\end{itemize}
+\end{frame}
+\end{document} 

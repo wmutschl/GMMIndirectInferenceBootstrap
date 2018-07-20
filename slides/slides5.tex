@@ -1,0 +1,150 @@
+\documentclass[notes=show]{beamer}
+\usepackage{amsmath,amsfonts}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\title{GMM, Indirect Inference and Bootstrap}
+\subtitle{Method of Moments}
+\author[Willi Mutschler]{Willi Mutschler}
+\date{Winter 2015/2016}
+\institute{TU Dortmund}
+\maketitle
+
+\section{Least squares}
+
+\begin{frame}\frametitle{Least squares}\framesubtitle{Linear regression}
+\begin{itemize}
+    \item Multiple linear regression model
+    \begin{eqnarray*}
+        y &=&X\beta +u \\
+        u &\sim &N\left( 0,\sigma ^{2}I\right)
+    \end{eqnarray*}
+    \item OLS estimator
+    \begin{equation*}
+        \hat{\beta}=\left( X^{\prime }X\right) ^{-1}X^{\prime }y
+    \end{equation*}
+    \item Covariance matrix
+    \begin{equation*}
+        Cov\left( \hat{\beta}\right) =\sigma ^{2}\left( X^{\prime }X\right) ^{-1}
+    \end{equation*}
+    \item Gauss-Markov theorem
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Least squares}\framesubtitle{Nonlinear regression}
+\begin{itemize}
+    \item Notation of Davidson and MacKinnon (2004),
+    \begin{eqnarray*}
+        y_{t} &=&x_{t}\left( \beta \right) +u_{t} \\
+        u_{t} &\sim &IID(0,\sigma ^{2})
+    \end{eqnarray*}
+    \item $x_{t}(\beta )$ is a nonlinear function of the parameter vector $\beta$
+    \item Example:
+    \begin{equation*}
+        y_{t}=\beta _{1}+\beta _{2}x_{t1}+\frac{1}{\beta _{2}}x_{t2}+u_{t}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Least squares}\framesubtitle{Nonlinear regression}
+\begin{itemize}
+    \item Minimize the sum of squared residuals%
+    \begin{equation*}
+        \sum_{t=1}^{T}\left( y_{t}-x_{t}\left( \beta \right) \right) ^{2}
+    \end{equation*}%
+    with respect to $\beta $
+    \item Usually, the minimization must be done numerically
+\end{itemize}
+\end{frame}
+
+
+\section{Method of moments}
+
+\begin{frame}\frametitle{Method of moments}\framesubtitle{Definition of moments}
+\begin{itemize}
+    \item Raw moment of order $p$
+    \begin{equation*}
+        \mu _{p}=E(X^{p})
+    \end{equation*}
+    \item Empirical raw moment of order $p$
+    \begin{equation*}
+        \hat{\mu}_{p}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{p}
+    \end{equation*}%
+    for a simple random sample $X_{1},\ldots ,X_{n}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Method of moments}\framesubtitle{Basic idea: Step 1}
+\begin{itemize}
+    \item Write $r$ theoretical moments as functions of $r$ unknown parameters%
+    \begin{eqnarray*}
+        \mu _{1} &=&g_{1}\left( \theta _{1},\ldots ,\theta _{r}\right) \\
+        &&\vdots \\
+        \mu _{r} &=&g_{r}\left( \theta _{1},\ldots ,\theta _{r}\right)
+    \end{eqnarray*}
+    \item Of course, central moments may be used as well
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Method of moments}\framesubtitle{Basic idea: Step 2}
+\begin{itemize}
+    \item Invert the system of equations: \newline
+    Write the $r$ unknown parameters \newline
+    as functions of the $r$ theoretical moments%
+    \begin{eqnarray*}
+    \theta _{1} &=&h_{1}(\mu _{1},\ldots ,\mu _{r}) \\
+    &&\vdots \\
+    \theta _{r} &=&h_{r}(\mu _{1},\ldots ,\mu _{r})
+    \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Method of moments}\framesubtitle{Basic idea: Step 3}
+\begin{itemize}
+    \item Replace all theoretical moments by empirical moments
+    \begin{eqnarray*}
+        \hat{\theta}_{1} &=&h_{1}(\hat{\mu}_{1},\ldots ,\hat{\mu}_{r}) \\
+        &&\vdots \\
+        \hat{\theta}_{r} &=&h_{r}(\hat{\mu}_{1},\ldots ,\hat{\mu}_{r})
+    \end{eqnarray*}
+    \item The estimators $\hat{\theta}_{1},\ldots ,\hat{\theta}_{r}$ are \textbf{moment estimators}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Method of moments}\framesubtitle{Properties of moment estimators}
+\begin{itemize}
+    \item Moment estimators are consistent since%
+    \begin{eqnarray*}
+        \textsl{plim}\hat{\theta}_{1} &=&\textsl{plim}\left( h_{1}(\hat{\mu}_{1},%
+        \hat{\mu}_{2},\ldots )\right) \\
+        &=&h_{1}(\textsl{plim}\hat{\mu}_{1},\textsl{plim}\hat{\mu}_{2},\ldots ) \\
+        &=&h_{1}(\mu _{1},\mu _{2},\ldots ) \\
+        &=&\theta _{1}
+    \end{eqnarray*}
+    \item In general, moment estimators are not unbiased and not efficient
+    \item Since the empirical moments are asymptotically normal (why?), moment
+    estimators are also asymptotically normal\newline
+    $\longrightarrow $ delta method\hfill \lbrack P]
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Method of moments}\framesubtitle{Example}
+\begin{itemize}
+    \item Let $X\sim Exp\left( \lambda \right) $ with unknown parameter $\lambda$ and let $X_{1},\ldots ,X_{n}$ be a random sample
+    \item Step 1: We know that $E(X)=\mu _{1}=1/\lambda $
+    \item Step 2 (inversion): $\lambda =1/\mu _{1}$
+    \item Step 3: The estimator is
+    \begin{equation*}
+        \hat{\lambda}=\frac{1}{\hat{\mu}_{1}}=\frac{1}{\frac{1}{n}\sum_{i}X_{i}}=\frac{1}{\bar{X}_{n}}
+    \end{equation*}
+    \item Is $\hat{\lambda}$ unbiased?
+    \item Alternative: $Var(X)=1/\lambda ^{2}$, then $\hat{\lambda}=1/\sqrt{S^{2}}$
+\end{itemize}
+\end{frame}
+
+\end{document}

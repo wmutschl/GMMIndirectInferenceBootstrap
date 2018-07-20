@@ -1,0 +1,371 @@
+
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[german]{babel}
+\usepackage[a4paper]{geometry}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Sun Apr 19 19:12:19 1998}
+%TCIDATA{LastRevised=Wednesday, February 01, 2012 16:11:21}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\Assorted - Basic Assignment">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=LaTeX article.cst}
+%TCIDATA{ComputeDefs=
+%$y$
+%}
+
+
+\input{tcilatex}
+\parindent0mm
+\parskip1.5ex plus0.5ex minus0.5ex
+
+\begin{document}
+
+\title{Statistical Inference}
+\author{Exam -- Solutions}
+\date{Winter 2011/2012}
+\maketitle
+
+\section{Macroeconomic desasters}
+
+Barro and Jin, \textquotedblleft On the Size Distribution of Macroeconomic
+Desasters\textquotedblright , \emph{Econometrica}, 79 (2011) 1567-1589,
+assume that extreme macroeconomic shocks follow a single power law or a
+double power law distribution. The password protected pdf of the article is
+downloadable from the course site. Let $0<b\leq 1$ denote the fraction of
+output contraction. Barro and Jin consider the transformed disaster size%
+\begin{equation}
+z=\frac{1}{1-b}.  \label{e1}
+\end{equation}%
+The density of the double power law is%
+\begin{equation*}
+f_{z}(x)=\left\{ 
+\begin{array}{ll}
+0 & \text{if }x<z_{0} \\ 
+Bx^{-\beta -1} & \text{if }z_{0}\leq x<\delta  \\ 
+Ax^{-\alpha -1} & \text{if }\delta <x%
+\end{array}%
+\right. 
+\end{equation*}%
+where $\alpha ,\beta ,A,B>0$ are parameters, $z_{0}$ is a known threshold,
+and $\delta >z_{0}$ is a parameter.
+
+\begin{enumerate}
+\item Show that the conditions%
+\begin{eqnarray*}
+\int_{z_{0}}^{\infty }f_{z}(x)dx &=&1 \\
+\lim_{\varepsilon \rightarrow 0}f_{z}(\delta -\varepsilon ) &=&f_{z}(\delta )
+\end{eqnarray*}%
+with $\varepsilon >0$ imply%
+\begin{eqnarray*}
+B &=&A\delta ^{\beta -\alpha } \\
+\frac{1}{A} &=&\frac{\delta ^{\beta -\alpha }}{\beta }\left( z_{0}^{-\beta
+}-\delta ^{-\beta }\right) +\frac{\delta ^{-\alpha }}{\alpha }.
+\end{eqnarray*}
+
+\textbf{Solution:} The smooth pasting condition implies 
+\begin{equation*}
+Bx^{-\beta -1}=Ax^{-\alpha -1}
+\end{equation*}%
+for $x=\delta $, i.e.%
+\begin{eqnarray*}
+B\delta ^{-\beta -1} &=&A\delta ^{-\alpha -1} \\
+B &=&A\delta ^{-\alpha -1+\beta +1} \\
+&=&A\delta ^{\beta -\alpha }.
+\end{eqnarray*}%
+The integral over the density function can be splitted,%
+\begin{eqnarray*}
+\int_{z_{0}}^{\infty }f_{z}(x)dx &=&\int_{z_{0}}^{\delta
+}f_{z}(x)dx+\int_{\delta }^{\infty }f_{z}(x)dx \\
+&=&B\int_{z_{0}}^{\delta }x^{-\beta -1}dx+A\int_{\delta }^{\infty
+}x^{-\alpha -1}dx \\
+&=&-\frac{B}{\beta }\delta ^{-\beta }+\frac{B}{\beta }z_{0}^{-\beta }+\frac{A%
+}{\alpha }\delta ^{-\alpha }.
+\end{eqnarray*}%
+Substitution of $B=A\delta ^{\beta -\alpha }$ yields%
+\begin{equation*}
+-\frac{A\delta ^{\beta -\alpha }}{\beta }\delta ^{-\beta }+\frac{A\delta
+^{\beta -\alpha }}{\beta }z_{0}^{-\beta }+\frac{A}{\alpha }\delta ^{-\alpha
+}=1
+\end{equation*}%
+or%
+\begin{equation*}
+\frac{1}{A}=\frac{\delta ^{\beta -\alpha }}{\beta }z_{0}^{-\beta }-\frac{%
+\delta ^{\beta -\alpha }}{\beta }\delta ^{-\beta }+\frac{\delta ^{-\alpha }}{%
+\alpha }.
+\end{equation*}
+
+\item Derive the log-likelihood function of the parameters $\alpha ,\beta $
+and $\delta $ (please derive it and do not simply state the log-likelihood
+function, which would be too easy given that it is printed in the article).
+
+\textbf{Solution: }In general, the loglikelihood function is%
+\begin{equation*}
+\ln L=\sum_{i=1}^{n}\ln f_{z}(z_{i}).
+\end{equation*}%
+To simplify the notation, assume that the observations are ordered such that
+the first $K$ observations $z_{1},\ldots ,z_{K}$ are less than (or equal to) 
+$\delta $ while the remaining $n-K$ observations are greater than $\delta $.
+Then%
+\begin{eqnarray*}
+\ln L &=&\sum_{i=1}^{K}\ln \left( Bz_{i}^{-\beta -1}\right)
++\sum_{i=K+1}^{n}\ln \left( Az_{i}^{-\alpha -1}\right)  \\
+&=&K\ln B-\left( \beta +1\right) \sum_{i=1}^{K}\ln z_{i}+\left( n-K\right)
+\ln A-\left( \alpha +1\right) \sum_{i=K+1}^{n}\ln z_{i}.
+\end{eqnarray*}%
+Substitute $B=A\delta ^{\beta -\alpha }$, then%
+\begin{eqnarray*}
+\ln L &=&K\ln \left( A\delta ^{\beta -\alpha }\right) -\left( \beta
++1\right) \sum_{i=1}^{K}\ln z_{i}+\left( n-K\right) \ln A-\left( \alpha
++1\right) \sum_{i=K+1}^{n}\ln z_{i} \\
+&=&K\ln A+K\left( \beta -\alpha \right) \ln \delta +\left( n-K\right) \ln A
+\\
+&&-\left( \beta +1\right) \sum_{i=1}^{K}\ln z_{i}-\left( \alpha +1\right)
+\sum_{i=K+1}^{n}\ln z_{i} \\
+&=&n\ln A+K\left( \beta -\alpha \right) \ln \delta -\left( \beta +1\right)
+\sum_{i=1}^{K}\ln z_{i}-\left( \alpha +1\right) \sum_{i=K+1}^{n}\ln z_{i}.
+\end{eqnarray*}
+
+\item Load the dataset \texttt{gdpdesaster.csv}. It contains the GDP
+desaster data used by Barro and Jin, i.e. 157 GDP contractions $b$ of more
+than 9.5\%. Transform the desaster size according to (\ref{e1}). In R, write
+a function that computes the log-likelihood as a function of the parameters $%
+\alpha $ and $\beta $ for a given value of $\delta $. Set $z_{0}=1.105$ and $%
+\delta =1.4$, and numerically compute the maximum likelihood estimates $\hat{%
+\alpha}$ and $\hat{\beta}$ as well as the maximized value of the
+loglikelihood function. Hint: Remember that the optimization command \texttt{%
+optim} minimizes rather than maximizes the objective function.
+
+\item Define a grid $1.300,1.301,1.302,\ldots ,1.600$ for the parameter $%
+\delta $ and compute the maximized value of the loglikelihood function for
+each grid value. Plot the log-likelihood against the grid to show that the
+log-likelihood function has several local minima. Find the maximum
+likelihood estimate $\hat{\delta}$.
+
+\item Compute the asymptotic standard errors for $\hat{\alpha},\hat{\beta},%
+\hat{\delta}$. Hint: Define another function that computes the
+log-likelihood as a function of the parameter vector $(\alpha ,\beta ,\delta
+)$.\newpage 
+\end{enumerate}
+
+\section{Estimation of observed Evans bubbles}
+
+Evans, \textquotedblleft Pitfalls in Testing for Explosive Bubbles in Asset
+Prices\textquotedblright , \emph{American Economic Review}, 81 (1991)
+922-930, considers periodically collapsing bubbles. Evans bubbles are
+stochastic processes described by%
+\begin{equation}
+B_{t}=\left\{ 
+\begin{array}{ll}
+\left( 1+r\right) B_{t-1}u_{t} & \text{\quad if }B_{t-1}<\alpha  \\ 
+\delta +\frac{1+r}{\pi }\left( B_{t-1}-\frac{\delta }{1+r}\right) u_{t} & 
+\quad \text{if }B_{t-1}\geq \alpha \text{ and }D_{t}=1 \\ 
+\delta u_{t} & \quad \text{if }B_{t-1}\geq \alpha \text{ and }D_{t}=0%
+\end{array}%
+\right.   \label{bubble}
+\end{equation}%
+where $r$ is the expected growth rate, $\alpha $ is a threshold value, $%
+\delta $ is the expected bubble value immediately after a crash, $\pi $ is a
+probability, $u_{t}=\exp \left( y_{t}-\sigma ^{2}/2\right) $ where $%
+y_{t}\sim N(0,\sigma ^{2})$ with $\sigma =0.05$, and $D_{t}$ is a Bernoulli
+distributed random variable with $D_{t}=1$ (bubble continues) with
+probability $\pi $ and $D_{t}=0$ (bubble bursts) with probability $1-\pi $.
+Let $0<\delta <\left( 1+r\right) \alpha $.
+
+\begin{enumerate}
+\item Show that Evans bubbles are rational in the sense that%
+\begin{equation*}
+E(B_{t}|B_{t-1})=(1+r)B_{t-1}.
+\end{equation*}%
+Hint: $E(u_{t})=1$.
+
+\textbf{Solution}: We consider the cases $B_{t-1}<\alpha $ and $B_{t-1}\geq
+\alpha $ separately. The first case, $B_{t-1}<\alpha $, is straightforward,%
+\begin{eqnarray*}
+E\left( B_{t}|B_{t-1}\right)  &=&E\left( \left( 1+r\right)
+B_{t-1}u_{t}|B_{t-1}\right)  \\
+&=&\left( 1+r\right) B_{t-1}E(u_{t}) \\
+&=&\left( 1+r\right) B_{t-1}.
+\end{eqnarray*}%
+The second case is straightforward, too,%
+\begin{eqnarray*}
+E\left( B_{t}|B_{t-1}\right)  &=&E\left( \left[ \delta +\frac{1+r}{\pi }%
+\left( B_{t-1}-\frac{\delta }{1+r}\right) u_{t}\right] \pi +\delta
+u_{t}\left( 1-\pi \right) |B_{t-1}\right)  \\
+&=&E\left( \delta \pi +\left( 1+r\right) \left( B_{t-1}-\frac{\delta }{1+r}%
+\right) u_{t}+\delta u_{t}\left( 1-\pi \right) |B_{t-1}\right)  \\
+&=&\delta \pi +\left( 1+r\right) \left( B_{t-1}-\frac{\delta }{1+r}\right)
+E\left( u_{t}\right) +\delta E\left( u_{t}\right) \left( 1-\pi \right)  \\
+&=&\delta \pi +\left( 1+r\right) B_{t-1}-\frac{\left( 1+r\right) \delta }{1+r%
+}+\delta \left( 1-\pi \right)  \\
+&=&\left( 1+r\right) B_{t-1}.
+\end{eqnarray*}%
+Hence, no matter if $B_{t-1}<\alpha $ or $B_{t-1}\geq \alpha $, the
+conditional expectation is $\left( 1+r\right) B_{t-1}$ in both cases. In
+other words, the discounted bubble is a martingale.
+
+\item Set $\alpha =1$, $\delta =0.5$, $\pi =0.95,\sigma =0.05$, $r=0.05$ and
+simulate a path $B_{1},\ldots ,B_{5000}$ (with starting value $B_{0}=\delta $%
+). Compute and plot the cumulative mean%
+\begin{equation*}
+\bar{X}_{i}=\frac{1}{i}\sum_{j=1}^{i}B_{i}.
+\end{equation*}%
+Explain why the plot indicates that the bubble has (very) heavy tails.
+
+\item Load the dataset \texttt{evans.csv}. It contains an artificial path of
+length $T=1000$ of a bubble process (of course, the bubble is only one
+component of stock prices and cannot be observed separately in real
+applications). Suppose the parameter $r=0.05$ and the starting value $%
+B_{0}=\delta $ are known (but $\delta $ is not). In R, write a function that
+computes the log-likelihood for $(\alpha ,\delta ,\pi ,\sigma )$. Hints: If $%
+X\sim LN(\mu ,\sigma )$ then $aX\sim LN(\mu +\ln a,\sigma )$. In R, the
+density function of the $LN(\mu ,\sigma )$ distribution at point $x$ can be
+computed by \texttt{dlnorm(x,mu,sigma)}.
+
+\textbf{Solution:} The log-likelihood function is%
+\begin{equation*}
+\ln L=\sum_{t=2}^{T}\ln f\left( B_{t}|B_{t-1}\right) 
+\end{equation*}%
+where $f(B_{t}|B_{t-1})$ is the conditional density. 
+
+\item Now consider one-dimensional sections of the log-likelihood function.
+Set $\alpha _{0}=1$, $\delta _{0}=0.5$, $\pi _{0}=0.95$, and $\sigma
+_{0}=0.05$. Define a grid $g=(0.80,0.81,\ldots ,1.50)$. For each grid
+element $g_{i}$ compute the log-likelihood function at $(\alpha
+_{0}g_{i},\delta _{0},\pi _{0},\sigma _{0})$ and plot it against the grid.
+Do the same for $(\alpha _{0},\delta _{0}g_{i},\pi _{0},\sigma _{0})$ and $%
+(\alpha _{0},\delta _{0},\pi _{0},\sigma _{0}g_{i})$. As to $\pi _{0}$ use
+the grid $0.900,0.901,\ldots 0.999$. Explain why standard numerical methods
+to maximize the log-likelihood function are likely to fail.
+
+\item Assume that the parameter $\alpha =0.98$ is known. Compute the maximum
+likelihood estimates $\hat{\delta}$, $\hat{\pi}$, and $\hat{\sigma}$.
+
+\item Compute the bootstrap $0.95$-confidence intervals for $\delta ,\pi ,$
+and $\sigma $. Use the percentile method and set the number of bootstrap
+replications to $B=1000$.\newpage 
+\end{enumerate}
+
+\section{Small sample properties of GMM estimators}
+
+\begin{enumerate}
+\item This exercise is based on the article \textquotedblleft Small-Sample
+Bias in GMM Estimation of Covariance Structures\textquotedblright\ by J.G.\
+Altonji and L.M.\ Segal, \emph{Journal of Business and Economic Statistics},
+14 (1996) 353-366. Altonji and Segal investigate the finite-sample
+properties of GMM estimators. They estimate a highly simplified artificial
+example. The connection to GMM estimation is not obviously visible, but
+exists.
+\end{enumerate}
+
+Let $Y_{it}$, $i=1,\ldots ,N$, $t=1,\ldots ,T$, be a panel sample. The
+number of individuals is $N=10$, the number of periods is $T=50$. The sample
+elements $Y_{it}$ are i.i.d. (both over individuals and time) with 
+\begin{equation}
+Y_{it}=\frac{X_{it}-1.648721}{2.161197}  \label{lnstd}
+\end{equation}%
+where $X_{it}$ are i.i.d. lognormally distributed with parameters $\mu =0$
+and $\sigma =1$. Location and scale in (\ref{lnstd}) are chosen such that $%
+E(Y_{it})=0$ and $Var(Y_{it})=1$.\footnote{%
+The matrix of observations is generated by \texttt{y \TEXTsymbol{<}-
+matrix((rlnorm(N*TT)-1.648721)/2.161197,N,TT)} where \texttt{N=10} and 
+\texttt{TT=50}. Row $i$ contains the observations of individual $i$.}
+
+The unknown parameter to be estimated is the variance $\theta $ of $Y_{it}$
+(the true value of which is, of course, 1). Altonji and Segal compare two
+GMM estimators of $\theta $. Both are based on the $N$ estimators of the $N$
+individual variances $\sigma _{i}^{2}$, 
+\begin{equation*}
+\hat{\sigma}_{i}^{2}=\frac{1}{T-1}\sum_{t=1}^{T}\left( Y_{it}-\bar{Y}%
+_{i}\right) ^{2}.
+\end{equation*}%
+The $N$ variance estimators are collected in a vector $\hat{\sigma}^{2}$.
+Define a vector $\iota =(1,\ldots ,1)^{\prime }$ of length $N$. The first
+GMM estimator $\hat{\theta}_{1}$ of the total variance $\theta $ is simply
+the unweighted mean of the $N$ individual variance estimators (the GMM
+weighting matrix is the identity matrix),%
+\begin{equation*}
+\hat{\theta}_{1}=\frac{1}{N}\sum_{i=1}^{N}\hat{\sigma}_{i}^{2}=\left( \iota
+^{\prime }\iota \right) ^{-1}\iota ^{\prime }\hat{\sigma}^{2}.
+\end{equation*}%
+The second GMM estimator $\hat{\theta}_{2}$ is based on the estimated
+asymptotically optimal weight matrix,%
+\begin{equation*}
+\hat{\theta}_{2}=\left( \iota ^{\prime }\hat{\Omega}^{-1}\iota \right)
+^{-1}\iota ^{\prime }\hat{\Omega}^{-1}\hat{\sigma}^{2}.
+\end{equation*}%
+The estimated weight matrix $\hat{\Omega}$ contains the variances and
+covariances of the individual variance estimators $\hat{\sigma}_{i}^{2}$.
+The element $(i,j)$ of $\hat{\Omega}$ is (Altonji and Segal use a slightly
+different normalization)%
+\begin{equation*}
+\hat{\Omega}_{ij}=\widehat{Cov}(\hat{\sigma}_{i}^{2},\hat{\sigma}_{j}^{2})=%
+\frac{\left[ \frac{1}{T-1}\sum_{t}\left( Y_{it}-\bar{Y}_{i}\right)
+^{2}\left( Y_{jt}-\bar{Y}_{j}\right) ^{2}\right] -\hat{\sigma}_{i}^{2}\hat{%
+\sigma}_{j}^{2}}{T}.
+\end{equation*}
+
+\begin{enumerate}
+\item Write an R program to estimate the finite-sample distribution of $\hat{%
+\theta}_{1}$ and $\hat{\theta}_{2}$ by simulations and plot both
+distribution functions.
+
+\item Compute the mean squared error of $\hat{\theta}_{1}$ and $\hat{\theta}%
+_{2}$ (i.e. the mean squared deviation from the true value 1).
+
+\item Load the dataset \texttt{smallgmm.csv} into the dataframe \texttt{x}
+and convert it into a matrix using the command \texttt{y \TEXTsymbol{<}-
+matrix(x[,1],10,50)}. Compute $\hat{\theta}_{2}$ for this dataset. Use the
+nonparametric bootstrap\footnote{%
+Resampling can be done by \texttt{ystar \TEXTsymbol{<}-
+matrix(sample(y,size=500,replace=TRUE),10,50)}.} to estimate the bias and
+standard error of $\hat{\theta}_{2}$.\newpage 
+\end{enumerate}
+
+\section{Estimation of the Cox-Ingersoll-Ross model}
+
+Cox, Ingersoll and Ross, \textquotedblleft A Theory of the Term Structure of
+Interest Rates\textquotedblright , \emph{Econometrica} 53 (1985) 385-407,
+suggest a continuous-time model for the short-term interest rate. The
+stochastic process is described by the stochastic differential equation%
+\begin{equation}
+dX_{t}=\left( \theta _{1}-\theta _{2}X_{t}\right) dt+\theta _{3}\sqrt{X_{t}}%
+dW_{t}  \label{sdecir}
+\end{equation}%
+where $W_{t}$ is a standard Wiener process and $X_{0}>0$.
+
+\begin{enumerate}
+\item Activate the R package \texttt{sde}. Generate and plot a single path
+on the time interval $[0,200]$ of an Cox-Ingersoll-Ross process with
+parameters $\theta _{1}=0.03$, $\theta _{2}=0.5$, and $\theta _{3}=0.08$ and
+starting value $X_{0}=0.06$ using the command \texttt{sde.sim}. Set the
+number of steps to $N=200$.
+
+\item Continuous-time models are sometimes estimated by discretizing them in
+a crude way. The discretized version of (\ref{sdecir}) is, of course,%
+\begin{equation}
+X_{t}=X_{t-1}+\left( \theta _{1}-\theta _{2}X_{t-1}\right) +\theta _{3}\sqrt{%
+X_{t-1}}\varepsilon _{t}  \label{dissde}
+\end{equation}%
+with $\varepsilon _{t}\sim N(0,1)$ and starting value $X_{0}=\theta
+_{1}/\theta _{2}$. Find estimators for the parameters $\theta _{1},\theta
+_{2},\theta _{3}$ in (\ref{dissde}) that can be computed fast (e.g. least
+squares estimators).
+
+\item Load the dataset \texttt{cirpath.csv}. The process is not observed
+continuously. The dataset only contains observations of $X_{t}$ at discrete
+time points $t=1,\ldots ,200$. Estimate the parameters $\theta _{1},\theta
+_{2}$, and $\theta _{3}$ by indirect inference with the auxiliary model (\ref%
+{dissde}). Assume that the (unobserved) starting value is $X_{0}=\theta
+_{1}/\theta _{2}$.
+\end{enumerate}
+
+\end{document}

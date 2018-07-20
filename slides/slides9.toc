@@ -1,0 +1,2 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{General Method of Moments}{3}{0}{1}

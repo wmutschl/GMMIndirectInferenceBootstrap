@@ -1,0 +1,9 @@
+Skip Part I: Repetition, Focus only on important exercises and concepts.
+
+Slide with Optimization, which optimizers, how to reparametrization to get bounds, 
+
+See Improve slides inside the individual slides
+
+Use Matlab as well as R
+
+What to do with The three classical tests

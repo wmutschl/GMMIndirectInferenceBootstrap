@@ -1,0 +1,176 @@
+\documentclass[notes=show]{beamer}
+\usepackage{amsmath,amsfonts}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\title{GMM, Indirect Inference and Bootstrap}
+\subtitle{The three classical tests}
+\author[Willi Mutschler]{Willi Mutschler}
+\date{Winter 2015/2016}
+\institute{TU Dortmund}
+\maketitle
+
+\begin{frame}\frametitle{The three classical tests}
+\begin{itemize}
+    \item Wald test, Lagrange multiplier test and likelihood ratio test \newline
+    (W, LM, LR)
+    \item Hypotheses
+    \begin{equation*}
+    H_{0}:r(\theta )=0\mathbf{\quad }\text{vs\quad }H_{1}:r(\theta )\neq 0
+    \end{equation*}
+    \item Often, $r$ is a scalar-valued function and $\theta $ is a scalar
+    \item The function $r$ may be non-linear!
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}
+Basic test ideas:
+\begin{itemize}
+    \item Wald test:
+    If $r(\theta )=0$ is true, then $r(\hat{\theta}_{ML})$ will be close to 0
+    \item Likelihood ratio test:
+    If $r(\theta )=0$ is true, then $\ln L(\hat{\theta}_{R})$ will not be far below $\ln L(\hat{\theta}_{ML})$
+
+    \item Lagrange multiplier test:
+    If $r(\theta )=0$ is true, the score function $g(\hat{\theta}_{R})=\partial \ln L(\hat{\theta}_{R})/\partial \theta $ will be close to 0
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}
+Example:
+\begin{itemize}
+    \item Let $X_{1},\ldots ,X_{n}$ be a random sample from $X\sim Exp(\lambda )$
+    \item Test $H_{0}:\lambda =4$ against $H_{1}:\lambda \neq 4$
+    \item Different notation:
+    \begin{equation*}
+        H_{0}:r(\lambda )=0
+    \end{equation*}%
+    where $r(\lambda )=\lambda -4$
+    \item See \texttt{threetests.R}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}\framesubtitle{Wald test}
+Wald test
+\begin{itemize}
+    \item Hypotheses%
+    \begin{eqnarray*}
+        H_{0} &:&r(\theta )=0 \\
+        H_{1} &:&r(\theta )\neq 0
+    \end{eqnarray*}%
+    with functions $r\mathbf{=(}r_{1},\ldots ,r_{m})$
+    \item $m$ is the number of restrictions
+    \item Wald test: If $r(\theta )=0$ is true, then $r(\hat{\theta}_{ML})$ will be close to 0
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}\framesubtitle{Wald test}
+\begin{itemize}
+    \item Asymptotically, under $H_{0}$ (by delta method!)
+    \begin{equation*}
+        r(\hat{\theta}_{ML})\sim N\left( 0,Cov(r(\hat{\theta}_{ML}))\right)
+    \end{equation*}
+    with
+    \begin{equation*}
+        Cov(r(\hat{\theta}_{ML}))=\frac{\partial r(\hat{\theta}_{ML})}{\partial\theta ^{\prime }}\cdot Cov(\hat{\theta}_{ML})\cdot \frac{\partial r(\hat{\theta}_{ML})}{\partial \theta }
+    \end{equation*}
+    \item Remember: If $X\sim N(\mu ,\Sigma )$, then $\left( X-\mu \right)^{\prime }\Sigma ^{-1}\left( X-\mu \right) \sim \chi _{m}^{2}$
+    \item Wald test statistic
+    \begin{equation*}
+    W=r(\hat{\theta}_{ML})^{\prime }\left[ Cov(r(\hat{\theta}_{ML}))\right]^{-1}r(\hat{\theta}_{ML})\overset{asy}{\sim }\chi _{m}^{2}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}\framesubtitle{Wald test}
+Remarks:
+\begin{itemize}
+    \item Reject $H_{0}$ if $W$ is larger than the $\left( 1-\alpha \right)$-quantile of the $\chi _{m}^{2}$-distribution
+    \item Usually, $Cov(r(\hat{\theta}_{ML}))$ must be replaced by $\widehat{Cov}(r(\hat{\theta}_{ML}))$
+    \item The Wald test is not invariant with respect to re-parametrizations
+    \item The Wald test only requires the unrestricted ML estimator
+    \item Ideal, if $\hat{\theta}_{ML}$ is much easier to calculate than $\hat{\theta}_{R}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}\framesubtitle{Likelihood ratio test}
+Likelihood ratio test
+\begin{itemize}
+    \item Is $\ln L(\hat{\theta}_{ML})$ significantly larger than $\ln L(\hat{\theta}_{R})$ ?
+    \item LR test statistic
+    \begin{eqnarray*}
+        LR &=&-2\ln \left( \frac{L(\hat{\theta}_{R})}{L(\hat{\theta}_{ML})}\right) \\
+        &=&-2\left( \ln L(\hat{\theta}_{R})-\ln L(\hat{\theta}_{ML})\right)
+    \end{eqnarray*}
+    \item Asymptotic distribution: $LR\overset{asy}{\sim }\chi _{m}^{2}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}\framesubtitle{Likelihood ratio test}
+Remarks:
+\begin{itemize}
+    \item Reject $H_{0}$ if $LR$ is larger than the $\left( 1-\alpha \right)$-quantile of the $\chi _{m}^{2}$-distribution
+    \item To compute $LR,$ one requires both the unrestricted estimator $\hat{\theta}_{ML}$ and the restricted estimator $\hat{\theta}_{R}$
+    \item Ideal, if both $\hat{\theta}_{ML}$ and $\hat{\theta}_{R}$ are easy to calculate
+    \item The LR test is often used to compare different models to each other
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}\framesubtitle{Lagrange multiplier test}
+Lagrange multiplier test
+\begin{itemize}
+    \item Is $g(\hat{\theta}_{R})$ significantly different from 0?
+    \item The test is based on the restricted estimator $\hat{\theta}_{R}$
+    \item Lagrange approach: $\max_{\theta }\ln L(\theta )$ s.t. $r(\theta )=0$
+    \item LM test statistic
+    \begin{equation*}
+        LM=g(\hat{\theta}_{R})^{\prime }\cdot \left[ \mathcal{I}(\hat{\theta}_{R})\right]^{-1}\cdot g(\hat{\theta}_{R})\overset{asy}{\sim }\chi _{m}^{2}
+    \end{equation*}
+    with
+    \begin{equation*}
+        \mathcal{I}(\hat{\theta}_{R})=-E\left( \frac{\partial ^{2}\ln L(\hat{\theta}_{R})}{\partial \theta \partial \theta ^{\prime }}\right)
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}\framesubtitle{Lagrange multiplier test}
+Remarks:
+\begin{itemize}
+    \item Reject $H_{0}$ if $LM$ is larger than the $\left( 1-\alpha \right) $-quantile of the $\chi _{m}^{2}$-distribution
+    \item The LM test only requires the restricted estimator
+    \item Ideal, if $\hat{\theta}_{R}$ is much easier to calculate than $\hat{\theta}_{ML}$
+    \item The LM test is often used to test misspecifications\newline
+    (heteroskedasticity, autocorrelation, omitted variables etc.)
+    \item Asymptotically, the three tests are equivalent
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{The three classical tests}
+Multivariate case
+\begin{itemize}
+    \item Example: Production function
+    \begin{equation*}
+        Y_{i}=X_{i1}^{a_{1}}\cdot X_{i2}^{a_{2}}+u_{i}
+    \end{equation*}%
+    where $u_{i}\sim N(0,0.05^{2})$
+    \item Log-likelihood function $\ln L(a_{1},a_{2})$
+    \item ML estimators $\hat{a}_{1}$ and $\hat{a}_{2}$
+    \item Hypothesis test of $a_{1}+a_{2}=1$ or $a_{1}+a_{2}-1=0$
+    \item See \texttt{classtest.R}
+\end{itemize}
+\end{frame}
+
+\end{document}

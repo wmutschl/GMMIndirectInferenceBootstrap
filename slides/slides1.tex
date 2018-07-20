@@ -1,0 +1,244 @@
+\documentclass[notes=show]{beamer}
+\usepackage{amsmath,amsfonts}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\title{GMM, Indirect Inference and Bootstrap}
+\subtitle{Prerequisites: Probability theory, statistical inference, multiple linear regression}
+\author[Willi Mutschler]{Willi Mutschler}
+\date{Winter 2015/2016}
+\institute{TU Dortmund}
+\maketitle
+
+\section{Prerequisites: Probability theory, statistical inference, multiple linear regression}
+\begin{frame}\frametitle{TO IMPROVE}
+  DO YOU REALLY NEED THIS??? 
+\end{frame}
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Probability theory and statistical inference}
+Random experiments and probability
+\begin{itemize}
+    \item Random experiments\newline
+        (sample space, outcomes, events and their combinations)
+    \item Probabilities\\*[0pt]
+        (definition of probability)
+    \item Conditional probability and independence\\*[0pt]
+        (conditional probability, total probability, Bayes' formula, independence)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Probability theory and statistical inference}
+Random variables and distributions
+\begin{itemize}
+    \item Basics\\*[0pt]
+        (cumulative distribution function, quantile function, discrete random variables, continuous random variables, linear transformations)
+    \item Parameters of distributions\\*[0pt]
+        (expectation, variance, moments)
+    \item Important continuous distributions\\*[0pt]
+        (normal or Gaussian, exponential, log-normal, $\chi ^{2}$, $t$, $F$)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Probability theory and statistical inference}
+Joint distributions and limit theorems
+\begin{itemize}
+    \item Joint distribution of two (or $n$) random variables
+    \item Limit theorems\\*[0pt]
+        (law of large numbers, central limit theorem)
+\end{itemize}
+
+Random samples and statistics
+\begin{itemize}
+    \item Random samples
+    \item Statistics
+    \item Statistics of normally distributed samples
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Probability theory and statistical inference}
+Estimation
+\begin{itemize}
+    \item Point estimation\\*[0pt]
+        (unbiasedness, consistency, estimation of expectations, estimation of probabilities and proportions, estimation of variances, of quantiles, and of correlation coefficients)
+    \item Interval estimation
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Probability theory and statistical inference}
+Hypothesis testing
+\begin{itemize}
+    \item Basics (null and alternative hypothesis, test statistic, critical area, error of the first and second kind, significance level, power, $p$-value)
+    \item Tests for expectations\\*[0pt]
+        (test for a single expectation, comparison of two expectations)
+    \item Tests for probabilities and proportions
+\end{itemize}
+\end{frame}
+
+
+\section{Prerequisites: Multiple linear regression}
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+\begin{itemize}
+    \item Model specification
+        \begin{equation*}
+            y_{t}=\alpha +\beta _{1}x_{1t}+\ldots +\beta _{K}x_{Kt}+u_{t}\quad \text{for }t=1,\ldots ,T
+        \end{equation*}
+    \item In matrix notation
+      \begin{equation*}
+        \left[
+        \begin{array}{c}
+        y_{1} \\
+        \vdots \\
+        y_{T}%
+        \end{array}
+        \right] =\left[
+        \begin{array}{llll}
+        1 & x_{11} & \ldots & x_{K1} \\
+        \vdots & \vdots &  & \vdots \\
+        1 & x_{1T} & \ldots & x_{KT}
+        \end{array}
+        \right] \left[
+        \begin{array}{c}
+        \alpha \\
+        \beta _{1} \\
+        \vdots \\
+        \beta _{K}
+        \end{array}
+        \right] +\left[
+        \begin{array}{c}
+        u_{1} \\
+        \vdots \\
+        u_{T}
+        \end{array}
+        \right]
+    \end{equation*}
+    or
+    \begin{equation*}
+        y=X\beta +u
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+Model assumptions
+\begin{description}
+    \item[A1] There are no omitted and no redundant exogenous variables.
+    \item[A2] The relation between $y$ and $X$ is linear.
+    \item[A3] The parameters $\beta $ are constant over all $T$ observations.
+    \item[B1-4] Error terms
+    \begin{equation*}
+        u\sim N\left( 0,\sigma ^{2}I_{T}\right) .
+    \end{equation*}
+    \item[C1] The matrix $X$ is not stochastic.
+    \item[C2] No multicollinearity, $rank(X)=K+1.$
+\end{description}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+\begin{itemize}
+    \item OLS estimators
+    \begin{equation*}
+    \hat{\beta}=\left( X^{\prime }X\right) ^{-1}X^{\prime }y
+    \end{equation*}
+\item Estimated model
+    \begin{equation*}
+        \hat{y}=X\hat{\beta}
+    \end{equation*}
+\item Residuals
+    \begin{equation*}
+        \hat{u}=y-\hat{y}
+    \end{equation*}
+\item Measure of fit
+    \begin{equation*}
+        R^{2}=\frac{\sum_{t}\left( \hat{y}_{t}-\bar{y}\right) ^{2}}{\sum_{t}\left(    y_{t}-\bar{y}\right) ^{2}}=1-\frac{\sum_{t}\hat{u}^{2}}{\sum_{t}\left( y_{t}-    \bar{y}\right) ^{2}}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+\begin{itemize}
+    \item Distribution of the OLS estimator
+    \begin{equation*}
+        \hat{\beta}\sim N\left( \beta ,\sigma ^{2}\left( X^{\prime }X\right)^{-1}\right)
+    \end{equation*}
+    \item Distribution of linear combination
+    \begin{equation*}
+    r^{\prime }\hat{\beta}\sim N\left( r^{\prime }\beta ,\sigma ^{2}r^{\prime}\left( X^{\prime }X\right) ^{-1}r\right)
+    \end{equation*}
+    where $r$ is a column vector
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+\begin{itemize}
+    \item The $t$ test is used to test the hypotheses%
+        \begin{eqnarray*}
+            H_{0} &:&r^{\prime }\beta =q \\
+            H_{1} &:&r^{\prime }\beta \neq q
+        \end{eqnarray*}
+    \item The test statistic is
+        \begin{equation*}
+            t=\frac{r^{\prime }\hat{\beta}-q}{\sqrt{\sigma ^{2}r^{\prime }\left(X^{\prime }X\right) ^{-1}r}}
+        \end{equation*}
+    \item Reject $H_{0}$ if $|t|>c$ where $c$ is the $\left( 1-\alpha /2\right) $-quantile of the $t$-distribution with $n-K-1$ degrees of freedom
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+\begin{itemize}
+    \item The $F$ test is used to test the hypotheses%
+        \begin{eqnarray*}
+            H_{0} &:&R\beta =q \\
+            H_{1} &:&R\beta \neq q
+        \end{eqnarray*}
+    \item The test statistic is
+        \begin{equation*}
+            F=\frac{\left( R\hat{\beta}-q\right) ^{\prime }\left[ R\left( X^{\prime}X\right) ^{-1}R^{\prime }\right] ^{-1}\left( R\hat{\beta}-q\right) /L}{\hat{u}^{\prime }\hat{u}/(T-K-1)}
+        \end{equation*}
+    \item Reject $H_{0}$ if $F>c$ where $c$ is the $\left( 1-\alpha \right) $-quantile of the $F$-distribution with $L$ and $T-K-1$ degrees of freedom
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+\begin{itemize}
+    \item Generalized Least Squares assumption about the error term vector%
+    \begin{equation*}
+        u\sim N\left( 0,\Omega \right)
+    \end{equation*}
+\item The GLS estimator
+\begin{equation*}
+    \hat{\beta}^{GLS}=\left( X^{\prime }\Omega ^{-1}X\right) ^{-1}X^{\prime}\Omega ^{-1}y
+\end{equation*}
+is efficient
+\item GLS is a unifying framework for autocorrelation and heteroscedasticity
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Prerequisites}\framesubtitle{Multiple linear regression}
+\begin{itemize}
+    \item Stochastic exogenous variables
+    \item Case 1: The error term $u$ is independent of $X$
+    \item Case 2: The error term and the exogenous variables are contemporaneously uncorrelated, i.e. for $t=1,\ldots ,T$
+        \begin{equation*}
+            Cov(X_{kt},u_{t})=0
+        \end{equation*}
+    \item Case 3: The error term and the exogenous variables are contemporaneously correlated
+\end{itemize}
+\end{frame}
+
+\end{document} 
